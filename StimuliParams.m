@@ -33,45 +33,62 @@ classdef StimuliParams
         nDendRecord %int32
         recordingTimeInterval;
         nL4Inputs;
+        isFoldiak;
         % non-input properties
         trainSet;
         testSet;
     end
     
     methods (Access = public)
-        function stimParams = StimuliParams(nX, nY, ...
-                nOrient, barLength, scanLength, nL4ExactNoise, ...
-                nL4PoissNoise, propNoiseScan, nTestRepeats, nTestInst, ...
-                nTrainInst, nDendRecord, recordingTimeInterval)
+        function stimParams = StimuliParams(args)
+            % nX, nY, ...
+            %     nOrient, barLength, scanLength, nL4ExactNoise, ...
+            %     nL4PoissNoise, propNoiseScan, nTestRepeats, nTestInst, ...
+            %     nTrainInst, nDendRecord, recordingTimeInterval, isFoldiak)
             
             %STIMULIPARAMS Construct an instance of this class
 
-            % TODO: CHANGE TO NAME-VALUE ARGS
-            % arguments
-            % end
+            arguments
+                args.nX; args.nY; args.nOrient; args.barLength; args.scanLength;
+                args.nL4ExactNoise; args.nL4PoissNoise; args.propNoiseScan;
+                args.nTestRepeats; args.nTestInst; args.nTrainInst;
+                args.nDendRecord; args.recordingTimeInterval;
+                args.isFoldiak = false;
+            end
 
-            stimParams.nX = nX;
-            stimParams.nY = nY;
-            
-            stimParams.nOrient = nOrient;
+            try
+                stimParams.nX = args.nX;
+                stimParams.nY = args.nY;
+                stimParams.nOrient = args.nOrient;
+                stimParams.barLength = args.barLength;
+                stimParams.scanLength = args.scanLength;
+    
+                stimParams.nL4ExactNoise = args.nL4ExactNoise;
+                stimParams.nL4PoissNoise = args.nL4PoissNoise;
+                stimParams.propNoiseScan = args.propNoiseScan;
 
-            stimParams.barLength = barLength;
+                stimParams.nTestRepeats = args.nTestRepeats; % variable not used for anything
+                stimParams.nTestInst = args.nTestInst;
+                stimParams.nTrainInst = args.nTrainInst;
 
-            stimParams.scanLength = scanLength;
-            % mustBeMember(scanLength, 1:8) hard coded 8?
+                stimParams.nDendRecord = args.nDendRecord;
+                stimParams.recordingTimeInterval = args.recordingTimeInterval;
 
-            stimParams.nL4ExactNoise = nL4ExactNoise;
-            stimParams.nL4PoissNoise = nL4PoissNoise;
-            stimParams.propNoiseScan = propNoiseScan;
-            stimParams.nTestRepeats = nTestRepeats;
-            stimParams.nTestInst = nTestInst;
-            stimParams.nTrainInst = nTrainInst;
-            stimParams.nDendRecord = nDendRecord;
-            stimParams.recordingTimeInterval = recordingTimeInterval;
-            % TODO: what to do if missing params in argument??
+                stimParams.isFoldiak = args.isFoldiak;
+                % % check if Foldiak model is creating this object. Foldiak
+                % % model follows different indexing for L4/simple cells.
+                % if ~exist(,'var')
+                %    stimParams.isFoldiak = false;
+                % else
+                %    stimParams.isFoldiak = args.isFoldiak;
+                % end
+            catch
+                throw(MException('StimuliParams:VarNotFound', ...
+                    'One or more variables not found'))
+            end
 
             % TODO: include showOutput param
-            stimParams.nL4Inputs = nX * nY * nOrient;
+            stimParams.nL4Inputs = args.nX * args.nY * args.nOrient;
             [stimParams.trainSet, stimParams.testSet] = makeTrainTestSets(stimParams=stimParams, showOutput=false);
         end
     % TODO: MAKE PRIVATE methods
@@ -210,15 +227,17 @@ classdef StimuliParams
                     % TODO: documentation: describe L4activity array
                     % structure
                     
-                    % (Venkatesh L4 indexing)
-                    % find index of the beginning of the set of L4 neurons corresponding to this bar's orientation
-                    % iOrientedL4 = (orientation - 1) * stimParams.nX * stimParams.nY;
-                    % set the corresponding L4 neurons to ON
-                    % iL4 = iOrientedL4 + ((yAtScanStep - 1) * stimParams.nX + xAtScanStep);
-
-                    % (Berry L4 orientation indexing)
-                    % NEED TO DEBUG
-                    iL4 = orientation + stimParams.nOrient * ((yAtScanStep - 1) * stimParams.nX + (xAtScanStep - 1));
+                    if stimParams.isFoldiak
+                        % (Venkatesh L4 indexing)
+                        % find index of the beginning of the set of L4 neurons corresponding to this bar's orientation
+                        iOrientedL4 = (orientation - 1) * stimParams.nX * stimParams.nY;
+                        % set the corresponding L4 neurons to ON
+                        iL4 = iOrientedL4 + ((yAtScanStep - 1) * stimParams.nX + xAtScanStep);
+                    else   
+                        % (Berry L4 orientation indexing)
+                        % NEED TO DEBUG
+                        iL4 = orientation + stimParams.nOrient * ((yAtScanStep - 1) * stimParams.nX + (xAtScanStep - 1));
+                    end
 
                     L4Activity(iL4, iScan) = 1;
                 end
