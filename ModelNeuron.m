@@ -2,9 +2,11 @@ classdef ModelNeuron
 %MODELNEURON Creates a model neuron and models plasticity in response to bar stimuli by passing it train and test stimuli.
 
     properties
-        % TODO: VALIDATE?
+        % user inputs
         dendParams DendriteParams
         stimParams StimuliParams
+        plasticityFlag {mustBeMember(plasticityFlag, [1 2 3 4])}
+
         % non-input properties
         nL4Neurons;
         synL4Inputs;
@@ -13,24 +15,29 @@ classdef ModelNeuron
         synPlastWindow;
         nSynRecycles;
         synInputWMax;
-        plasticityFlag
         areBranchesLeaky logical
+
+        % TODO: make 'results' instance variables
     end
     
     % TODO: change access
     methods (Access = public)
         function modelNeuron = ModelNeuron(args)
         %ModelNeuron Initializes the model neuron. Part of Jens2_Plasticity.
-            % TODO: fill in argument validation
             arguments
                 args.dendParams DendriteParams
                 args.stimParams StimuliParams
                 args.plasticityFlag {mustBeMember(args.plasticityFlag, [1 2 3 4])}
             end
-
-            modelNeuron.dendParams = args.dendParams;
-            modelNeuron.stimParams = args.stimParams;
-            modelNeuron.plasticityFlag = args.plasticityFlag;
+            
+            try
+                modelNeuron.dendParams = args.dendParams;
+                modelNeuron.stimParams = args.stimParams;
+                modelNeuron.plasticityFlag = args.plasticityFlag;
+            catch
+                throw(MException('ModelNeuron:VarNotFound', ...
+                    'One or more variables not found'))
+            end
             
             % Initialize the model neuron
             modelNeuron.nL4Neurons = modelNeuron.stimParams.nX * modelNeuron.stimParams.nY * modelNeuron.stimParams.nOrient;
@@ -84,9 +91,6 @@ classdef ModelNeuron
             % figure("W_{max} Before")
             % histogram(modelNeuron.synInputWMax, NumBins=21);
 
-            fprintf("Before plasticity: \n\ttotal # NMDA spikes = %d \n\ttotal # somatic spikes = %d\n", ...
-                sum(resultsBefore.NMDASpikesPerTimestep), sum(resultsBefore.didSomaSpikePerTimestep));
-
             % analyze receptive fields
             resultsRFBefore = dendriticRFAnalyze(modelNeuron=modelNeuron, branchSpikeHist=resultsBefore.branchRF, ...
                 cumulStimHist=resultsBefore.cumulStimRF, showOutput=true);
@@ -103,37 +107,27 @@ classdef ModelNeuron
             [resultsPlast, modelNeuron] = stimulusUpdate(modelNeuron, plasticityFlag=modelNeuron.plasticityFlag, isTrain=true);
 
             % SOMETHING WRONG HERE
-            synRecycleHistogram = histcounts(modelNeuron.nSynRecycles, NumBins=int32(max(modelNeuron.nSynRecycles, [], 'all') + 1));
+            synRecycleHistogram = histcounts(modelNeuron.nSynRecycles, NumBins=floor(max(modelNeuron.nSynRecycles, [], 'all') + 1));
             % figure(Name="Number of Recycled Synapses")
-            % histogram(modelNeuron.nSynRecycles, NumBins=int32(max(modelNeuron.nSynRecycles, [], 'all') + 1));
+            % histogram(modelNeuron.nSynRecycles, NumBins=floor(max(modelNeuron.nSynRecycles, [], 'all') + 1));
 
             tau = 30;
             x = 1:(10*tau) - 1;
             kernel = x .* exp(-x ./ tau);
             kernel = kernel / sum(kernel);
 
+            % TODO: what do we use this for?
             convolvedDidSomaSpikePerTimestep = conv(kernel, resultsPlast.didSomaSpikePerTimestep);
             
             % CALCULATE STATISTICS AFTER PLASTICITY, ON TEST SET
             [resultsAfter, modelNeuron] = stimulusUpdate(modelNeuron, plasticityFlag=1, isTrain=false);
-
-            nTimesteps = size(modelNeuron.stimParams.testSet.L4Activity, 3) * ...
-                    size(modelNeuron.stimParams.testSet.L4Activity, 2);
-            fprintf("After plasticity: \r\n\ttotal number of NMDA spikes = %d\r\n\ttotal number of somatic spikes = %d\r\n", ...
-                sum(resultsAfter.NMDASpikesPerTimestep), sum(resultsAfter.didSomaSpikePerTimestep));
             
+            nTimesteps = size(modelNeuron.stimParams.testSet.L4Activity, 3) * ...
+                        size(modelNeuron.stimParams.testSet.L4Activity, 2);
             % TODO: FIX THE WAY THIS IS PRINTING
             NMDA_SpikesPerTimestep_Rate = resultsAfter.NMDASpikesPerTimestep ./ nTimesteps;
             % fprintf("NMDA Spikes per timestep = %d\r\nNMDA spikes per branch = %d\r\n\n", ...
             %      NMDA_SpikesPerTimestep_Rate, NMDA_SpikesPerTimestep_Rate ./ modelNeuron.dendParams.nBranches);
-
-            if (modelNeuron.dendParams.somaGLeak == 0)
-                fprintf("After plasticity:\r\n\t soma threshold = %d\r\n\tmV spike rate = %d\r\n", ...
-                    resultsPlast.somaThreshPerTimestep(end), sum(resultsAfter.didSomaSpikePerTimestep) / nTimesteps);
-            else
-                fprintf("After plasticity:\r\n\t soma gain = %d\r\n\tspike rate = %d\r\n", ...
-                    resultsPlast.somaGainPerTimestep(end), sum(resultsAfter.didSomaSpikePerTimestep) / nTimesteps);
-            end
 
             W_After = modelNeuron.synInputWMax ./ (1 + exp(-1 * modelNeuron.synUInput));
 
@@ -157,11 +151,17 @@ classdef ModelNeuron
                 ./ sum(resultsAfter.branchNMDASpikeRate);
             totalSize_After = sum(resultsRFAfter.branchSize1);
 
-            fprintf("Before plasticity: \r\n\tAverage orientation index = %d \r\n\tAverage size = %d\r\n", ...
-                totalIndex_Before, totalSize_Before);
-            fprintf("After plasticity: \r\n\tAverage orientation index = %d \r\n\tAverage size = %d\r\n", ...
-                totalIndex_After, totalSize_After);
-            
+            fprintf("\n\t\t\t\t\tBefore plasticity\tAfter plasticity\n");
+            fprintf("Total number of NMDA spikes\t\t%d\t\t\t\t%d\n", sum(resultsBefore.NMDASpikesPerTimestep), sum(resultsAfter.NMDASpikesPerTimestep));
+            fprintf("Total number of somatic spikes\t\t%d\t\t\t\t%d\n", sum(resultsBefore.didSomaSpikePerTimestep), sum(resultsAfter.didSomaSpikePerTimestep));
+            if (modelNeuron.dendParams.somaGLeak == 0)
+                fprintf("Threshold at soma\t\t\t\t\t\tN/A\t\t\t\t\t%1.3f\n", resultsPlast.somaThreshPerTimestep(end));            
+            else
+                fprintf("Gain at soma\t\t\t\tN/A\t\t\t\t%1.3f\n", resultsPlast.somaGainPerTimestep(end));
+            end
+            fprintf("Spike rate\t\t\t\tN/A\t\t\t\t%1.3f\n", sum(resultsAfter.didSomaSpikePerTimestep) / nTimesteps);
+            fprintf("Average orientation index\t\t%1.3f\t\t\t\t%1.3f\n", totalIndex_Before, totalIndex_After);
+            fprintf("Average size\t\t\t\t%1.3f\t\t\t\t%1.3f\n", totalSize_Before, totalSize_After);
 
             fprintf("\n**************************************************\n" + ...
                       "***            SIMULATION FINISHED             ***\n" + ...
@@ -426,7 +426,7 @@ classdef ModelNeuron
             % Number of NMDA spikes and frequency of this many spikes
             % happening per timestep
             NMDASpikeMax = max(NMDASpikesPerTimestep);
-            NMDASpikeHist = zeros(2, int32(NMDASpikeMax+2));
+            NMDASpikeHist = zeros(2, floor(NMDASpikeMax+2));
             NMDASpikeHist(1, :) = 0:1:(NMDASpikeMax+1); % set bin edges
             NMDASpikeHist(2, 1:(end-1)) = histcounts(NMDASpikesPerTimestep, NMDASpikeHist(1, :));
 
@@ -575,6 +575,8 @@ classdef ModelNeuron
 
                 % Calculate actual spike threshold and determine if a spike
                 % occurred.
+                % DEBUG STATEMENT HERE
+                % actualThresh = modelNeuron.dendParams.branchThresh;
                 actualThresh = modelNeuron.dendParams.branchThresh * ...
                     (1 + modelNeuron.dendParams.branchNoise * randn);
                 didBranchSpike = branchActivity >= actualThresh;
@@ -604,7 +606,6 @@ classdef ModelNeuron
                         end
                     else
                         if ~modelNeuron.areBranchesLeaky
-                            % TODO: make local wmax var?
                             modelNeuron.synInputWMax(iBranch, :) = ...
                                 modelNeuron.synInputWMax(iBranch, :) .* ...
                                 (1 + modelNeuron.dendParams.scaleNoNMDA);
@@ -628,17 +629,19 @@ classdef ModelNeuron
                     end
 
                     for iSyn = 1:modelNeuron.dendParams.branchSize
-                        isSynActive = (synActivity(iBranch, iSyn) == 1);
+                        isSynActive = (synActivity(iBranch, iSyn) ~= 0);
+                        % isSynActive = (synActivity(iBranch, iSyn) == 1);
+                        
                         if modelNeuron.synPlastWindow(iBranch, iSyn) > 0
                             modelNeuron.synUInput(iBranch, iSyn) = ...
                                 modelNeuron.synUInput(iBranch, iSyn) + ...
-                                ~isSynActive * modelNeuron.dendParams.duPotent + ...
-                                isSynActive * modelNeuron.dendParams.duDepress;
+                                isSynActive * modelNeuron.dendParams.duPotent + ...
+                                ~isSynActive * modelNeuron.dendParams.duDepress;
                         else
                             modelNeuron.synUInput(iBranch, iSyn) = ...
                                 modelNeuron.synUInput(iBranch, iSyn) + ...
-                                ~isSynActive * modelNeuron.dendParams.duDecay + ...
-                                isSynActive * modelNeuron.dendParams.duBaseline;
+                                isSynActive * modelNeuron.dendParams.duDecay + ...
+                                ~isSynActive * modelNeuron.dendParams.duBaseline;
                         end
 
                         % Recycle spine (retract it and grow a new one)
@@ -651,8 +654,8 @@ classdef ModelNeuron
                                 randi(256);
                             % Randomly set a new input potential
                             modelNeuron.synUInput(iBranch, iSyn) = ...
-                                modelNeuron.dendParams.weightsRange .* ...
-                                (2 .* rand() - 1); 
+                                modelNeuron.dendParams.weightsRange * ...
+                                (2 * rand() - 1); 
                             % Update the count of recycled synapses
                             modelNeuron.nSynRecycles(iBranch, iSyn) = ...
                                 modelNeuron.nSynRecycles(iBranch, iSyn) + 1;
@@ -683,7 +686,7 @@ classdef ModelNeuron
         end
         
         function resultsRF = dendriticRFAnalyze(args) 
-            %dendriticRFAnalyze Takes the histogram of stimuli causing an NMDA spike for each branch and calculates:
+            %DENDRITICRFANALYZE Takes the histogram of stimuli causing an NMDA spike for each branch and calculates:
             % 1) orientation tuning curves for each branch
             % 2) spatial receptive fields for each branch
             % 'branch_spike_hist' is a 4D tensor with counts for [branch][x][y][orientation]
@@ -783,8 +786,8 @@ classdef ModelNeuron
                 branchRMax(iBranch) = max(branchRFFrac,[],"all");
             end
 
-            compositeOrient = compositeOrient ./ (args.modelNeuron.dendParams.nBranches - 1);
-            compositeSpatial = compositeSpatial ./ (args.modelNeuron.dendParams.nBranches - 1);
+            compositeOrient = compositeOrient ./ args.modelNeuron.dendParams.nBranches;
+            compositeSpatial = compositeSpatial ./ args.modelNeuron.dendParams.nBranches;
 
             allBranchOrient(nBranches + 1, :) = ...
                 compositeOrient ./ cumulOrient;
@@ -803,8 +806,8 @@ classdef ModelNeuron
                 branchSize1(iBranch) = RFSize1;
 
                 spatialRF = spatialRF ./ max(spatialRF, [], 'all');
-                spatialRF = spatialRF > 0.2;
-                RFSize2 = sum(sum(spatialRF));
+                spatialRF = (spatialRF > 0.2);
+                RFSize2 = sum(spatialRF, 'all');
                 % if isnan(RFSize2) RFSize2 = 0; end % TODO: should this ever be NaN
                 branchSize2(iBranch) = RFSize2;
 

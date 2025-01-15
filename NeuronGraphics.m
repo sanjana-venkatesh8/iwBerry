@@ -1,5 +1,7 @@
 classdef NeuronGraphics
     properties
+        modelNeuronObj ModelNeuron
+
         resultsBefore ModelResults
         resultsPlast ModelResults
         resultsAfter ModelResults
@@ -10,8 +12,10 @@ classdef NeuronGraphics
 
     methods
         function neuronGraphics = NeuronGraphics(...
-                resultsBefore, resultsPlast, resultsAfter, resultsRFBefore, resultsRFAfter)
+                modelNeuronObj, resultsBefore, resultsPlast, resultsAfter, resultsRFBefore, resultsRFAfter)
             arguments
+                modelNeuronObj ModelNeuron
+
                 resultsBefore ModelResults
                 resultsPlast ModelResults
                 resultsAfter ModelResults
@@ -19,6 +23,8 @@ classdef NeuronGraphics
                 resultsRFBefore RFResults
                 resultsRFAfter RFResults
             end
+
+            neuronGraphics.modelNeuronObj = modelNeuronObj;
 
             neuronGraphics.resultsBefore = resultsBefore;
             neuronGraphics.resultsPlast = resultsPlast;
@@ -28,6 +34,7 @@ classdef NeuronGraphics
             neuronGraphics.resultsRFAfter = resultsRFAfter;
         end
 
+        % TODO: make these static methods ??
         function layout1(nG)
         %LAYOUT1 Plots orientation tuning vs. NMDA spike rate, colored by 
         % RF size, before and after plasticity.
@@ -105,6 +112,7 @@ classdef NeuronGraphics
 
         % tau = smoothing window
         % TODO: rateTarget = NMDA firing rate target
+        % TODO: fix x-lim of top graph
 
         % Calculate NMDA spike rate
         % Smooth spike train into a firing rate
@@ -121,7 +129,7 @@ classdef NeuronGraphics
 
         title4 = sprintf("Layout 4: Adaptation of NMDA rate, Max weight, and branch inhibition in Branch #%d", ...
             iBranch);
-        figure(Name=title4)
+        f = figure(Name=title4);
         subplot(3,1,1)
         % TODO: this is wrong
         plot(NMDASpikeRate);
@@ -141,6 +149,23 @@ classdef NeuronGraphics
         %weight
             % TODO: figure out how to calculate location based on synapse
             % ID
+            L4FinalInput = nG.resultsPlast.synL4Record(end, iSyn, iBranch);
+            orientation = mod(L4FinalInput, nG.modelNeuronObj.stimParams.nOrient);
+             if orientation == 0
+                 orientation = nG.modelNeuronObj.stimParams.nOrient;  % account for wraparound due to modulus
+             end
+    
+             iX = mod((L4FinalInput - orientation) / nG.modelNeuronObj.stimParams.nOrient, nG.modelNeuronObj.stimParams.nX) ...
+                 + 1;
+             if iX == 0
+                 iX = nG.modelNeuronObj.stimParams.nX; % account for wraparound due to modulus
+             end
+    
+             iY = ((L4FinalInput - orientation) / nG.modelNeuronObj.stimParams.nOrient - (iX - 1)) / ...
+                 nG.modelNeuronObj.stimParams.nX;
+             if iY == 0
+                 iY = nG.modelNeuronObj.stimParams.nY; % account for wraparound due to modulus
+             end
 
             % Calculate synaptic weights
             branchExc = 1 ./ (1 + exp(-1 .* nG.resultsPlast.synURecord(:, iSyn, iBranch)));
@@ -149,7 +174,10 @@ classdef NeuronGraphics
             branchInh = 60 ./ nG.resultsPlast.branchWMaxRecord(iBranch) - 1 - branchGLeak;
             synWeights = 60 * branchExc / (branchExc + branchInh + branchGLeak);
 
-            title5 = sprintf("Layout 5: Plasticity in Synapse %d (x = %d, y = %d)", iSyn, NaN, NaN);
+            title5 = sprintf(...
+                "Layout 5: Plasticity in Synapse %d on Branch %d\n" ...
+                + "(final L4 input: x = %d, y = %d, orientation = %d)", ...
+                iSyn, iBranch, iX, iY, orientation);
             figure(Name=title5)
 
             subplot(3,1,1)
@@ -170,8 +198,29 @@ classdef NeuronGraphics
             figure(Name="Histograms over internal potential, maximum synapse strength, synaptic recycles")
             subplot(3,1,1)
             hold on
-            % histogram(nG.resultsBefore.)
+            [uBeforeCounts, uBeforeEdges] = histcounts(nG.resultsBefore.synURecord(1,:,:), NumBins=51);
+            plot(uBeforeEdges(1:(end-1)), uBeforeCounts)
+            [uAfterCounts, uAfterEdges] = histcounts(nG.resultsAfter.synURecord(1,:,:), NumBins=51);
+            plot(uAfterEdges(1:(end-1)), uAfterCounts)
+            % histogram(nG.resultsBefore.synURecord)
+            % histogram(nG.resultsAfter.synURecord)
+            title(sprintf("Histogram over values of internal potential (u) for %d branches", ...
+                size(nG.resultsBefore.synURecord, 3)))
+            xlabel("Internal potential")
+            ylabel("Counts")
+            legend("Before", "After")
 
+            subplot(3,1,2)
+            histogram(nG.modelNeuronObj.synInputWMax) % TODO: should record this in results
+            title("Histogram over values of max possible synapse strength, w_{max}")
+            xlabel("Value of w_{max}")
+            ylabel("Number of synapses")
+
+            subplot(3,1,3)
+            histogram(nG.modelNeuronObj.nSynRecycles)
+            title("Histogram over number of recycles per synapse")
+            xlabel("Number of synaptic recycles")
+            ylabel("Counts")
             % UHistogram_Before = histcounts(modelNeuron.synUInput, NumBins=51);
             % WMaxHistogram_Before = histcounts(modelNeuron.synInputWMax, NumBins=21);
         end

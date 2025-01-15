@@ -33,7 +33,7 @@ classdef DendriteParams
     properties
         % input parameters
         nSynapses;
-        nDendrites;
+        nDendrites; % TODO: remove all occurrences of this
         branchSize;
         synStrength;
         synAttenuation;
@@ -65,6 +65,7 @@ classdef DendriteParams
         nBranches;
     end
     
+    % TODO: remove 'non-leaky branch' conditionals
     methods (Access = public)
         function dendParams = DendriteParams(nSynapses, nDendrites, ...
             branchSize, synStrength, synAttenuation, branchThresh, ...
