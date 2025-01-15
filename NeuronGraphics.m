@@ -42,7 +42,7 @@ classdef NeuronGraphics
             figure(Name="Layout 1: Orientation Tuning Across Subunits")            
             subplot(2, 1, 1)
             scatter(nG.resultsBefore.branchNMDASpikeRate, ...
-                nG.resultsRFBefore.branchIOrient, 50, nG.resultsRFBefore.branchSize1, 'filled');
+                nG.resultsRFBefore.branchIOrient(1:(end-1)), 50, nG.resultsRFBefore.branchSize1(1:(end-1)), 'filled');
             c = colorbar;
             c.Label.String = "RF Size (pixels)";
             title("Before plasticity")
@@ -51,7 +51,7 @@ classdef NeuronGraphics
 
             subplot(2, 1, 2)
             scatter(nG.resultsAfter.branchNMDASpikeRate, ...
-                nG.resultsRFAfter.branchIOrient, 50, nG.resultsRFAfter.branchSize1, 'filled');
+                nG.resultsRFAfter.branchIOrient(1:(end-1)), 50, nG.resultsRFAfter.branchSize1(1:(end-1)), 'filled');
             c = colorbar;
             c.Label.String = "RF Size (pixels)";
             title("After plasticity")
@@ -67,12 +67,13 @@ classdef NeuronGraphics
             nexttile
             % TODO: where to find EPSP and response?
             infoText = sprintf("Dendritic branch #%d\n" + ...
-                                "Orientation index = %d\n" + ...
-                                "Receptive field size = %1.1d\n" + ...
-                                "Max EPSP = %d mV\n" + ...
+                                "Orientation index = %1.2f\n" + ...
+                                "Receptive field size = %1.2f\n" + ...
+                                "Max EPSP = %1.2f mV\n" + ...
                                 "Max response = %d", ...
                                 iBranch, nG.resultsRFAfter.branchIOrient(iBranch), ...
-                                nG.resultsRFAfter.branchSize1(iBranch), NaN, NaN);
+                                nG.resultsRFAfter.branchSize1(iBranch), ...
+                                nG.modelNeuronObj.synInputWMax(iBranch, 1), NaN);
             text(0,0.7, infoText, FontSize=14)
             Ax = gca;
             Ax.Visible = 0;
@@ -86,24 +87,60 @@ classdef NeuronGraphics
             h.YLabel = "Y location";
             colormap('hot')
 
-            % TODO: check if plotting right hist.
-            % plot histogram of ???
             nexttile([1 2])
             nOrient = size(nG.resultsRFBefore.allBranchOrient, 2);
-            histogram(nG.resultsRFAfter.allBranchOrient(iBranch, :), BinEdges=0.5+(0:1:nOrient))
+            nBranchSpikePerOrient = zeros(nOrient, 1);
+            for i = 1:nOrient
+                nBranchSpikePerOrient(i) = sum(nG.resultsAfter.branchRF(iBranch, :, :, i), 'all');
+            end
+            bar(nBranchSpikePerOrient)
+            % histogram(nBranchSpikePerOrient, BinEdges=0.5+(0:1:nOrient))
             xticks(0:1:nOrient)
-            title("Branch orientation tuning")
+            title("Histogram of orientation of stimuli that caused a spike")
             xlabel("Bar orientation")
-
-            % use compositeOrient and compositeTuning for histogram
-            % heat map
+            ylabel("Count")
         end
 
         function layout3(nG)
         %LAYOUT3 Plots the soma receptive field vs. composite receptive
         %field
+            % NEED TO FIX
             figure(Name="Layout 3: Soma Receptive Field vs. Composite Receptive Field")
-            
+            t = tiledlayout('flow');
+
+            iSoma = size(nG.resultsRFBefore.allBranchSpatial, 1);
+            nexttile
+            % TODO: where to find EPSP and response?
+            infoText = sprintf("Somatic receptive field\n" + ...
+                                "Orientation index = %1.2f\n" + ...
+                                "Receptive field size = %1.2f\n" + ...
+                                "Max response = %d", ...
+                                nG.resultsRFAfter.branchIOrient(iSoma), ...
+                                nG.resultsRFAfter.branchSize1(iSoma), NaN);
+            text(0,0.7, infoText, FontSize=14)
+            Ax = gca;
+            Ax.Visible = 0;
+
+            % plot branch receptive field
+            spatialRF = squeeze(nG.resultsRFAfter.allBranchSpatial(iSoma, :, :)).';
+            nexttile
+            h = heatmap(spatialRF, 'CellLabelColor','none');
+            h.Title = "Receptive field of soma after plasticity";
+            h.XLabel = "X location";
+            h.YLabel = "Y location";
+            colormap('hot')
+
+            nexttile([1 2])
+            nOrient = size(nG.resultsRFBefore.allBranchOrient, 2);
+            nBranchSpikePerOrient = zeros(nOrient, 1);
+            for i = 1:nOrient
+                nBranchSpikePerOrient(i) = sum(nG.resultsAfter.branchRF(iSoma, :, :, i), 'all');
+            end
+            bar(nBranchSpikePerOrient)
+            xticks(0:1:nOrient)
+            title("Histogram of orientation of stimuli that caused a spike")
+            xlabel("Bar orientation")
+            ylabel("Count")
         end
         
         function layout4(nG, iBranch, branchGLeak, tau)

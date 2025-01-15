@@ -96,12 +96,12 @@ classdef ModelNeuron
                 cumulStimHist=resultsBefore.cumulStimRF, showOutput=true);
 
             nBranches = modelNeuron.dendParams.nBranches;
-            resultsRFBefore.branchIOrient = resultsRFBefore.branchIOrient(1:nBranches) .* resultsBefore.branchNMDASpikeRate ...
+            totalIndex_Before = resultsRFBefore.branchIOrient(1:nBranches) .* resultsBefore.branchNMDASpikeRate ...
                 ./ sum(resultsBefore.branchNMDASpikeRate);
-            totalIndex_Before = sum(resultsRFBefore.branchIOrient);
-            resultsRFBefore.branchSize1 = resultsRFBefore.branchSize1(1:nBranches) .* resultsBefore.branchNMDASpikeRate ...
+            totalIndex_Before = sum(totalIndex_Before);
+            totalSize_Before = resultsRFBefore.branchSize1(1:nBranches) .* resultsBefore.branchNMDASpikeRate ...
                 ./ sum(resultsBefore.branchNMDASpikeRate);
-            totalSize_Before = sum(resultsRFBefore.branchSize1);
+            totalSize_Before = sum(totalSize_Before);
 
             % IMPLEMENT SYNAPTIC PLASTICITY
             [resultsPlast, modelNeuron] = stimulusUpdate(modelNeuron, plasticityFlag=modelNeuron.plasticityFlag, isTrain=true);
@@ -141,15 +141,16 @@ classdef ModelNeuron
 
             % analyze receptive fields
             resultsRFAfter = dendriticRFAnalyze(modelNeuron=modelNeuron, branchSpikeHist=resultsAfter.branchRF, ...
-                cumulStimHist=resultsBefore.cumulStimRF, showOutput=true);
+                cumulStimHist=resultsAfter.cumulStimRF, showOutput=true);
             % TODO: ISSUE WITH CUMULSTIMRF_BEFORE
 
-            resultsRFAfter.branchIOrient = resultsRFAfter.branchIOrient(1:nBranches) .* resultsAfter.branchNMDASpikeRate ...
+            % TODO: Do we use these?
+            totalIndex_After = resultsRFAfter.branchIOrient(1:nBranches) .* resultsAfter.branchNMDASpikeRate ...
                 ./ sum(resultsAfter.branchNMDASpikeRate);
-            totalIndex_After = sum(resultsRFAfter.branchIOrient);
-            resultsRFAfter.branchSize1 = resultsRFAfter.branchSize1(1:nBranches) .* resultsAfter.branchNMDASpikeRate ...
+            totalIndex_After = sum(totalIndex_After);
+            totalSize_After = resultsRFAfter.branchSize1(1:nBranches) .* resultsAfter.branchNMDASpikeRate ...
                 ./ sum(resultsAfter.branchNMDASpikeRate);
-            totalSize_After = sum(resultsRFAfter.branchSize1);
+            totalSize_After = sum(totalSize_After);
 
             fprintf("\n\t\t\t\t\tBefore plasticity\tAfter plasticity\n");
             fprintf("Total number of NMDA spikes\t\t%d\t\t\t\t%d\n", sum(resultsBefore.NMDASpikesPerTimestep), sum(resultsAfter.NMDASpikesPerTimestep));
@@ -768,6 +769,7 @@ classdef ModelNeuron
                         spatialRF(iX, iY) = sum(args.branchSpikeHist(iBranch, iX, iY, :), 'all');
                     end
                 end
+                % ^^ DEBUG: makes sense until here
                 allBranchOrient(iBranch, :) = orientTuning ./ cumulOrient;
                 allBranchSpatial(iBranch, :, :) = spatialRF ./ cumulSpatial;
 
@@ -789,6 +791,7 @@ classdef ModelNeuron
             compositeOrient = compositeOrient ./ args.modelNeuron.dendParams.nBranches;
             compositeSpatial = compositeSpatial ./ args.modelNeuron.dendParams.nBranches;
 
+            % TODO: this makes values really small
             allBranchOrient(nBranches + 1, :) = ...
                 compositeOrient ./ cumulOrient;
             allBranchSpatial(nBranches + 1, :, :) = ...
@@ -801,6 +804,7 @@ classdef ModelNeuron
             for iBranch = 1:(nBranches + 1)
                 spatialRF = allBranchSpatial(iBranch, :, :);
                 
+                % DEBUG: RFSIZE1 looks correct
                 RFSize1 = sum(spatialRF, 'all') / max(spatialRF, [], 'all');
                 % if isnan(RFSize1) RFSize1 = 0; end % TODO: should this ever be NaN
                 branchSize1(iBranch) = RFSize1;
