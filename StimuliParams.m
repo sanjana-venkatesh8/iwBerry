@@ -34,6 +34,7 @@ classdef StimuliParams
         recordingTimeInterval;
         nL4Inputs;
         isFoldiak;
+        isWraparound;
         % non-input properties
         trainSet;
         testSet;
@@ -44,7 +45,7 @@ classdef StimuliParams
             % nX, nY, ...
             %     nOrient, barLength, scanLength, nL4ExactNoise, ...
             %     nL4PoissNoise, propNoiseScan, nTestRepeats, nTestInst, ...
-            %     nTrainInst, nDendRecord, recordingTimeInterval, isFoldiak)
+            %     nTrainInst, nDendRecord, recordingTimeInterval, isFoldiak, isWraparound)
             
             %STIMULIPARAMS Construct an instance of this class
 
@@ -53,7 +54,7 @@ classdef StimuliParams
                 args.nL4ExactNoise; args.nL4PoissNoise; args.propNoiseScan;
                 args.nTestRepeats; args.nTestInst; args.nTrainInst;
                 args.nDendRecord; args.recordingTimeInterval;
-                args.isFoldiak = false;
+                args.isFoldiak = false; args.isWraparound = false;
             end
 
             try
@@ -75,6 +76,7 @@ classdef StimuliParams
                 stimParams.recordingTimeInterval = args.recordingTimeInterval;
 
                 stimParams.isFoldiak = args.isFoldiak;
+                stimParams.isWraparound = args.isWraparound;
                 % % check if Foldiak model is creating this object. Foldiak
                 % % model follows different indexing for L4/simple cells.
                 % if ~exist(,'var')
@@ -116,6 +118,7 @@ classdef StimuliParams
                 stimParams.scanLength, stimParams.nTrainInst); 
             trainSet.barYLoc = zeros(stimParams.barLength, ...
                 stimParams.scanLength, stimParams.nTrainInst); 
+            trainSet.orientation = zeros(stimParams.nTrainInst, 1);
             
             testSet.L4Activity = zeros(stimParams.nL4Inputs, ...
                 stimParams.scanLength, stimParams.nTestInst);
@@ -123,12 +126,14 @@ classdef StimuliParams
                 stimParams.scanLength, stimParams.nTestInst); 
             testSet.barYLoc = zeros(stimParams.barLength, ...
                 stimParams.scanLength, stimParams.nTestInst); 
+            testSet.orientation = zeros(stimParams.nTestInst, 1);
 
             % generate training set
             for iTrainInst = 1:stimParams.nTrainInst
                 [trainSet.L4Activity(:, :, iTrainInst), ...
                     trainSet.barXLoc(:, :, iTrainInst), ...
-                    trainSet.barYLoc(:, :, iTrainInst)] ...
+                    trainSet.barYLoc(:, :, iTrainInst), ...
+                    trainSet.orientation(iTrainInst)] ...
                                         = makeScan(stimParams=stimParams, ...
                                                    showOutput=showOutput);
             end
@@ -137,7 +142,8 @@ classdef StimuliParams
             for iTestInst = 1:stimParams.nTestInst
                 [testSet.L4Activity(:, :, iTestInst), ...
                     testSet.barXLoc(:, :, iTestInst), ...
-                    testSet.barYLoc(:, :, iTestInst)] ...
+                    testSet.barYLoc(:, :, iTestInst), ...
+                    testSet.orientation(iTestInst)] ...
                                         = makeScan(stimParams=stimParams, ...
                                                    showOutput=showOutput);
             end
@@ -146,7 +152,7 @@ classdef StimuliParams
 
         % generate one scan and its corresponding L4 activity and X/Y
         % locations at each timestep
-        function [L4Activity, barXLoc, barYLoc] = makeScan(args) % equivalent of Do_Bar_Scan
+        function [L4Activity, barXLoc, barYLoc, orientation] = makeScan(args) % equivalent of Do_Bar_Scan
             arguments
                 args.stimParams StimuliParams
                 args.showOutput logical = false
@@ -162,7 +168,7 @@ classdef StimuliParams
             barYLoc = zeros(stimParams.barLength, ...
                 stimParams.scanLength); % stores y location of each point in bar at each step of scan 
 
-            isNoiseImage = rand() < stimParams.propNoiseScan;
+            isNoiseImage = (rand() < stimParams.propNoiseScan);
             if not(isNoiseImage)
                 direction = 2 * randi(2) - 3; % set random scan direction (-1 or 1)
                 orientation = randi(stimParams.nOrient); % set random orientation of bar ([1, nOrient])
@@ -172,8 +178,20 @@ classdef StimuliParams
                 end
 
                 % set random initial bar location
-                xInit = randi(stimParams.nX);
-                yInit = randi(stimParams.nY);
+                if stimParams.isWraparound
+                    xInit = randi(stimParams.nX);
+                    yInit = randi(stimParams.nY);
+                else
+                    % start at a left/up offset to allow for truncations 
+                    % on left/upper side as well as the right/lower sides 
+                    % of the visual field.
+                    
+                    offset = 0;
+                    % offset = stimParams.barLength - 2; % TODO: find out
+                    % whether or not to include offset
+                    xInit = randi(stimParams.nX + offset) - offset;
+                    yInit = randi(stimParams.nY + offset) - offset;
+                end
 
                 % iterate through a scan and fill in L4 activity and bar's 
                 % X/Y locations at each scan step
@@ -210,16 +228,23 @@ classdef StimuliParams
                     end
     
 
-                    % wrap around for bars that go over the edge of the
-                    % receptive field
-                    % set the x and y locations of the bar
-                    % NOTE: this is fixed from IGOR code
-                    wrapX = @(x) (1 + mod(x-1, stimParams.nX));
-                    wrapY = @(y) (1 + mod(y-1, stimParams.nY));
+                    if stimParams.isWraparound
+                        % wrap around for bars that go over the edge of the
+                        % receptive field
+                        % set the x and y locations of the bar
+                        % NOTE: this is fixed from IGOR code
+                        wrapX = @(x) (1 + mod(x-1, stimParams.nX));
+                        wrapY = @(y) (1 + mod(y-1, stimParams.nY));
 
-                    xAtScanStep = wrapX(xAtScanStep);
-                    yAtScanStep = wrapY(yAtScanStep);
-
+                        xAtScanStep = wrapX(xAtScanStep);
+                        yAtScanStep = wrapY(yAtScanStep);
+                    else
+                        % truncate the bar where it goes past the
+                        % boundaries of the receptive field
+                        invalidPoints = xAtScanStep <= 0 | yAtScanStep <= 0 | xAtScanStep > stimParams.nX | yAtScanStep > stimParams.nY;
+                        xAtScanStep(invalidPoints) = NaN;
+                        yAtScanStep(invalidPoints) = NaN;
+                    end
                     barXLoc(:, iScan) = xAtScanStep;
                     barYLoc(:, iScan) = yAtScanStep;
     
@@ -239,6 +264,10 @@ classdef StimuliParams
                         iL4 = orientation + stimParams.nOrient * ((yAtScanStep - 1) * stimParams.nX + (xAtScanStep - 1));
                     end
 
+
+                    % DEBUG 2/17
+                    iL4 = iL4(~isnan(iL4));
+                    %
                     L4Activity(iL4, iScan) = 1;
                 end
             end

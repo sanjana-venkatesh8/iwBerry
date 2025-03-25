@@ -11,6 +11,8 @@ classdef NeuronGraphics
     end
 
     methods
+        % TODO: make these static
+
         function neuronGraphics = NeuronGraphics(...
                 modelNeuronObj, resultsBefore, resultsPlast, resultsAfter, resultsRFBefore, resultsRFAfter)
             arguments
@@ -42,7 +44,7 @@ classdef NeuronGraphics
             figure(Name="Layout 1: Orientation Tuning Across Subunits")            
             subplot(2, 1, 1)
             scatter(nG.resultsBefore.branchNMDASpikeRate, ...
-                nG.resultsRFBefore.branchIOrient(1:(end-1)), 50, nG.resultsRFBefore.branchSize1(1:(end-1)), 'filled');
+                nG.resultsRFBefore.branchIOrient(1:(end-2)), 50, nG.resultsRFBefore.branchSize1(1:(end-2)), 'filled');
             c = colorbar;
             c.Label.String = "RF Size (pixels)";
             title("Before plasticity")
@@ -51,7 +53,7 @@ classdef NeuronGraphics
 
             subplot(2, 1, 2)
             scatter(nG.resultsAfter.branchNMDASpikeRate, ...
-                nG.resultsRFAfter.branchIOrient(1:(end-1)), 50, nG.resultsRFAfter.branchSize1(1:(end-1)), 'filled');
+                nG.resultsRFAfter.branchIOrient(1:(end-2)), 50, nG.resultsRFAfter.branchSize1(1:(end-2)), 'filled');
             c = colorbar;
             c.Label.String = "RF Size (pixels)";
             title("After plasticity")
@@ -106,9 +108,11 @@ classdef NeuronGraphics
         %field
             % NEED TO FIX
             figure(Name="Layout 3: Soma Receptive Field vs. Composite Receptive Field")
+            set(gcf, 'Position', [0 0 450 900])
             t = tiledlayout('flow');
 
-            iSoma = size(nG.resultsRFBefore.allBranchSpatial, 1);
+            % Plot details for soma
+            iSoma = size(nG.resultsRFBefore.allBranchSpatial, 1) - 1;
             nexttile
             % TODO: where to find EPSP and response?
             infoText = sprintf("Somatic receptive field\n" + ...
@@ -138,7 +142,44 @@ classdef NeuronGraphics
             end
             bar(nBranchSpikePerOrient)
             xticks(0:1:nOrient)
-            title("Histogram of orientation of stimuli that caused a spike")
+            title("Histogram of orientation of stimuli that caused a somatic spike")
+            xlabel("Bar orientation")
+            ylabel("Count")
+
+            % Plot details for composite RF
+            iComp = iSoma + 1;
+            nexttile
+            % TODO: where to find EPSP and response?
+            infoText = sprintf("Composite receptive field\n" + ...
+                                "Orientation index = %1.2f\n" + ...
+                                "Receptive field size = %1.2f\n" + ...
+                                "Max response = %d", ...
+                                nG.resultsRFAfter.branchIOrient(iComp), ...
+                                nG.resultsRFAfter.branchSize1(iComp), NaN);
+            text(0,0.7, infoText, FontSize=14)
+            Ax = gca;
+            Ax.Visible = 0;
+
+            % plot branch receptive field
+            spatialRF = squeeze(nG.resultsRFAfter.allBranchSpatial(iComp, :, :)).';
+            nexttile
+            h = heatmap(spatialRF, 'CellLabelColor','none');
+            h.Title = "Composite receptive field after plasticity";
+            h.XLabel = "X location";
+            h.YLabel = "Y location";
+            colormap('hot')
+
+            % TODO: make this step (and all histograms above) part of
+            % DendriticRFAnalyze()
+            nexttile([1 2])
+            nOrient = size(nG.resultsRFBefore.allBranchOrient, 2);
+            nBranchSpikePerOrient = zeros(nOrient, 1);
+            for i = 1:nOrient
+                nBranchSpikePerOrient(i) = sum(nG.resultsAfter.branchRF(1:(iSoma - 1), :, :, i), 'all');
+            end
+            bar(nBranchSpikePerOrient)
+            xticks(0:1:nOrient)
+            title("Composite histogram of orientation of stimuli that caused a spike")
             xlabel("Bar orientation")
             ylabel("Count")
         end
@@ -260,6 +301,96 @@ classdef NeuronGraphics
             ylabel("Counts")
             % UHistogram_Before = histcounts(modelNeuron.synUInput, NumBins=51);
             % WMaxHistogram_Before = histcounts(modelNeuron.synInputWMax, NumBins=21);
+        end
+
+        function plotStimulus(nG, args)
+            arguments
+                nG NeuronGraphics
+                args.isTrain logical
+                args.iStim
+                args.isPlotWithOrientation
+            end
+
+            stimParams = nG.modelNeuronObj.stimParams;
+
+            if args.isTrain
+                stimSet = stimParams.trainSet;
+                figure(Name=sprintf("Stimulus #%d in training set", args.iStim))
+            else
+                stimSet = stimParams.testSet;
+                figure(Name=sprintf("Stimulus #%d in test set", args.iStim))
+            end
+
+            nTotStim = size(stimSet.L4Activity, 3);
+            if args.iStim >= nTotStim || args.iStim < 1
+                throw(MException('NeuronGraphics:IndexOutofBounds', ...
+                    'Stimulus index out of bounds'))
+            end
+
+            L4Activity = stimSet.L4Activity(:, :, args.iStim);
+            barXLoc = stimSet.barXLoc(:, :, args.iStim);
+            barYLoc = stimSet.barYLoc(:, :, args.iStim);
+
+
+            for iScan = 1:stimParams.scanLength
+                if args.isPlotWithOrientation
+                    for iOrient = 1:stimParams.nOrient
+                        L4ChooseOrient = L4Activity(iOrient:4:256, iScan);
+                        L4Heat = reshape(L4ChooseOrient, 8, 8).';
+                        subplot(2, 2, iOrient)
+                        hm = heatmap(L4Heat());
+                        hm.Title = sprintf("L4 neurons with orientation %d", iOrient);
+                        % colormap('hot')
+                    end
+                else
+                    % another way of plotting the stimuli
+                    h1 = axes;                        
+                        scatter(barXLoc(:,iScan), barYLoc(:,iScan), "filled")
+                    set(h1,'YDir','reverse')
+                    xlim([1 8])
+                    ylim([1 8])
+                    pause(0.5)
+                end
+            end
+        end
+        
+        function branchSpikeRasterPlots(nG)
+            %BRANCHSPIKERASTERPLOTS plots spiking patterns for branches and
+            %soma. Adapted from Felix Schneider
+            %(https://www.youtube.com/watch?v=27Y2c596-U0)
+            figure(Units='normalized', Position=[0 0 0.3 1]); hold on
+            subplot(2,1,1); hold on
+            title("Spike firing for each branch")
+            ylabel("Branch number")
+            xlabel("Timestep")
+
+            for iBranch = 1:nG.modelNeuronObj.dendParams.nBranches
+                spikeTimes = find(nG.resultsAfter.branchSpikeRecord(:, iBranch).' == 1);
+                xspikes = repmat(spikeTimes, 3, 1);
+                yspikes = nan(size(xspikes));
+             
+                if ~isempty(yspikes)
+                    yspikes(1, :) = iBranch - 1;
+                    yspikes(2, :) = iBranch;
+                end
+             
+                plot(xspikes, yspikes, 'Color', 'K');
+            end 
+
+            subplot(2,1,2); hold on
+            title("Spike firing at soma")
+            xlabel("Timestep")
+ 
+            spikeTimes = find(nG.resultsAfter.didSomaSpikePerTimestep.' == 1);
+            xspikes = repmat(spikeTimes, 3, 1);
+            yspikes = nan(size(xspikes));
+  
+            if ~isempty(yspikes)
+                   yspikes(1, :) = 0;
+                   yspikes(2, :) = 1;
+            end
+
+            plot(xspikes, yspikes, 'Color', 'K');
         end
     end
 end

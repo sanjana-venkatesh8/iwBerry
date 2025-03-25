@@ -1,3 +1,9 @@
+1/27 TODO
+- change plasticity flag (1, 2, 3, 4)
+- why is orientation tuning = 1?
+- 
+
+
 things I fixed:
 - 
 - 

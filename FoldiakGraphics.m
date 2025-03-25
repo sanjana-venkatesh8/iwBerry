@@ -5,7 +5,7 @@ classdef FoldiakGraphics
             fig = figure(Name="Connections to Complex Units");
 
             for iComplex = 1:nComplex
-                subplot(2, 2, iComplex)
+                subplot(2, ceil(nComplex/2), iComplex)
                 hold on
             
                 for orientation = 1:nOrient

@@ -43,8 +43,8 @@ classdef Foldiak
             initWeights = obj.connections;
         end
         
-        function weights = train(obj, args)
-            %TRAIN This function trains the four complex units.
+        function [weights, complexRF, cumulStimRF] = train(obj, args)
+            %TRAIN This function trains the complex units.
             %   Bar stimuli are passed through the model and weights are
             %   updated according to Foldiak's modified Hebbian rule:
             %       ∆w_ij(t) = alpha * yTrace_i(t) * (x_j(t) - w_ij(t)) 
@@ -55,46 +55,44 @@ classdef Foldiak
                 args.alpha
             end
             
-            stimuli = obj.stimuliSets.trainSet.L4Activity;
+            stimuli = obj.stimuliSets.trainSet;%obj.stimuliSets.trainSet.L4Activity;
             activityTrace = zeros(1, obj.nComplex);
 
-            for i = 1:size(stimuli, 3) % iterate through stimuli
-                for j = 1:size(stimuli, 2) % iterate through each scan step in a stimulus
-                    stimBar = stimuli(:, j, i);
+            % WORKING 2/7
+            complexRF = zeros(obj.nComplex, obj.stimuliSets.nX, obj.stimuliSets.nY, obj.stimuliSets.nOrient);
+            cumulStimRF = zeros(obj.stimuliSets.nX, obj.stimuliSets.nY, obj.stimuliSets.nOrient);
+            %
+
+            for i = 1:size(stimuli.L4Activity, 3) % iterate through stimuli
+                for j = 1:size(stimuli.L4Activity, 2) % iterate through each scan step in a stimulus
+                    stimBar = stimuli.L4Activity(:, j, i);
 
                     % The complex unit with the highest weighted sum of inputs
                     % is activated.
                     weightedSum = sum(stimBar .* obj.connections, 1);
                     activity = (weightedSum == max(weightedSum));
+
+                    % WORKING 2/7
+                    orientation = stimuli.orientation(i);
+                    xLoc = stimuli.barXLoc(:, j, i);
+                    yLoc = stimuli.barYLoc(:, j, i);
+
+                    complexRF(find(activity == 1, 1, 'first'), xLoc, yLoc, orientation) = ...
+                        complexRF(find(activity == 1, 1, 'first'), xLoc, yLoc, orientation) + 1;
+                    cumulStimRF(xLoc, yLoc, orientation) = cumulStimRF(xLoc, yLoc, orientation) + 1;
+                    %
     
                     % update average postsynaptic activity (trace) according to
                     % rule in Foldiak paper.
                     activityTrace = (1 - args.delta) * activityTrace + args.delta * activity; 
     
                     % update synaptic weights
-                    % STOPPED HERE: ISSUE: trace not working. weight
-                    % updates have a pattern
 
                     deltaWeight = args.alpha * activityTrace .* ...
                         (repmat(stimBar, 1, obj.nComplex) - obj.connections);
                     obj.connections = obj.connections + deltaWeight;
                     
                     weights = obj.connections;
-                    % DEBUG
-                    % pause(0.1)
-                    % FoldiakGraphics.showConnections(8,8,4,4,obj.connections)
-                    % h2 = subplot(2,1,2);
-                    % clf(h2)
-                    % barXLoc = obj.stimuliSets.trainSet.barXLoc(:, j, i);
-                    % barYLoc = obj.stimuliSets.trainSet.barYLoc(:, j, i);
-                    % % h1 = axes;
-                    % scatter(barXLoc, barYLoc, "filled")
-                    % set(h2,'YDir','reverse')
-                    % xlim([1 8])
-                    % ylim([1 8])
-                    % 
-                    % subplot(2,1,1);
-                    % histogram(obj.connections);
                 end
             end
         end

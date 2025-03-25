@@ -42,9 +42,11 @@ classdef ModelNeuron
             % Initialize the model neuron
             modelNeuron.nL4Neurons = modelNeuron.stimParams.nX * modelNeuron.stimParams.nY * modelNeuron.stimParams.nOrient;
             % randomly assign an L4 input neuron to each synapse
+            % TODO: STORE AND RELOAD
             modelNeuron.synL4Inputs = randi(modelNeuron.nL4Neurons, modelNeuron.dendParams.nBranches, modelNeuron.dendParams.branchSize);
             % randomly assign an input potential (u) in [-weightsRange, weightsRange] 
             % to each synapse
+            % STORE AND RELOAD
             modelNeuron.synUInput = modelNeuron.dendParams.weightsRange .* ...
                 (2 .* rand(modelNeuron.dendParams.nBranches, modelNeuron.dendParams.branchSize) - 1); 
             % set initial inhibitory conductance for each synapse
@@ -69,15 +71,17 @@ classdef ModelNeuron
         end
 
         function [resultsBefore, resultsPlast, resultsAfter, resultsRFBefore, resultsRFAfter, modelNeuron] ...
-                = jens2Plasticity(modelNeuron)
+                = jens2Plasticity(modelNeuron, args)
             arguments
                 modelNeuron ModelNeuron
+                args.showOutput logical
             end
 
-            fprintf("\n**************************************************\n" + ...
-                      "***            STARTING SIMULATION             ***\n" + ...
-                      "**************************************************\n\n");
-
+            if args.showOutput
+                fprintf("\n**************************************************\n" + ...
+                          "***            STARTING SIMULATION             ***\n" + ...
+                          "**************************************************\n\n");
+            end
 
             % CALCULATE STATISTICS BEFORE PLASTICITY, USING TEST SET
             % STIMULI
@@ -93,7 +97,7 @@ classdef ModelNeuron
 
             % analyze receptive fields
             resultsRFBefore = dendriticRFAnalyze(modelNeuron=modelNeuron, branchSpikeHist=resultsBefore.branchRF, ...
-                cumulStimHist=resultsBefore.cumulStimRF, showOutput=true);
+                cumulStimHist=resultsBefore.cumulStimRF, showOutput=args.showOutput);
 
             nBranches = modelNeuron.dendParams.nBranches;
             totalIndex_Before = resultsRFBefore.branchIOrient(1:nBranches) .* resultsBefore.branchNMDASpikeRate ...
@@ -141,7 +145,7 @@ classdef ModelNeuron
 
             % analyze receptive fields
             resultsRFAfter = dendriticRFAnalyze(modelNeuron=modelNeuron, branchSpikeHist=resultsAfter.branchRF, ...
-                cumulStimHist=resultsAfter.cumulStimRF, showOutput=true);
+                cumulStimHist=resultsAfter.cumulStimRF, showOutput=args.showOutput);
             % TODO: ISSUE WITH CUMULSTIMRF_BEFORE
 
             % TODO: Do we use these?
@@ -152,21 +156,26 @@ classdef ModelNeuron
                 ./ sum(resultsAfter.branchNMDASpikeRate);
             totalSize_After = sum(totalSize_After);
 
-            fprintf("\n\t\t\t\t\tBefore plasticity\tAfter plasticity\n");
-            fprintf("Total number of NMDA spikes\t\t%d\t\t\t\t%d\n", sum(resultsBefore.NMDASpikesPerTimestep), sum(resultsAfter.NMDASpikesPerTimestep));
-            fprintf("Total number of somatic spikes\t\t%d\t\t\t\t%d\n", sum(resultsBefore.didSomaSpikePerTimestep), sum(resultsAfter.didSomaSpikePerTimestep));
-            if (modelNeuron.dendParams.somaGLeak == 0)
-                fprintf("Threshold at soma\t\t\t\t\t\tN/A\t\t\t\t\t%1.3f\n", resultsPlast.somaThreshPerTimestep(end));            
-            else
-                fprintf("Gain at soma\t\t\t\tN/A\t\t\t\t%1.3f\n", resultsPlast.somaGainPerTimestep(end));
+            if args.showOutput
+                fprintf("\n\t\t\t\t\tBefore plasticity\tAfter plasticity\n");
+                fprintf("Total number of NMDA spikes\t\t%d\t\t\t\t%d\n", sum(resultsBefore.NMDASpikesPerTimestep), sum(resultsAfter.NMDASpikesPerTimestep));
+                fprintf("Total number of somatic spikes\t\t%d\t\t\t\t%d\n", sum(resultsBefore.didSomaSpikePerTimestep), sum(resultsAfter.didSomaSpikePerTimestep));
+                if (modelNeuron.dendParams.somaGLeak == 0)
+                    fprintf("Threshold at soma\t\t\t\t\t\t%1.3f\t\t\t\t\t%1.3f\n", ...
+                        resultsBefore.somaThreshPerTimestep(end), resultsPlast.somaThreshPerTimestep(end));            
+                else
+                    fprintf("Gain at soma\t\t\t\t%1.3f\t\t\t\t%1.3f\n", ...
+                        resultsBefore.somaGainPerTimestep(end), resultsPlast.somaGainPerTimestep(end));
+                end
+                fprintf("Spike rate\t\t\t\t%1.3f\t\t\t\t%1.3f\n", ...
+                    sum(resultsBefore.didSomaSpikePerTimestep) / nTimesteps, sum(resultsAfter.didSomaSpikePerTimestep) / nTimesteps);
+                fprintf("Average orientation index\t\t%1.3f\t\t\t\t%1.3f\n", totalIndex_Before, totalIndex_After);
+                fprintf("Average size\t\t\t\t%1.3f\t\t\t\t%1.3f\n", totalSize_Before, totalSize_After);
+    
+                fprintf("\n**************************************************\n" + ...
+                          "***            SIMULATION FINISHED             ***\n" + ...
+                          "**************************************************\n\n");
             end
-            fprintf("Spike rate\t\t\t\tN/A\t\t\t\t%1.3f\n", sum(resultsAfter.didSomaSpikePerTimestep) / nTimesteps);
-            fprintf("Average orientation index\t\t%1.3f\t\t\t\t%1.3f\n", totalIndex_Before, totalIndex_After);
-            fprintf("Average size\t\t\t\t%1.3f\t\t\t\t%1.3f\n", totalSize_Before, totalSize_After);
-
-            fprintf("\n**************************************************\n" + ...
-                      "***            SIMULATION FINISHED             ***\n" + ...
-                      "**************************************************\n\n");
         end
 
         function [results, modelNeuron] = stimulusUpdate(modelNeuron, args)
@@ -554,8 +563,7 @@ classdef ModelNeuron
 
                 if ~modelNeuron.areBranchesLeaky
                     % Use direct changes on wMax for gain control
-                    % If doBackprop is true, add de
-                    % polarization due to a
+                    % If doBackprop is true, add depolarization due to a
                     % backpropagating action potential
                     branchActivity = branchGExc + ...
                         (args.doBackprop == true) * modelNeuron.dendParams.backpropAP;
@@ -576,8 +584,6 @@ classdef ModelNeuron
 
                 % Calculate actual spike threshold and determine if a spike
                 % occurred.
-                % DEBUG STATEMENT HERE
-                % actualThresh = modelNeuron.dendParams.branchThresh;
                 actualThresh = modelNeuron.dendParams.branchThresh * ...
                     (1 + modelNeuron.dendParams.branchNoise * randn);
                 didBranchSpike = branchActivity >= actualThresh;
@@ -594,7 +600,6 @@ classdef ModelNeuron
                         if ~modelNeuron.areBranchesLeaky
                             % Scale synapse wMax to adjust NMDA spike
                             % rate
-                            % TODO: make local wmax var?
                             modelNeuron.synInputWMax(iBranch, :) = ...
                                 modelNeuron.synInputWMax(iBranch, :) .* ...
                                 (1 + modelNeuron.dendParams.scaleNMDA);
@@ -644,7 +649,7 @@ classdef ModelNeuron
                                 isSynActive * modelNeuron.dendParams.duDecay + ...
                                 ~isSynActive * modelNeuron.dendParams.duBaseline;
                         end
-
+   
                         % Recycle spine (retract it and grow a new one)
                         % if synaptic potential is too low
                         if (modelNeuron.synUInput(iBranch, iSyn) < ...
@@ -741,20 +746,19 @@ classdef ModelNeuron
                     end
                 end
             end
-            
+
             compositeOrient = zeros(nOrient, 1);
             compositeSpatial = zeros(nX, nY);
-            allBranchOrient = zeros(nBranches + 1, nOrient);
-            allBranchSpatial = zeros(nBranches + 1, nX, nY);
-            branchRFFrac = zeros(nOrient, nX, nY);
-            branchRMax = zeros(nBranches + 1, 1);
+            allBranchOrient = zeros(nBranches + 2, nOrient);
+            allBranchSpatial = zeros(nBranches + 2, nX, nY);
+            branchRMax = zeros(nBranches + 2, 1);
             branchSize1 = zeros(nBranches + 1, 1);
             branchSize2 = zeros(nBranches + 1, 1);
             branchIOrient = zeros(nBranches + 1, 1);
             branchPref = zeros(nBranches + 1, 1);
             branchVector = zeros(nBranches + 1, 2);
 
-            for iBranch = 1:nBranches
+            for iBranch = 1:(nBranches+1)
                 orientTuning = zeros(nOrient, 1);
                 spatialRF = zeros(nX, nY);
 
@@ -769,7 +773,6 @@ classdef ModelNeuron
                         spatialRF(iX, iY) = sum(args.branchSpikeHist(iBranch, iX, iY, :), 'all');
                     end
                 end
-                % ^^ DEBUG: makes sense until here
                 allBranchOrient(iBranch, :) = orientTuning ./ cumulOrient;
                 allBranchSpatial(iBranch, :, :) = spatialRF ./ cumulSpatial;
 
@@ -792,19 +795,19 @@ classdef ModelNeuron
             compositeSpatial = compositeSpatial ./ args.modelNeuron.dendParams.nBranches;
 
             % TODO: this makes values really small
-            allBranchOrient(nBranches + 1, :) = ...
+            allBranchOrient(nBranches + 2, :) = ...
                 compositeOrient ./ cumulOrient;
-            allBranchSpatial(nBranches + 1, :, :) = ...
+            allBranchSpatial(nBranches + 2, :, :) = ...
                 compositeSpatial ./ cumulSpatial;
+            % also need to do BranchRMax??
 
             % % DEBUG/CHECK - remove nan values
             % allBranchOrient(isnan(allBranchOrient)) = 0;
             % allBranchSpatial(isnan(allBranchSpatial)) = 0;
 
-            for iBranch = 1:(nBranches + 1)
+            for iBranch = 1:(nBranches + 2)
                 spatialRF = allBranchSpatial(iBranch, :, :);
                 
-                % DEBUG: RFSIZE1 looks correct
                 RFSize1 = sum(spatialRF, 'all') / max(spatialRF, [], 'all');
                 % if isnan(RFSize1) RFSize1 = 0; end % TODO: should this ever be NaN
                 branchSize1(iBranch) = RFSize1;
