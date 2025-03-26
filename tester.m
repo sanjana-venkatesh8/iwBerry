@@ -31,24 +31,24 @@ modelNeuronObj = ModelNeuron(dendParams=dendParamsDefault, stimParams=stimuliPar
 toc % print elapsed time
 
 %% GRAPHICS
-iBranch = 10; % randi(stimuliParamsObj.nDendRecord);
-iSyn = 10; % randi(dendParams4Obj.branchSize);
-tau = 150;
-nG = NeuronGraphics(modelNeuronObj, resultsBefore, resultsPlast, resultsAfter, resultsRFBefore, resultsRFAfter);
-
-nG.layout1()
-nG.layout2(iBranch)
-nG.layout3()
-nG.layout4(iBranch, dendParamsDefault.branchGLeak, tau)
-% nG.layout5(iBranch, iSyn, dendParams3Obj.branchGLeak);
-nG.layout7()
-
-% calcLoss()
-fieldSize = stimuliParamsObj.nX * stimuliParamsObj.nY;
-loss = 2 * sum(1 - resultsRFAfter.branchIOrient, 'all');% + ...
-    % 1/(fieldSize) * sum(fieldSize - resultsRFAfter.branchSize1(1:dendParams4Obj.nBranches), 'all');
-loss = loss / dendParamsDefault.nBranches;
-fprintf("Loss = %f\n", loss);
+% iBranch = 10; % randi(stimuliParamsObj.nDendRecord);
+% iSyn = 10; % randi(dendParams4Obj.branchSize);
+% tau = 150;
+% nG = NeuronGraphics(modelNeuronObj, resultsBefore, resultsPlast, resultsAfter, resultsRFBefore, resultsRFAfter);
+% 
+% nG.layout1()
+% nG.layout2(iBranch)
+% nG.layout3()
+% nG.layout4(iBranch, dendParamsDefault.branchGLeak, tau)
+% % nG.layout5(iBranch, iSyn, dendParams3Obj.branchGLeak);
+% nG.layout7()
+% 
+% % calcLoss()
+% fieldSize = stimuliParamsObj.nX * stimuliParamsObj.nY;
+% loss = 2 * sum(1 - resultsRFAfter.branchIOrient, 'all');% + ...
+%     % 1/(fieldSize) * sum(fieldSize - resultsRFAfter.branchSize1(1:dendParams4Obj.nBranches), 'all');
+% loss = loss / dendParamsDefault.nBranches;
+% fprintf("Loss = %f\n", loss);
 
 %% LOSS FUNCTION (2.17.2025)
 % bad performance (8/64 squares covered) - J = 
@@ -60,9 +60,9 @@ fprintf("Loss = %f\n", loss);
 
 % Loss (J) = c * 2(?) * (1 - orientationTuning) + (1 - c) * 1/64 * (64 - RFSize2)
 % c = [0, 1] - weighting factor
-function loss = calcLoss()
-    c = 0.5;
-    fieldSize = stimuliParamsObj.nX * stimuliParamsObj.nY;
-    loss = sum(1 - resultsRFAfter.branchIOrient, 'all') + ...
-        1/(fieldSize) * sum(fieldSize - resultsRFAfter.branchSize1(1:dendParams4Obj.nBranches), 'all');
-end
+% function loss = calcLoss()
+%     c = 0.5;
+%     fieldSize = stimuliParamsObj.nX * stimuliParamsObj.nY;
+%     loss = sum(1 - resultsRFAfter.branchIOrient, 'all') + ...
+%         1/(fieldSize) * sum(fieldSize - resultsRFAfter.branchSize1(1:dendParams4Obj.nBranches), 'all');
+% end
