@@ -22,8 +22,8 @@ classdef DendriteParams
         uRecycle;                                               % threshold internal potential (u) for a spine recycle
         uMax;                                                   % maximum internal potential (u)
         plastTime;                                              % size of plasticity time window when potentiated
-        scaleNMDA % double {mustBeNonpositive}                    % synaptic scaling when there is an NMDA spike
-        scaleNoNMDA % double {mustBeNonnegative}                  % synaptic scaling when no NMDA spike
+        scaleNMDA double {mustBeNonpositive}                    % synaptic scaling when there is an NMDA spike
+        scaleNoNMDA double {mustBeNonnegative}                  % synaptic scaling when no NMDA spike
         branchGLeak;                                            % direct modulation of weights (0) or inhibitory shunting-based control (1)
         initSynGInhib;                                          % initial inhibitory conductance (G) of synapse
         somaPlus {mustBeNonnegative}                            % somatic threshold change if there is a somatic spike
