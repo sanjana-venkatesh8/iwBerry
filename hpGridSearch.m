@@ -52,11 +52,15 @@ for iHP = 1:nHPs
     tic
     fprintf("Grid search on %s (%d/%d)... \t", hps{iHP}, iHP, nHPs)
     parfor iGrid = 1:gridSize
-        hpPrev = hpInitVals;
-        hpPrev(iHP) = hpVals(iHP, iGrid);
-        modelNeuronObj = modelInit(seed, hps, hpPrev);
-        [~, ~, ~, ~, resultsRFAfter, modelNeuronObj] = modelNeuronObj.jens2Plasticity(showOutput=false);
-        lossVals(iHP, iGrid) = calcLoss(modelNeuronObj, resultsRFAfter);
+        try
+            hpPrev = hpInitVals;
+            hpPrev(iHP) = hpVals(iHP, iGrid);
+            modelNeuronObj = modelInit(seed, hps, hpPrev);
+            [~, ~, ~, ~, resultsRFAfter, modelNeuronObj] = modelNeuronObj.jens2Plasticity(showOutput=false);
+            lossVals(iHP, iGrid) = calcLoss(modelNeuronObj, resultsRFAfter);
+        catch
+            warning("Attempted to use hp %s, %1.3f", hps{iHP}, hpVals(iHP, iGrid))
+        end
     end
     toc
 end
