@@ -339,6 +339,7 @@ classdef NeuronGraphics
                         L4Heat = reshape(L4ChooseOrient, 8, 8).';
                         subplot(2, 2, iOrient)
                         hm = heatmap(L4Heat());
+                        set(hm, 'ColorLimits', [0 1])
                         hm.Title = sprintf("L4 neurons with orientation %d", iOrient);
                         % colormap('hot')
                     end

@@ -32,7 +32,7 @@ function modelNeuronObj = modelInit(seed)
     
     modelNeuronObj = ModelNeuron(dendParams=dendParamsDefault, stimParams=stimuliParamsObj, plasticityFlag=4);
 end
-%% DEFINE LOSS CALCULATION FUNCTION
+%% DEFINE LOSS FUNCTION
 % Loss (J) = c * 2 * (1 - orientationTuning) + (1 - c) * 1/64 * (64 - RFSize2)
 % c = [0, 1] - weighting factor [CURRENTLY NOT IN USE]
 

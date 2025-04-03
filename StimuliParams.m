@@ -168,7 +168,7 @@ classdef StimuliParams
             barYLoc = zeros(stimParams.barLength, ...
                 stimParams.scanLength); % stores y location of each point in bar at each step of scan 
 
-            isNoiseImage = (rand() < stimParams.propNoiseScan);
+            isNoiseImage = (rand() < stimParams.propNoiseScan); % DEBUG 3/31: add this in
             if not(isNoiseImage)
                 direction = 2 * randi(2) - 3; % set random scan direction (-1 or 1)
                 orientation = randi(stimParams.nOrient); % set random orientation of bar ([1, nOrient])
@@ -274,12 +274,15 @@ classdef StimuliParams
 
             % TODO: ADD THIS BACK IN
             % Add noise to scan.
-            % 1. <numNoNoiseL4> neurons will not have uniform noise added.
-            %    For a non-pure-noise image, this includes the bar plus a
-            %    Poisson-distributed number of additional 'OFF' L4 neurons.
+            % 1. <numNoNoiseL4> neurons (out of 256) will NOT have uniform 
+            %    noise added. For a non-pure-noise image, this includes the 
+            %    bar plus a Poisson-distributed number of additional 'OFF' 
+            %    L4 neurons.
             % 2. Of the noise-added neurons, set <nL4ExactNoise> to 'ON' (1).
             % numNoNoiseL4 = not(isNoiseImage) * stimParams.barLength + ...
             %     poissrnd(stimParams.nL4PoissNoise);
+            % if numNoNoiseL4 > 256 numNoNoiseL4 = 256; end
+            % 
             % if showOutput
             %     fprintf("Number of non-noisy L4 neurons = %d\n", numNoNoiseL4);
             % end
@@ -288,7 +291,7 @@ classdef StimuliParams
             % 
             %     [L4Sorted1, iSort1] = sort(L4Activity(:, iScan), 'descend'); % if a bar was created, put those entries at the front of the array
             % 
-            %     iNoisyL4 = (1 + numNoNoiseL4):size(L4Sorted1); % indices of noise-added L4 neurons
+            %     iNoisyL4 = (1 + numNoNoiseL4):size(L4Sorted1, 1); % indices of noise-added L4 neurons
             %     L4Sorted1(iNoisyL4) = L4Sorted1(iNoisyL4) + 0.9 * rand(size(iNoisyL4)).'; % add noise to L4 neurons
             % 
             %     [L4Sorted2, iSort2] = sort(L4Sorted1, 'descend'); % resort to group the noisiest neurons on the right
@@ -299,6 +302,11 @@ classdef StimuliParams
             % 
             %     L4Activity(iSort2, iScan) = L4Sorted2; % unsort the L4 neurons to their original indices
             % end
+
+            % SANJANA: add noise indiscriminately to neurons
+            % L4Activity = L4Activity + 0 * randn(size(L4Activity)); % add Gaussian noise
+            % L4Activity(L4Activity < 0) = 0;
+            % L4Activity(L4Activity > 1) = 1;
 
             % TODO: return orientation?
         end

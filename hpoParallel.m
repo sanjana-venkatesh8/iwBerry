@@ -8,10 +8,11 @@
 %       - somatic parameters: backpropAP
 
 nGDSteps = 40; % number of gradient descent steps
-a = 0.01; % gradient descent learning rate
-b = 0.01; % fractional size of hyperparameter perturbation when calculating gradient
+a = 10^-9; % gradient descent learning rate
+b = 10^-5;%5 * 10^-6; % fractional size of hyperparameter perturbation when calculating gradient
 
-hps = {'duPotent'; 'duDepress'; 'duDecay'; 'duBaseline'; 'scaleNMDA'; 'scaleNoNMDA'}; % hyperparameters to tune
+% hps = {'duPotent'; 'duDepress'; 'duDecay'; 'duBaseline'; 'scaleNMDA'; 'scaleNoNMDA'}; % hyperparameters to tune
+hps = {'duPotent'; 'duDepress'; 'duDecay'}; % DEBUG
 %% INITIALIZE DEFAULT DENDRITE MODEL
 function modelNeuronObj = modelInit(seed, hps, hpPrev)
     rng(seed, "twister"); % this needs to be reinitialized every time to keep results reproducible
@@ -27,7 +28,7 @@ function modelNeuronObj = modelInit(seed, hps, hpPrev)
     
     stimuliParamsObj = StimuliParams(nX=8, nY=8, nOrient=4, barLength=4, scanLength=4, ...
         nL4ExactNoise=0, nL4PoissNoise=0, propNoiseScan=0, ...
-        nTestRepeats=0, nTestInst=1000, nTrainInst=10000, ...
+        nTestRepeats=0, nTestInst=2500, nTrainInst=2500, ...
         nDendRecord=dendParamsDefault.nBranches, recordingTimeInterval=1, isFoldiak=false, isWraparound=0);
     
     modelNeuronObj = ModelNeuron(dendParams=dendParamsDefault, stimParams=stimuliParamsObj, plasticityFlag=4);
@@ -38,22 +39,22 @@ function modelNeuronObj = modelInit(seed, hps, hpPrev)
         end
     end
 end
-%% DEFINE LOSS FUNCTION
-% Loss (J) = c * 2 * (1 - orientationTuning) + (1 - c) * 1/64 * (64 - RFSize2)
-% c = [0, 1] - weighting factor [CURRENTLY NOT IN USE]
-
-function loss = calcLoss(mN, resultsRFAfter)
-    arguments
-        mN ModelNeuron
-        resultsRFAfter RFResults
-    end
-
-    % c = 0.5;
-    fieldSize = mN.stimParams.nX * mN.stimParams.nY;
-    loss = sum(1 - rmmissing(resultsRFAfter.branchIOrient), 'all') + ...
-        1/(fieldSize) * sum(fieldSize - rmmissing(resultsRFAfter.branchSize1(1:mN.dendParams.nBranches)), 'all');
-    % fprintf("DEBUG, Loss = %f\nDEBUG, # of branches with NaN tuning: %d.\n", loss, sum(isnan(resultsRFAfter.branchIOrient), 'all'))
-end
+% %% DEFINE LOSS FUNCTION
+% % Loss (J) = c * 2 * (1 - orientationTuning) + (1 - c) * 1/64 * (64 - RFSize2)
+% % c = [0, 1] - weighting factor [CURRENTLY NOT IN USE]
+% 
+% function loss = calcLoss(mN, resultsRFAfter)
+%     arguments
+%         mN ModelNeuron
+%         resultsRFAfter RFResults
+%     end
+% 
+%     % c = 0.5;
+%     fieldSize = mN.stimParams.nX * mN.stimParams.nY;
+%     loss = sum(1 - rmmissing(resultsRFAfter.branchIOrient), 'all') + ...
+%         1/(fieldSize) * sum(fieldSize - rmmissing(resultsRFAfter.branchSize1(1:mN.dendParams.nBranches)), 'all');
+%     % fprintf("DEBUG, Loss = %f\nDEBUG, # of branches with NaN tuning: %d.\n", loss, sum(isnan(resultsRFAfter.branchIOrient), 'all'))
+% end
 %% GRADIENT DESCENT
 JRecord = NaN(nGDSteps ,1); % value of loss (J) at each GD step
 JGradRecord = NaN(nGDSteps, size(hps, 1)); % value of loss gradient at each GD step
@@ -85,10 +86,11 @@ for iStep = 1:nGDSteps
     end
 
     % run model with plasticity and store loss
-    fprintf("\tGD Step %d, Calculating loss J0\n", iStep)
+    fprintf("\tGD Step %d, Calculating loss J0", iStep)
     [~, ~, ~, ~, resultsRFAfter, modelNeuronObj] = modelNeuronObj.jens2Plasticity(showOutput=false);
     J0 = calcLoss(modelNeuronObj, resultsRFAfter);
     JRecord(iStep) = J0;
+    fprintf(" = %1.3f\n", J0)
 
     % numerically calculate gradient by perturbing each of the hyperparameters
     parfor iHP = 1:size(hps, 1)
@@ -101,17 +103,25 @@ for iStep = 1:nGDSteps
         % perturb the HP
         try
             modelNeuronObj.dendParams.(hps{iHP}) = (1 + b) * hpRecord(iStep, iHP);
+            delta = abs(b * hpRecord(iStep, iHP)); % always a positive perturbation, but HP value might be negative
         catch
             warning("Tried to make %s = %1.3f [illegal]. Leaving value unchanged.", hps{iHP}, (1 + b) * hpRecord(iStep, iHP));
+            delta = 1; % DEBUG - delta is not set.
         end
 
         % run model and calculate loss
-        [~, ~, ~, ~, resultsRFAfter, modelNeuronObj] = modelNeuronObj.jens2Plasticity(showOutput=false);
+        [resultsBefore, ~, resultsAfter, ~, resultsRFAfter, modelNeuronObj] = modelNeuronObj.jens2Plasticity(showOutput=false);
         Ji = calcLoss(modelNeuronObj, resultsRFAfter);
+        spikeDiff = abs(sum(resultsAfter.NMDASpikesPerTimestep - resultsBefore.NMDASpikesPerTimestep, "all"));
+        totalBits = size(resultsAfter.NMDASpikesPerTimestep, 1) * modelNeuronObj.dendParams.nBranches;
+        fprintf("\tGD Step %d, # of bits flipped: %d/%d = %1.3f %% \n", iStep, spikeDiff, totalBits, 100*spikeDiff/totalBits)
 
         % store value of partial derivative with respect to this
         % hyperparameter
-        JGradRecord(iStep, iHP) = Ji - J0;
+        % goes to inf
+        JGradRecord(iStep, iHP) = (Ji - J0) / delta;
+        % DEBUG
+        fprintf("Ji %s = %1.3f. Jgrad = %1.3f\n", hps{iHP}, Ji, JGradRecord(iStep, iHP));
     end
 
     % GD update: hp_(i+1) <= hp_i - a * grad(hp_i). Store HP values at this
@@ -131,7 +141,7 @@ for iStep = 1:nGDSteps
     end
     hpRecord(iStep + 1, :) = hpNext;
 
-    fprintf("GD Step %d: Loss = %1.3f, ", iStep, J0)
+    fprintf("GD Step %d: ", iStep)
     toc
 end
 

@@ -45,7 +45,7 @@ hps = {'duPotent'; 'duDepress'; 'duDecay'; 'duBaseline'; 'scaleNMDA'; 'scaleNoNM
 hpInitVals = [3 -0.3 -0.3 0 -0.1 0.003].';
 nHPs = numel(hps);
 
-hpVals = hpInitVals * (1 + stepSize) .^ (0:gridSize);
+hpVals = hpInitVals * (1 + stepSize) .^ ((0:gridSize)-gridSize);
 lossVals = nan(nHPs, gridSize + 1);
 
 for iHP = 1:nHPs
