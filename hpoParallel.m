@@ -12,7 +12,7 @@ a = 10^-9; % gradient descent learning rate
 b = 10^-5;%5 * 10^-6; % fractional size of hyperparameter perturbation when calculating gradient
 
 % hps = {'duPotent'; 'duDepress'; 'duDecay'; 'duBaseline'; 'scaleNMDA'; 'scaleNoNMDA'}; % hyperparameters to tune
-hps = {'duPotent'; 'duDepress'; 'duDecay'}; % DEBUG
+hps = {'duDepress'};%; 'duDepress'; 'duDecay'}; % DEBUG
 %% INITIALIZE DEFAULT DENDRITE MODEL
 function modelNeuronObj = modelInit(seed, hps, hpPrev)
     rng(seed, "twister"); % this needs to be reinitialized every time to keep results reproducible
@@ -40,7 +40,7 @@ function modelNeuronObj = modelInit(seed, hps, hpPrev)
     end
 end
 % %% DEFINE LOSS FUNCTION
-% % Loss (J) = c * 2 * (1 - orientationTuning) + (1 - c) * 1/64 * (64 - RFSize2)
+% % Loss (J) = 2 * (1 - orientationTuning) + 1/64 * (64 - RFSize2)
 % % c = [0, 1] - weighting factor [CURRENTLY NOT IN USE]
 % 
 % function loss = calcLoss(mN, resultsRFAfter)
@@ -49,7 +49,7 @@ end
 %         resultsRFAfter RFResults
 %     end
 % 
-%     % c = 0.5;
+%     
 %     fieldSize = mN.stimParams.nX * mN.stimParams.nY;
 %     loss = sum(1 - rmmissing(resultsRFAfter.branchIOrient), 'all') + ...
 %         1/(fieldSize) * sum(fieldSize - rmmissing(resultsRFAfter.branchSize1(1:mN.dendParams.nBranches)), 'all');

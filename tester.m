@@ -2,7 +2,7 @@
 rng(0, "twister");
 tic % start stopwatch to time model execution
 
-dendParams = dendParamConfig.dendParamsOpt;
+dendParams = dendParamConfig.dendParamsGridSearch;
 
 stimuliParamsObj = StimuliParams(nX=8, nY=8, nOrient=4, barLength=4, scanLength=4, ...
     nL4ExactNoise=0, nL4PoissNoise=0, propNoiseScan=0, ...
@@ -16,7 +16,9 @@ modelNeuronObj = ModelNeuron(dendParams=dendParams, stimParams=stimuliParamsObj,
 
 toc % print elapsed time
 
-% GRAPHICS
+fprintf("Loss = %1.3f\n", calcLoss(modelNeuronObj, resultsRFAfter));
+
+%% GRAPHICS
 iBranch = 10; % randi(stimuliParamsObj.nDendRecord);
 iSyn = 10; % randi(dendParams4Obj.branchSize);
 tau = 150;
@@ -44,11 +46,11 @@ nG = NeuronGraphics(modelNeuronObj, resultsBefore, resultsPlast, resultsAfter, r
 
 nG.plotStimulus("iStim",1, "isTrain",true, "isPlotWithOrientation",true)
 %% calcLoss()
-fieldSize = stimuliParamsObj.nX * stimuliParamsObj.nY;
-loss = 2 * sum(1 - resultsRFAfter.branchIOrient, 'all');% + ...
-    % 1/(fieldSize) * sum(fieldSize - resultsRFAfter.branchSize1(1:dendParams4Obj.nBranches), 'all');
-loss = loss / dendParams.nBranches;
-fprintf("Loss = %f\n", loss);
+% fieldSize = stimuliParamsObj.nX * stimuliParamsObj.nY;
+% loss = 2 * sum(1 - resultsRFAfter.branchIOrient, 'all');% + ...
+%     % 1/(fieldSize) * sum(fieldSize - resultsRFAfter.branchSize1(1:dendParams4Obj.nBranches), 'all');
+% loss = loss / dendParams.nBranches;
+% fprintf("Loss = %f\n", loss);
 
 %% LOSS FUNCTION (2.17.2025)
 % bad performance (8/64 squares covered) - J = 

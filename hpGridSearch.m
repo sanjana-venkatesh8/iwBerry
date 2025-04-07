@@ -1,16 +1,16 @@
 %%
-function loss = calcLoss(mN, resultsRFAfter)
-    arguments
-        mN ModelNeuron
-        resultsRFAfter RFResults
-    end
-
-    % c = 0.5;
-    fieldSize = mN.stimParams.nX * mN.stimParams.nY;
-    loss = sum(1 - rmmissing(resultsRFAfter.branchIOrient), 'all') + ...
-        1/(fieldSize) * sum(fieldSize - rmmissing(resultsRFAfter.branchSize1(1:mN.dendParams.nBranches)), 'all');
-    % fprintf("DEBUG, Loss = %f\nDEBUG, # of branches with NaN tuning: %d.\n", loss, sum(isnan(resultsRFAfter.branchIOrient), 'all'))
-end
+% function loss = calcLoss(mN, resultsRFAfter)
+%     arguments
+%         mN ModelNeuron
+%         resultsRFAfter RFResults
+%     end
+% 
+%     % c = 0.5;
+%     fieldSize = mN.stimParams.nX * mN.stimParams.nY;
+%     loss = sum(1 - rmmissing(resultsRFAfter.branchIOrient), 'all') + ...
+%         1/(fieldSize) * sum(fieldSize - rmmissing(resultsRFAfter.branchSize1(1:mN.dendParams.nBranches)), 'all');
+%     % fprintf("DEBUG, Loss = %f\nDEBUG, # of branches with NaN tuning: %d.\n", loss, sum(isnan(resultsRFAfter.branchIOrient), 'all'))
+% end
 %% INITIALIZE DEFAULT DENDRITE MODEL - copied from hpoParallel.m
 function modelNeuronObj = modelInit(seed, hps, hpPrev)
     rng(seed, "twister"); % this needs to be reinitialized every time to keep results reproducible
@@ -24,9 +24,11 @@ function modelNeuronObj = modelInit(seed, hps, hpPrev)
         scaleNMDA=-0.1, scaleNoNMDA=0.003, branchGLeak=1, ...
         initSynGInhib=4, somaPlus=0.1, somaMinus=-0.005, somaGLeak=0.1, initSomaGInhib=0.5);
     
+    % CHANGED number of test/train instances - increase test size to 5k so loss is
+    % smoother, decrease train size to 2.5k for time efficiency
     stimuliParamsObj = StimuliParams(nX=8, nY=8, nOrient=4, barLength=4, scanLength=4, ...
         nL4ExactNoise=0, nL4PoissNoise=0, propNoiseScan=0, ...
-        nTestRepeats=0, nTestInst=2500, nTrainInst=2500, ...
+        nTestRepeats=0, nTestInst=5000, nTrainInst=2500, ...
         nDendRecord=dendParamsDefault.nBranches, recordingTimeInterval=1, isFoldiak=false, isWraparound=0);
     
     modelNeuronObj = ModelNeuron(dendParams=dendParamsDefault, stimParams=stimuliParamsObj, plasticityFlag=4);
@@ -40,12 +42,14 @@ end
 %%
 seed = 0;
 stepSize = 0.01; % fractional jump
-gridSize = 100;
-hps = {'duPotent'; 'duDepress'; 'duDecay'; 'duBaseline'; 'scaleNMDA'; 'scaleNoNMDA'}; % hyperparameters to tune
-hpInitVals = [3 -0.3 -0.3 0 -0.1 0.003].';
+gridSize = 500;
+hps = {'scaleNMDA'};
+hpInitVals = -0.1;
+% hps = {'duPotent'; 'duDepress'; 'duDecay'; 'duBaseline'; 'scaleNMDA'; 'scaleNoNMDA'}; % hyperparameters to tune
+% hpInitVals = [3 -0.3 -0.3 0 -0.1 0.003].';
 nHPs = numel(hps);
-
-hpVals = hpInitVals * (1 + stepSize) .^ ((0:gridSize)-gridSize);
+%%
+hpVals = hpInitVals * (1 + stepSize) .^ ((0:gridSize)-floor(gridSize/2));
 lossVals = nan(nHPs, gridSize + 1);
 
 for iHP = 1:nHPs
@@ -59,7 +63,7 @@ for iHP = 1:nHPs
             [~, ~, ~, ~, resultsRFAfter, modelNeuronObj] = modelNeuronObj.jens2Plasticity(showOutput=false);
             lossVals(iHP, iGrid) = calcLoss(modelNeuronObj, resultsRFAfter);
         catch
-            warning("Attempted to use hp %s, %1.3f", hps{iHP}, hpVals(iHP, iGrid))
+            warning("Attempted to use hp %s = %1.3f", hps{iHP}, hpVals(iHP, iGrid))
         end
     end
     toc
@@ -73,6 +77,8 @@ for iHP = 1:nHPs
     hold on
     plot(hpVals(iHP, :), lossVals(iHP, :))
     scatter(hpVals(iHP, :), lossVals(iHP, :), "filled", Color='red');
+    % plot(hpValsPos(iHP, :), lossValsPos(iHP, :))
+    % scatter(hpValsPos(iHP, :), lossValsPos(iHP, :), "filled", Color='blue');
     title(sprintf("%s", hps{iHP}));
     xlabel("HP value")
     ylabel("Loss")
