@@ -16,6 +16,7 @@ classdef ModelNeuron
         nSynRecycles;
         synInputWMax;
         areBranchesLeaky logical
+        rngRecycle;
 
         % TODO: make 'results' instance variables
     end
@@ -68,6 +69,7 @@ classdef ModelNeuron
                 modelNeuron.synInputWMax = Constants.vExc ./ (1 + modelNeuron.dendParams.branchGLeak + modelNeuron.synGInhib);
             end
             
+            modelNeuron.rngRecycle = RandStream.create("twister", seed=randi(10000)); % decouple spine recycling random numbers from other randomness (useful when noise is frozen)
         end
 
         function [resultsBefore, resultsPlast, resultsAfter, resultsRFBefore, resultsRFAfter, modelNeuron] ...
@@ -506,38 +508,6 @@ classdef ModelNeuron
                 synWeight = 1 ./ (1 + exp(-1 * modelNeuron.synUInput));
             end
 
-            % % FOR BERRY TESTING ONLY
-            % % a vertical bar with:
-            % orientation = 3;
-            % xAtScanStep = [4 4 4 4] + 1;
-            % yAtScanStep = [1 2 3 4] + 1;
-            % 
-            % %Venkatesh L4 indexing
-            % % % find index of the beginning of the set of L4 neurons corresponding to this bar's orientation
-            % % iOrientedL4 = (orientation - 1) * modelNeuron.stimParams.nX * modelNeuron.stimParams.nY;
-            % % % set the corresponding L4 neurons to ON
-            % % iL4 = iOrientedL4 + ((yAtScanStep - 1) * modelNeuron.stimParams.nX + xAtScanStep);
-            % 
-            % iL4 = orientation + modelNeuron.stimParams.nOrient * ((yAtScanStep - 1) * modelNeuron.stimParams.nX + (xAtScanStep - 1));
-            % 
-            % args.stimBarL4Activity = zeros(modelNeuron.stimParams.nL4Inputs, 1);
-            % args.stimBarL4Activity(iL4) = 1;
-            % 
-            % modelNeuron.synL4Inputs = readmatrix("berryDebug/Jens_input_L4_save0.txt");
-            % modelNeuron.synL4Inputs = modelNeuron.synL4Inputs + 1; % correct off-by-one indexing
-            % 
-            % % modelNeuron.synL4Inputs = readmatrix("b2VL4Indices.txt");
-            % modelNeuron.synUInput = readmatrix("berryDebug/Jens_input_u_save0.txt");
-            % % synWeight = modelNeuron.synInputWMax ./ ...
-            % %         (1 + exp (-1 * modelNeuron.synUInput)); % TODO: THIS IS FOR NONLEAKY
-            % 
-            % modelNeuron.synGInhib = ...
-            %         Constants.vExc ./ modelNeuron.synInputWMax ...
-            %         - 1 - modelNeuron.dendParams.branchGLeak;
-            % % synWeight encodes the conductance of each synapse
-            % synWeight = 1 ./ (1 + exp(-1 * modelNeuron.synUInput));
-            % % END BERRY TESTING BLOCK
-
             % Set synapse activity based on which L4 neurons are turned ON
             % by the input.
             synActivity = args.stimBarL4Activity(modelNeuron.synL4Inputs);
@@ -657,11 +627,13 @@ classdef ModelNeuron
 
                             % Randomly assign a new input L4 neuron
                             modelNeuron.synL4Inputs(iBranch, iSyn) = ...
-                                randi(256);
+                                randi(modelNeuron.rngRecycle, 256);
+                                 % randi(256);
                             % Randomly set a new input potential
                             modelNeuron.synUInput(iBranch, iSyn) = ...
                                 modelNeuron.dendParams.weightsRange * ...
-                                (2 * rand() - 1); 
+                                (2 * rand(modelNeuron.rngRecycle) - 1); 
+                                % (2 * rand() - 1); 
                             % Update the count of recycled synapses
                             modelNeuron.nSynRecycles(iBranch, iSyn) = ...
                                 modelNeuron.nSynRecycles(iBranch, iSyn) + 1;

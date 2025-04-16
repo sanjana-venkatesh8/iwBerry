@@ -1,0 +1,2383 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2820
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;\f1\fmodern\fcharset0 Courier-Bold;}
+{\colortbl;\red255\green255\blue255;\red190\green0\blue146;\red179\green179\blue179;\red19\green142\blue2;
+\red251\green0\blue7;\red0\green0\blue255;\red13\green99\blue98;\red180\green58\blue4;\red251\green2\blue7;
+\red179\green179\blue179;\red205\green205\blue205;\red255\green255\blue10;\red133\green0\blue175;\red102\green0\blue141;
+\red127\green0\blue128;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c80000\c0\c63922;\cssrgb\c75294\c75294\c75294;\cssrgb\c0\c61176\c0;
+\cssrgb\c100000\c0\c0;\cssrgb\c0\c0\c100000;\cssrgb\c0\c45882\c45882;\cssrgb\c76471\c30588\c0;\cssrgb\c100000\c14913\c0;
+\csgray\c75407;\csgray\c84070;\cssrgb\c99942\c98555\c0;\cssrgb\c59982\c16236\c74118;\cssrgb\c48169\c12809\c62212;
+\cssrgb\c57919\c12801\c57269;\csgray\c0\c0;}
+\margl1440\margr1440\vieww28600\viewh17760\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs24 \cf2 \expnd0\expndtw0\kerning0
+#pragma\cf3  \cf0 TextEncoding\cf3  \cf0 =\cf3  \cf4 "UTF-8"\cf0 \
+\cf2 #pragma\cf3  \cf0 rtGlobals=3\cf3 		\cf5 //\cf3  \cf5 Use\cf3  \cf5 modern\cf3  \cf5 global\cf3  \cf5 access\cf3  \cf5 method\cf3  \cf5 and\cf3  \cf5 strict\cf3  \cf5 wave\cf3  \cf5 access.\cf0 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 Menu\cf3  \cf4 "Macros"\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf4 "MakeGlobals_Jens_Dendrites"\cf0 \
+\cf3 	\cf4 "Jens1_Stats_Test\cf3  \cf4 /1"\cf0 \
+\cf3 	\cf4 "Jens2_Plasticity\cf3  \cf4 /2"\cf0 \
+\cf3 	\cf4 "Jens3_Display_RF\cf3  \cf4 /3"\cf0 \
+\cf3 	\cf4 "Jens4_Display_Plasticity\cf3  \cf4 /4"\cf0 \
+\cf3 	\cf4 "Archive_Data\cf3  \cf4 /9"\cf0 \
+\cf3 	\cf4 "Unpack_StimID\cf3  \cf4 /0"\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 End\cf0 \
+\
+\cf6 Macro\cf3  \cf0 MakeGlobals_Jens_Dendrites\cf3  \cf0 ()\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf3 	\cf5 Macro\cf3  \cf5 Jens_stats1\cf0 \
+\cf3 	\cf6 Variable\cf0 /G\cf3  \cf0 g_num_synapses\cf3  \cf0 ,\cf3  \cf0 g_num_dendrites\cf3  \cf0 ,\cf3  \cf0 g_noise_synapse\cf3  \cf0 ,\cf3  \cf0 g_noise_branch\
+\cf3 	\cf6 Variable\cf0 /G\cf3  \cf0 g_branch_size\cf3  \cf0 ,\cf3  \cf0 g_branch_thresh\cf3  \cf0 ,\cf3  \cf0 g_soma_thresh\cf3  \cf0 ,\cf3  \cf0 g_num_bars\cf3  \cf0 ,\cf3  \cf0 g_bar_length\cf3  \cf0 ,\cf3  \cf0 g_scan_length\
+\cf3 	\cf0 \
+\cf5 //\cf3 	\cf5 Macro\cf3  \cf5 Jens2_Plasticity\cf0 \
+\cf3 	\cf6 String\cf0 /G\cf3  \cf0 g_params_dendrite_wv\cf3  \cf0 ,\cf3  \cf0 g_params_stimulus_wv\cf3  \cf0 ,\cf3  \cf0 g_names_wv\cf3  \cf0 ,\cf3  \cf0 g_suffix_str\
+\cf3 	\cf6 Variable\cf0 /G\cf3  \cf0 g_plasticity_option\cf3  \cf0 ,\cf3  \cf0 g_random_option\
+\cf3 	\cf0 \
+\cf5 //\cf3 	\cf5 Window\cf3  \cf5 Jens3_Display_RF\cf0 \
+\cf3 	\cf6 Variable\cf0 /G\cf3  \cf0 g_branch\cf3  \cf0 ,\cf3  \cf0 g_soma_flag\
+\cf3 	\cf6 String\cf0 /G\cf3  \cf0 g_condition_str\cf3  \cf0 ,\cf3  \cf0 g_extra_str\
+\cf3 	\cf0 \
+\cf5 //\cf3 	\cf5 Window\cf3  \cf5 Jens4_Display_Plasticity\cf0 \
+\cf3 	\cf6 Variable\cf0 /G\cf3  \cf0 g_branch0\cf3  \cf0 ,\cf3  \cf0 g_synapse\cf3  \cf0 ,\cf3  \cf0 g_tau\cf3  \cf0 ,\cf3  \cf0 g_rate_target\
+\cf3 	\cf6 String\cf0 /G\cf3  \cf0 g_extra2_str\
+\cf3 	\cf0 \
+\cf5 //\cf3 	\cf5 Macro\cf3  \cf5 Archive_Data\cf0 \
+\cf3 	\cf6 Variable\cf0 /G\cf3  \cf0 g_archive_option\
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 EndMacro\cf0 \
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 Macro\cf3  \cf5 does some calculations of how many NMDA spikes you expect with random initial synaptic connections\cf0 \
+\cf5 //\cf3 		\cf5 this macro is somewhat superfluous now\cf3  \cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Macro\cf3  \cf0 Jens1_Stats_Test\cf3  \cf0 (num_synapses\cf3  \cf0 ,\cf3  \cf0 num_dendrites\cf3  \cf0 ,\cf3  \cf0 noise_synapse\cf3  \cf0 ,\cf3  \cf0 noise_branch\cf3  \cf0 ,\cf3  \cf0 branch_size\cf3  \cf0 ,\cf3  \cf0 branch_thresh\cf3  \cf0 ,\cf3  \cf0 soma_thresh\cf3  \cf0 ,\cf3  \cf0 num_bars\cf3  \cf0 ,\cf3  \cf0 bar_length\cf3  \cf0 ,\cf3  \cf0 scan_length)\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 Variable\cf3  \cf0 num_synapses\cf3  \cf0 =\cf3  \cf0 g_num_synapses\cf3  \cf0 ,\cf3  \cf0 num_dendrites\cf3  \cf0 =\cf3  \cf0 g_num_dendrites\
+\cf3 	\cf6 Variable\cf3  \cf0 noise_synapse\cf3  \cf0 =\cf3  \cf0 g_noise_synapse\cf3  \cf0 ,\cf3  \cf0 noise_branch\cf3  \cf0 =\cf3  \cf0 g_noise_branch\
+\cf3 	\cf6 Variable\cf3  \cf0 branch_size\cf3  \cf0 =\cf3  \cf0 g_branch_size\cf3  \cf0 ,\cf3  \cf0 branch_thresh\cf3  \cf0 =\cf3  \cf0 g_branch_thresh\cf3  \cf0 ,\cf3  \cf0 soma_thresh\cf3  \cf0 =\cf3  \cf0 g_soma_thresh\
+\cf3 	\cf6 Variable\cf3  \cf0 num_bars\cf3  \cf0 =\cf3  \cf0 g_num_bars\cf3  \cf0 ,\cf3  \cf0 bar_length\cf3  \cf0 =\cf3  \cf0 g_bar_length\cf3  \cf0 ,\cf3  \cf0 scan_length\cf3  \cf0 =\cf3  \cf0 g_scan_length\
+\cf3 	\cf6 Prompt\cf3  \cf0 num_synapses\cf3  \cf0 ,\cf3  \cf4 "Total\cf3  \cf4 number\cf3  \cf4 of\cf3  \cf4 synapses\cf3  \cf4 on\cf3  \cf4 a\cf3  \cf4 neuron:"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 num_dendrites\cf3  \cf0 ,\cf3  \cf4 "Number\cf3  \cf4 of\cf3  \cf4 basal\cf3  \cf4 dendrites\cf3  \cf4 per\cf3  \cf4 neuron:"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 noise_synapse\cf3  \cf0 ,\cf3  \cf4 "Noise\cf3  \cf4 per\cf3  \cf4 synaptic\cf3  \cf4 transmission:"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 noise_branch\cf3  \cf0 ,\cf3  \cf4 "Noise\cf3  \cf4 in\cf3  \cf4 branch\cf3  \cf4 threshold:"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 branch_size\cf3  \cf0 ,\cf3  \cf4 "Number\cf3  \cf4 of\cf3  \cf4 synapses\cf3  \cf4 per\cf3  \cf4 dendritic\cf3  \cf4 branch:"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 branch_thresh\cf3  \cf0 ,\cf3  \cf4 "Threshold\cf3  \cf4 for\cf3  \cf4 a\cf3  \cf4 dendritic\cf3  \cf4 spike:"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 soma_thresh\cf3  \cf0 ,\cf3  \cf4 "Threshold\cf3  \cf4 for\cf3  \cf4 a\cf3  \cf4 somatic\cf3  \cf4 spike:"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 num_bars\cf3  \cf0 ,\cf3  \cf4 "Number\cf3  \cf4 of\cf3  \cf4 bars:"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 bar_length\cf3  \cf0 ,\cf3  \cf4 "Bar\cf3  \cf4 length:"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 scan_length\cf3  \cf0 ,\cf3  \cf4 "Scan\cf3  \cf4 length:"\cf0 \
+\cf3 	\cf7 PauseUpdate\cf3  \cf0 ;\cf3  \cf7 Silent\cf3  \cf0 1\
+\cf3 	\cf0 \
+\cf3 	\cf0 g_num_synapses\cf3  \cf0 =\cf3  \cf0 num_synapses\cf3  \cf0 ;\cf3  \cf0 g_num_dendrites\cf3  \cf0 =\cf3  \cf0 num_dendrites\
+\cf3 	\cf0 g_noise_synapse\cf3  \cf0 =\cf3  \cf0 noise_synapse\cf3  \cf0 ;\cf3  \cf0 g_noise_branch\cf3  \cf0 =\cf3  \cf0 noise_branch\
+\cf3 	\cf0 g_branch_size\cf3  \cf0 =\cf3  \cf0 branch_size;\cf3  \cf0 g_branch_thresh\cf3  \cf0 =\cf3  \cf0 branch_thresh\cf3 	\cf0 ;\cf3  \cf0 g_soma_thresh\cf3  \cf0 =\cf3  \cf0 soma_thresh\
+\cf3 	\cf0 g_num_bars\cf3  \cf0 =\cf3  \cf0 num_bars\cf3  \cf0 ;\cf3  \cf0 g_bar_length\cf3  \cf0 =\cf3  \cf0 bar_length\
+\cf3 	\cf0 \
+\cf3 	\cf0 scan_length\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (scan_length\cf3  \cf0 +\cf3  \cf0 0.5)\cf3 						\cf5 //\cf3 	\cf5 make\cf3  \cf5 sure\cf3  \cf5 'scan_length'\cf3  \cf5 is\cf3  \cf5 an\cf3  \cf5 integer\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (scan_length\cf3  \cf0 <\cf3  \cf0 1)\
+\cf3 		\cf0 scan_length\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (scan_length\cf3  \cf0 >\cf3  \cf0 8)\
+\cf3 		\cf0 scan_length\cf3  \cf0 =\cf3  \cf0 8\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 g_scan_length\cf3  \cf0 =\cf3  \cf0 scan_length\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_synapses_per_dendrite\
+\cf3 	\cf0 num_synapses_per_dendrite\cf3  \cf0 =\cf3  \cf8 ceil\cf0 (num_synapses\cf3  \cf0 /\cf3  \cf0 num_dendrites)\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_synapses_per_dendrite\cf3  \cf0 ,\cf3  \cf0 num_dendrites)\cf3  \cf0 temp_dend_inputs\
+\cf3 	\cf0 temp_dend_inputs\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (0.5\cf3  \cf0 *\cf3  \cf0 256\cf3  \cf0 *\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 enoise\cf0 (1)))\cf3 			\cf5 //\cf3 	\cf5 each\cf3  \cf5 input\cf3  \cf5 is\cf3  \cf5 randomly\cf3  \cf5 from\cf3  \cf5 1\cf3  \cf5 of\cf3  \cf5 256\cf3  \cf5 possible\cf3  \cf5 simple\cf3  \cf5 cells\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_bars)\cf3  \cf0 temp_cell_activity\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf0 temp_cell_spikes\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf7 Make\cf0 /O/N=(num_synapses)\cf3  \cf0 temp_dend_act_hist\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf7 Make\cf0 /O/N=256\cf3  \cf0 temp_L4_input\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 index_bar\cf3  \cf0 ,\cf3  \cf0 index_scan\
+\cf3 	\cf6 Variable\cf3  \cf0 dend_activity\cf3  \cf0 ,\cf3  \cf0 soma_activity\cf3  \cf0 ,\cf3  \cf0 NMDA_spikes\cf3  \cf0 ,\cf3  \cf0 cell_spikes\
+\cf3 	\cf0 \
+\cf3 	\cf0 index_bar\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf6 do\cf0 \
+\cf3 		\cf0 Make_Bar(bar_length\cf3  \cf0 ,\cf3  \cf0 scan_length\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 		\cf0 \
+\cf3 		\cf0 index_scan\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 		\cf6 do\cf0 \
+\cf3 			\cf0 temp_L4_input\cf3  \cf0 =\cf3  \cf0 temp_L4_activity[p][index_scan]\
+\cf3 			\cf0 \
+\cf3 			\cf0 Dendrites_Test\cf3  \cf0 (temp_dend_inputs\cf3  \cf0 ,\cf3  \cf0 temp_L4_input\cf3  \cf0 ,\cf3  \cf0 branch_size\cf3  \cf0 ,\cf3  \cf0 branch_thresh\cf3  \cf0 ,\cf3  \cf0 noise_synapse\cf3  \cf0 ,\cf3  \cf0 noise_branch)\
+\cf3 			\cf0 \
+\cf3 			\cf7 Histogram\cf0 /A/B=2\cf3  \cf0 temp_branch_activity\cf3  \cf0 ,\cf3  \cf0 temp_dend_act_hist\
+\cf3 			\cf0 \
+\cf3 			\cf0 soma_activity\cf3  \cf0 =\cf3  \cf8 sum\cf0 (temp_branch_spike\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf8 inf\cf0 )\
+\cf3 			\cf0 temp_cell_activity[index_bar]\cf3  \cf0 +=\cf3  \cf0 soma_activity\
+\cf3 			\cf0 temp_cell_spikes[index_bar]\cf3  \cf0 +=\cf3  \cf0 (soma_activity\cf3  \cf0 >=\cf3  \cf0 soma_thresh)\
+\cf3 			\cf0 \
+\cf3 			\cf0 index_scan\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 		\cf6 while\cf3  \cf0 (index_scan\cf3  \cf0 <\cf3  \cf0 scan_length)\
+\cf3 		\cf0 \
+\cf3 		\cf0 index_bar\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 	\cf6 while\cf3  \cf0 (index_bar\cf3  \cf0 <\cf3  \cf0 num_bars)\
+\cf3 	\cf0 \
+\cf3 	\cf0 NMDA_spikes\cf3  \cf0 =\cf3  \cf8 sum\cf0 (temp_cell_activity\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf8 inf\cf0 )\
+\cf3 	\cf0 cell_spikes\cf3  \cf0 =\cf3  \cf8 sum\cf0 (temp_cell_spikes\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf8 inf\cf0 )\
+\cf3 		\cf0 \
+\cf3 	\cf7 Wavestats\cf0 /Q\cf3  \cf0 temp_branch_activity\
+\cf5 //\cf3 	\cf5 temp_dend_act_hist\cf3  \cf5 /=\cf3  \cf5 branch_size\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf7 Print\cf3  \cf4 "total\cf3  \cf4 #\cf3  \cf4 NMDA\cf3  \cf4 spikes\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 NMDA_spikes\cf3  \cf0 ,\cf3  \cf4 "total\cf3  \cf4 #\cf3  \cf4 somatic\cf3  \cf4 spikes\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 cell_spikes\
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 EndMacro\cf0 \
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 Macro\cf3  \cf5 takes\cf3  \cf5 in\cf3  \cf5 model\cf3  \cf5 parameters\cf3  \cf5 in\cf3  \cf5 the\cf3  \cf5 format\cf3  \cf5 of\cf3  \cf5 two\cf3  \cf5 parameter\cf3  \cf5 waves\cf0 \
+\cf5 //\cf3 		\cf5 and\cf3  \cf5 it\cf3  \cf5 calls crucial Functions to calculate all of the learning dynamics on the dendrites:\
+//			*** \'91\cf9 Do_Run_BarStim\'92			this is the master function\cf5 \
+//			*** \'91\cf9 Do_Bar_Scan\'92				this generates a set of bar stimuli\cf5 \
+//			*** \'91\cf9 Dendritic_RF_Analyze\'92		analyzes RF properties of branches and soma\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Macro\cf3  \cf0 Jens2_Plasticity\cf3  \cf0 (params_dendrite_wv\cf3  \cf0 ,\cf3  \cf0 params_stimulus_wv\cf3  \cf0 ,\cf3  \cf0 names_wv\cf3  \cf0 ,\cf3  \cf0 suffix_str\cf3  \cf0 ,\cf3  \cf0 dendrite_option\cf3  \cf0 ,\cf3  \cf0 plasticity_option\cf3  \cf0 ,\cf3  \cf0 random_option)\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 String\cf3  \cf0 params_dendrite_wv\cf3  \cf0 =\cf3  \cf0 g_params_dendrite_wv\cf3  \cf0 ,\cf3  \cf0 params_stimulus_wv\cf3  \cf0 =\cf3  \cf0 g_params_stimulus_wv\
+\cf3 	\cf6 String\cf3  \cf0 names_wv\cf3  \cf0 =\cf3  \cf0 g_names_wv\cf3  \cf0 ,\cf3  \cf0 suffix_str\cf3  \cf0 =\cf3  \cf0 g_suffix_str\
+\cf3 	\cf6 Variable\cf3  \cf0 dendrite_option\cf3  \cf0 =\cf3  \cf0 2\
+\cf3 	\cf6 Variable\cf3  \cf0 plasticity_option\cf3  \cf0 =\cf3  \cf0 g_plasticity_option\
+\cf3 	\cf6 Variable\cf3  \cf0 random_option\cf3  \cf0 =\cf3  \cf0 g_random_option\
+\cf3 	\cf6 Prompt\cf3  \cf0 params_dendrite_wv\cf3  \cf0 ,\cf3  \cf4 "Wave\cf3  \cf4 for\cf3  \cf4 dendrite\cf3  \cf4 parameters:"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf8 WaveList\cf0 (\cf4 "*params*dend*"\cf3  \cf0 ,\cf3  \cf4 ";"\cf3  \cf0 ,\cf3  \cf4 ""\cf0 )\
+\cf3 	\cf6 Prompt\cf3  \cf0 params_stimulus_wv\cf3  \cf0 ,\cf3  \cf4 "Wave\cf3  \cf4 for\cf3  \cf4 stimulus\cf3  \cf4 parameters:"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf8 WaveList\cf0 (\cf4 "*params*stim*"\cf3  \cf0 ,\cf3  \cf4 ";"\cf3  \cf0 ,\cf3  \cf4 ""\cf0 )\
+\cf3 	\cf6 Prompt\cf3  \cf0 names_wv\cf3  \cf0 ,\cf3  \cf4 "Wave\cf3  \cf4 for\cf3  \cf4 stimulus\cf3  \cf4 parameters:"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf8 WaveList\cf0 (\cf4 "*names*dend*"\cf3  \cf0 ,\cf3  \cf4 ";"\cf3  \cf0 ,\cf3  \cf4 ""\cf0 )\
+\cf3 	\cf6 Prompt\cf3  \cf0 suffix_str\cf3  \cf0 ,\cf3  \cf4 "Suffix\cf3  \cf4 string\cf3  \cf4 for\cf3  \cf4 naming:"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 dendrite_option\cf3  \cf0 ,\cf3  \cf4 "Organization\cf3  \cf4 of\cf3  \cf4 dendrites:"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf4 "Linear\cf3  \cf4 basal\cf3  \cf4 dendrites;Distinct\cf3  \cf4 branches"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 plasticity_option\cf3  \cf0 ,\cf3  \cf4 "Turn\cf3  \cf4 on\cf3  \cf4 synaptic\cf3  \cf4 plasticity?"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf4 "Yes;No"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 random_option\cf3  \cf0 ,\cf3  \cf4 "Randomize\cf3  \cf4 new\cf3  \cf4 synaptic\cf3  \cf4 connections?"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf4 "Yes;No"\cf0 \
+\cf3 	\cf7 PauseUpdate\cf3  \cf0 ;\cf3  \cf7 Silent\cf3  \cf0 1\
+\
+\cf3 	\cf0 g_params_dendrite_wv\cf3  \cf0 =\cf3  \cf0 params_dendrite_wv\
+\cf3 	\cf0 g_params_stimulus_wv\cf3  \cf0 =\cf3  \cf0 params_stimulus_wv\
+\cf3 	\cf0 g_names_wv\cf3  \cf0 =\cf3  \cf0 names_wv\
+\cf3 	\cf0 g_suffix_str\cf3  \cf0 =\cf3  \cf0 suffix_str\
+\cf3 	\cf0 g_plasticity_option\cf3  \cf0 =\cf3  \cf0 plasticity_option\
+\cf3 	\cf0 g_random_option\cf3  \cf0 =\cf3  \cf0 random_option\
+\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (dendrite_option\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 		\cf7 Abort\cf3  \cf4 "This\cf3  \cf4 option\cf3  \cf4 is\cf3  \cf4 not\cf3  \cf4 implemented\cf3  \cf4 yet!!!"\cf0 \
+\cf3 	\cf6 endif\cf0 \
+\
+\cf5 //\cf3 	\cf5 time\cf3  \cf5 stamp\cf3  \cf5 to\cf3  \cf5 measure\cf3  \cf5 duration\cf3  \cf5 of\cf3  \cf5 Macro's\cf3  \cf5 run\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 time_elapsed\cf3  \cf0 =\cf3  \cf8 ticks\cf0 \
+\cf3 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb10 //\cf3 	\cf5 unpack\cf3  \cf5 dendrite\cf3  \cf5 parameters\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_synapses\cf3  \cf0 ,\cf3  \cf0 num_dendrites\cf3  \cf0 ,\cf3  \cf0 branch_size\cf3  \cf0 ,\cf3  \cf0 syn_strength\cf3  \cf0 ,\cf3  \cf0 syn_attenuation\cf3  \cf0 ,\cf3  \cf0 branch_thresh\cf3  \cf0 ,\cf3  \cf0 branch_strength\cf3  \cf0 ,\cf3  \cf0 soma_thresh\cf3  \cf0 ,\cf3  \cf0 backprop_AP\
+\cf3 	\cf0 num_synapses\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[0]\
+\cf3 	\cf0 num_dendrites\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[1]\
+\cf3 	\cf0 branch_size\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[2]\cf3 	\cf0 \
+\cf3 	\cf0 syn_strength\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[3]\cf3 	\cf0 \
+\cf3 	\cf0 syn_attenuation\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[4]\cf3 	\cf0 \
+\cf3 	\cf0 branch_thresh\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[5]\cf3 	\cf0 \
+\cf3 	\cf0 branch_strength\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[6]\
+\cf3 	\cf0 soma_thresh\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[7]\
+\cf3 	\cf0 backprop_AP\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[8]\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 noise_synapse\cf3  \cf0 ,\cf3  \cf0 noise_branch\cf3  \cf0 ,\cf3  \cf0 noise_soma,\cf3  \cf0 weights_range\cf3  \cf0 ,\cf3  \cf0 du_potent\cf3  \cf0 ,\cf3  \cf0 du_depress\cf3  \cf0 ,\cf3  \cf0 du_decay\cf3  \cf0 ,\cf3  \cf0 du_baseline\cf3  \cf0 ,\cf3  \cf0 u_recycle\cf3  \cf0 ,\cf3  \cf0 u_max\
+\cf3 	\cf0 noise_synapse\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[9]\
+\cf3 	\cf0 noise_branch\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[10]\
+\cf3 	\cf0 noise_soma\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[11]\cf3 	\cf0 \
+\cf3 	\cf0 weights_range\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[12]\
+\cf3 	\cf0 du_potent\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[13]\
+\cf3 	\cf0 du_depress\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[14]\
+\cf3 	\cf0 du_decay\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[15]\
+\cf3 	\cf0 du_baseline\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[16]\
+\cf3 	\cf0 u_recycle\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[17]\
+\cf3 	\cf0 u_max\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[18]\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 scale_NMDA\cf3  \cf0 ,\cf3  \cf0 scale_no_NMDA\cf3  \cf0 ,\cf3  \cf0 branch_g_leak\cf3  \cf0 ,\cf3  \cf0 syn_g_inhib0\
+\cf3 	\cf0 scale_NMDA\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[20]\
+\cf3 	\cf0 scale_no_NMDA\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[21]\
+\cf3 	\cf0 branch_g_leak\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[22]\
+\cf3 	\cf0 syn_g_inhib0\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[23]\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 soma_plus\cf3  \cf0 ,\cf3  \cf0 soma_minus\cf3  \cf0 ,\cf3  \cf0 soma_g_leak\cf3  \cf0 ,\cf3  \cf0 soma_g_inh0\cf3  \cf0 ,\cf3  \cf0 V_exc\
+\cf3 	\cf0 soma_plus\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[24]\
+\cf3 	\cf0 soma_minus\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[25]\
+\cf3 	\cf0 soma_g_leak\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[26]\
+\cf3 	\cf0 soma_g_inh0\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[27]\
+\cf3 	\cf0 V_exc\cf3  \cf0 =\cf3  \cf0 60\cf3 										\cf5 //\cf3 	\cf5 difference\cf3  \cf5 between\cf3  \cf5 resting\cf3  \cf5 potential\cf3  \cf5 and\cf3  \cf5 reversal\cf3  \cf5 potential\cf3  \cf5 for\cf3  \cf5 excitatory\cf3  \cf5 synapses\cf3  \cf5 (in\cf3  \cf5 mV)\cf0 \
+\cf3 	\cf0 \
+\cf5 //\cf3 	\cf5 unpack\cf3  \cf5 stimulus\cf3  \cf5 parameters\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient\cf3  \cf0 ,\cf3  \cf0 bar_length\cf3  \cf0 ,\cf3  \cf0 scan_length\cf3  \cf0 ,\cf3  \cf0 noise_exact\cf3  \cf0 ,\cf3  \cf0 noise_Poiss\cf3  \cf0 ,\cf3  \cf0 noise_frac\
+\cf3 	\cf0 num_x\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[0]\cf3 	\cf0 \
+\cf3 	\cf0 num_y\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[1]\
+\cf3 	\cf0 num_orient\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[2]\
+\cf3 	\cf0 bar_length\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[3]\
+\cf3 	\cf0 scan_length\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[4]\
+\cf3 	\cf0 noise_exact\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[5]\
+\cf3 	\cf0 noise_Poiss\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[6]\
+\cf3 	\cf0 noise_frac\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[7]\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_test_repeats\cf3  \cf0 ,\cf3  \cf0 num_bars_test\cf3  \cf0 ,\cf3  \cf0 num_bars_train\cf3  \cf0 ,\cf3  \cf0 num_timesteps\cf3  \cf0 ,\cf3  \cf0 num_dend_record\cf3  \cf0 ,\cf3  \cf0 timestep_record\
+\cf3 	\cf0 num_test_repeats\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[8]\
+\cf3 	\cf0 num_bars_test\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[9]\
+\cf3 	\cf0 num_bars_train\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[10]\
+\cf3 	\cf0 num_dend_record\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[11]\
+\cf3 	\cf0 timestep_record\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[12]\
+\cf3 	\cf0 \cb1 \
+\cf3 \cb11 	\cf6 if\cf3  \cf0 (num_test_repeats\cf3  \cf0 ==\cf3  \cf0 0)\
+\cf3 		\cf0 num_timesteps\cf3  \cf0 =\cf3  \cf0 num_bars_test\cf3  \cf0 *\cf3  \cf0 scan_length\
+\cf3 	\cf6 else\cf0 \
+\cf3 		\cf0 num_timesteps\cf3  \cf0 =\cf3  \cf0 num_test_repeats\cf3  \cf0 *\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 num_y\cf3  \cf0 *\cf3  \cf0 num_orient\
+\cf3 	\cf6 endif\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb12 	\cf7 Duplicate\cf0 /O\cf3  \cf0 $params_dendrite_wv\cf3  \cf0 ,\cf3  \cf0 temp_param_dend\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 \
+\cf3 	
+\f1\b \cf13 SANJANA: Done in stimuli_params initializer
+\f0\b0 \cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb11 	\cf0 scan_length\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (scan_length\cf3  \cf0 +\cf3  \cf0 0.5)\cf3 								\cf5 //\cf3 	\cf5 make\cf3  \cf5 sure\cf3  \cf5 'scan_length'\cf3  \cf5 is\cf3  \cf5 an\cf3  \cf5 integer\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (scan_length\cf3  \cf0 <\cf3  \cf0 1)\
+\cf3 		\cf0 scan_length\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (scan_length\cf3  \cf0 >\cf3  \cf0 8)\
+\cf3 		\cf0 scan_length\cf3  \cf0 =\cf3  \cf0 8\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 g_scan_length\cf3  \cf0 =\cf3  \cf0 scan_length\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 \
+\cf3 	\cf6 \cb11 Variable\cf3  \cf0 num_branches\cf3  \cf0 ,\cf3  \cf0 num_L4_neurons\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 num_branches\cf3  \cf0 =\cf3  \cf8 ceil\cf0 (num_synapses\cf3  \cf0 /\cf3  \cf0 branch_size)\
+\cf3 	\cf0 num_L4_neurons\cf3  \cf0 =\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 num_y\cf3  \cf0 *\cf3  \cf0 num_orient\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches\cf3  \cf0 ,\cf3  \cf0 branch_size)\cf3  \cf0 temp_input_L4\cf3  \cf0 ,\cf3  \cf0 temp_input_u\cf3  \cf0 ,\cf3  \cf0 temp_input_wmax\cf3  \cf0 ,\cf3  \cf0 temp_plast\cf3  \cf0 ,\cf3  \cf0 temp_syn_recycle\cf3  \cf0 ,\cf3  \cf0 temp_g_inhib\
+\cf3 	\cf0 temp_input_L4\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (0.5\cf3  \cf0 *\cf3  \cf0 num_L4_neurons\cf3  \cf0 *\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 enoise\cf0 (1)))\cf3 			\cf5 //\cf3 	\cf5 each\cf3  \cf5 input\cf3  \cf5 is\cf3  \cf5 randomly\cf3  \cf5 from\cf3  \cf5 1\cf3  \cf5 of\cf3  \cf5 256\cf3  \cf5 possible\cf3  \cf5 simple\cf3  \cf5 cells\cf0 \
+\cf3 	\cf0 temp_input_u\cf3  \cf0 =\cf3  \cf8 enoise\cf0 (weights_range)\cf3 								\cf5 //\cf3 	\cf5 each\cf3  \cf5 input\cf3  \cf5 strength\cf3  \cf5 has\cf3  \cf5 u\cf3  \cf5 randomly\cf3  \cf5 on\cf3  \cf5 range\cf3  \cf5 [-weights_range\cf3  \cf5 ,\cf3  \cf5 +weights_range]\cf0 \
+\cf3 	\cf0 temp_g_inhib\cf3  \cf0 =\cf3  \cf0 syn_g_inhib0\cf3 										\cf5 //\cf3 	\cf5 initial\cf3  \cf5 inhibitory\cf3  \cf5 conductance\cf3  \cf5 for\cf3  \cf5 each\cf3  \cf5 synapse\cf0 \
+\cf3 	\cf0 temp_plast\cf3  \cf0 =\cf3  \cf0 0\cf3 													\cf5 //\cf3 	\cf5 plasticity\cf3  \cf5 window\cf3  \cf5 for\cf3  \cf5 each\cf3  \cf5 synapse\cf0 \
+\cf3 	\cf0 temp_syn_recycle\cf3  \cf0 =\cf3  \cf0 0\cf3 											\cf5 //\cf3 	\cf5 for\cf3  \cf5 counting\cf3  \cf5 the\cf3  \cf5 number\cf3  \cf5 of\cf3  \cf5 recycling\cf3  \cf5 events\cf3  \cf5 per\cf3  \cf5 synapse\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (branch_g_leak\cf3  \cf0 ==\cf3  \cf0 0)\
+\cf3 		\cf0 temp_input_wmax\cf3  \cf0 =\cf3  \cf0 syn_strength\cf3 								\cf5 //\cf3 	\cf5 maximum\cf3  \cf5 EPSP\cf3  \cf5 size\cf3  \cf5 for\cf3  \cf5 each\cf3  \cf5 synapse\cf0 \
+\cf3 	\cf6 else\cf0 \
+\cf3 		\cf0 temp_input_wmax\cf3  \cf0 =\cf3  \cf0 V_exc\cf3  \cf0 /\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf0 branch_g_leak\cf3  \cf0 +\cf3  \cf0 temp_g_inhib)\cf3 		\cf5 //\cf3 	\cf5 encode\cf3  \cf5 the\cf3  \cf5 inhibitory\cf3  \cf5 conductance\cf3  \cf5 into\cf3  \cf5 a\cf3  \cf5 w_max\cf3  \cf5 variable\cf0 \
+\cf3 	\cf6 endif\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 \cb12 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 if\cf3  \cf0 (random_option\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_input_L4\cf3  \cf0 ,\cf3  \cf0 Jens_input_L4_save\cf3 		\cf0 \
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_input_u\cf3  \cf0 ,\cf3  \cf0 Jens_input_u_save\
+\cf3 	\cf6 else\cf3 															\cf5 //\cf3 	\cf5 restore\cf3  \cf5 previously\cf3  \cf5 saved\cf3  \cf5 synaptic\cf3  \cf5 connections\cf0 \
+\cf3 		\cf0 temp_input_L4\cf3  \cf0 =\cf3  \cf0 Jens_input_L4_save\
+\cf3 		\cf0 temp_input_u\cf3  \cf0 =\cf3  \cf0 Jens_input_u_save\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 \
+\cf3 	\cf7 \cb11 Make\cf0 /O/N=(num_L4_neurons\cf3  \cf0 ,\cf3  \cf0 scan_length\cf3  \cf0 ,\cf3  \cf0 num_bars_test)\cf3  \cf0 temp_bar_testset\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf7 Make\cf0 /O/N=(num_L4_neurons\cf3  \cf0 ,\cf3  \cf0 scan_length\cf3  \cf0 ,\cf3  \cf0 num_bars_train)\cf3  \cf0 temp_bar_trainset\
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb1 	\cf7 Make\cf0 /O/N=(num_L4_neurons)\cf3  \cf0 temp_L4_input 
+\f1\b \cf14 // I don\'92t think this is needed
+\f0\b0 \cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_bars_test)\cf3  \cf0 Jens_bar_orientation\cf3  \cf0 ,\cf3  \cf0 Jens_bar_xloc\cf3  \cf0 ,\cf3  \cf0 Jens_bar_yloc\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_timesteps)\cf3  \cf0 Jens_soma_activity_before\cf3  \cf0 ,\cf3  \cf0 Jens_soma_spikes_before\cf3  \cf0 ,\cf3  \cf0 Jens_soma_EPSP_before\cf3  \cf0 ,\cf3  \cf0 Jens_NMDA_spikes_before\
+\cf3 	\cf7 Make\cf0 /O/N=(num_timesteps)\cf3  \cf0 Jens_soma_activity_after\cf3  \cf0 ,\cf3  \cf0 Jens_soma_spikes_after\cf3  \cf0 ,\cf3  \cf0 Jens_soma_EPSP_after\cf3  \cf0 ,\cf3  \cf0 Jens_NMDA_spikes_after\
+\cf3 	\cf7 Make\cf0 /O/N=(num_bars_train\cf3  \cf0 *\cf3  \cf0 scan_length)\cf3  \cf0 Jens_soma_spikes\cf3  \cf0 ,\cf3  \cf0 Jens_soma_thresh\
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches)\cf3  \cf0 Jens_NMDA_rate_before\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf0 Jens_NMDA_rate_after\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches)\cf3  \cf0 Jens_branch_V_before\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf0 Jens_branch_V_after\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches\cf3  \cf0 ,\cf3  \cf0 branch_size)\cf3  \cf0 Jens_syn_recycle\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 index_bar\cf3  \cf0 ,\cf3  \cf0 index_scan\cf3  \cf0 ,\cf3  \cf0 index_time\
+\cf3 	\cf6 Variable\cf3  \cf0 dend_activity\cf3  \cf0 ,\cf3  \cf0 soma_activity\cf3  \cf0 ,\cf3  \cf0 soma_NMDA_spikes\cf3  \cf0 ,\cf3  \cf0 soma_EPSPs\cf3  \cf0 ,\cf3  \cf0 backprop_flag\
+\cf3 	\cf6 Variable\cf3  \cf0 NMDA_spikes_before\cf3  \cf0 ,\cf3  \cf0 cell_spikes_before\cf3  \cf0 ,\cf3  \cf0 NMDA_spikes_after\cf3  \cf0 ,\cf3  \cf0 cell_spikes_after\
+\
+\cf5 //\cf3 	\cf5 create\cf3  \cf5 a\cf3  \cf5 fixed\cf3  \cf5 test\cf3  \cf5 set\cf3  \cf5 of\cf3  \cf5 scanning\cf3  \cf5 bars\cf3 	\cf0 \
+\cf3 	\cf0 \cb11 index_bar\cf3  \cf0 =\cf3  \cf0 0\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 do\cf0 \
+\cf3 		\cf0 index_scan\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 		\cf6 do\cf3 		\cf0 \
+\cf3 			\cf0 Jens_bar_orientation[index_bar]\cf3  \cf0 =\cf3  \cf0 Do_Bar_Scan\cf3  \cf0 ($params_stimulus_wv\cf3  \cf0 ,\cf3  \cf0 bar_length\cf3  \cf0 ,\cf3  \cf0 scan_length\cf3  \cf0 ,\cf3  \cf0 noise_exact\cf3  \cf0 ,\cf3  \cf0 noise_Poiss\cf3  \cf0 ,\cf3  \cf0 noise_frac\cf3  \cf0 ,\cf3  \cf0 0)\cb12 \
+\pard\pardeftab720\partightenfactor0
+\cf3 			\cf0 Jens_bar_xloc[index_bar]\cf3  \cf0 =\cf3  \cf0 temp_bar_xloc[0]\
+\cf3 			\cf0 Jens_bar_yloc[index_bar]\cf3  \cf0 =\cf3  \cf0 temp_bar_yloc[0]\cb11 \
+\pard\pardeftab720\partightenfactor0
+\cf3 			\cf0 temp_bar_testset[][][index_bar]\cf3  \cf0 =\cf3  \cf0 temp_L4_activity[p][q]\
+\cf3 		\cf0 \
+\cf3 			\cf0 index_scan\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 		\cf6 while\cf3  \cf0 (index_scan\cf3  \cf0 <\cf3  \cf0 scan_length)\
+\cf3 		\cf0 \
+\cf3 		\cf0 index_bar\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 	\cf6 while\cf3  \cf0 (index_bar\cf3  \cf0 <\cf3  \cf0 num_bars_test)\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 calculate\cf3  \cf5 statistics\cf3  \cf5 before\cf3  \cf5 plasticity\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 Do_Run_BarStim\cf3  \cf0 (temp_bar_testset\cf3  \cf0 ,\cf3  \cf0 temp_input_L4\cf3  \cf0 ,\cf3  \cf0 temp_input_u\cf3  \cf0 ,\cf3  \cf0 temp_input_wmax\cf3  \cf0 ,\cf3  \cf0 $params_dendrite_wv\cf3  \cf0 ,\cf3  \cf0 $params_stimulus_wv\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 	\cf0 \
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_NMDA_spikes\cf3  \cf0 ,\cf3  \cf0 Jens_NMDA_spikes_before\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_soma_spikes\cf3  \cf0 ,\cf3  \cf0 Jens_soma_spikes_before\
+\cf3 	\cf0 NMDA_spikes_before\cf3  \cf0 =\cf3  \cf8 sum\cf0 (Jens_NMDA_spikes_before\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf8 inf\cf0 )\
+\cf3 	\cf0 cell_spikes_before\cf3  \cf0 =\cf3  \cf8 sum\cf0 (Jens_soma_spikes_before\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf8 inf\cf0 )\
+\cf3 		\cf0 \
+\cf3 	\cf7 Print\cf3  \cf4 "Before\cf3  \cf4 plasticity:\cf3  \cf4 total\cf3  \cf4 #\cf3  \cf4 NMDA\cf3  \cf4 spikes\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 NMDA_spikes_before\cf3  \cf0 ,\cf3  \cf4 "total\cf3  \cf4 #\cf3  \cf4 somatic\cf3  \cf4 spikes\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 cell_spikes_before\
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb12 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_input_L4\cf3  \cf0 ,\cf3  \cf0 Jens_L4_input_before\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_input_u\cf3  \cf0 ,\cf3  \cf0 Jens_syn_u_before\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_input_wmax\cf3  \cf0 ,\cf3  \cf0 Jens_syn_wmax_before\
+\cf3 		\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf7 \cb11 Duplicate\cf0 /O\cf3  \cf0 temp_branch_hist\cf3  \cf0 ,\cf3  \cf0 Jens_branch_hist_before\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_soma_hist\cf3  \cf0 ,\cf3  \cf0 Jens_soma_hist_before\
+\cf3 				\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=51\cf3  \cf0 Jens_u_hist_before\
+\cf3 	\cf7 Histogram\cf3  \cf0 Jens_syn_u_before\cf3  \cf0 ,\cf3  \cf0 Jens_u_hist_before\
+\cf3 	\cf7 Make\cf0 /O/N=21\cf3  \cf0 Jens_wmax_hist_before\
+\cf3 	\cf7 Histogram\cf3  \cf0 Jens_syn_wmax_before\cf3  \cf0 ,\cf3  \cf0 Jens_wmax_hist_before\
+\cf3 	x\cf0 \
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_soma_EPSP\cf3  \cf0 ,\cf3  \cf0 Jens_soma_EPSP_before\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_NMDA_rate\cf3  \cf0 ,\cf3  \cf0 Jens_NMDA_rate_before\cb1 \
+\cf3 \cb11 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_V\cf3  \cf0 ,\cf3  \cf0 Jens_branch_V_before\
+\cf3 	\cf0 Jens_NMDA_rate_before\cf3  \cf0 /=\cf3  \cf0 num_timesteps\cf3 							\cf5 //\cf3 	\cf5 convert\cf3  \cf5 to\cf3  \cf5 a\cf3  \cf5 firing\cf3  \cf5 probability\cf3  \cf5 per\cf3  \cf5 time\cf3  \cf5 bin\cf0 \
+\cf3 	\cf0 Jens_branch_V_before\cf3  \cf0 /=\cf3  \cf0 num_timesteps\cf3 							\cf5 //\cf3 	\cf5 convert\cf3  \cf5 to\cf3  \cf5 an\cf3  \cf5 average\cf3  \cf5 voltage\cf3  \cf5 response\cf3  \cf5 for\cf3  \cf5 each\cf3  \cf5 branch\cf0 \
+\cf3 		\cf0 \
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_RF\cf3  \cf0 ,\cf3  \cf0 Jens_RF_before\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 cum_stim_RF\cf3  \cf0 ,\cf3  \cf0 Jens_stim_test\
+\cf3 	\cf0 \
+\cf3 	\cf0 Dendritic_RF_Analyze\cf3  \cf0 (Jens_RF_before\cf3  \cf0 ,\cf3  \cf0 Jens_stim_test\cf3  \cf0 ,\cf3  \cf0 0)\cf3 			\cf5 //\cf3 	\cf5 analyze\cf3  \cf5 the\cf3  \cf5 receptive\cf3  \cf5 fields\cf3 	\cf0 \
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_spatial_all\cf3  \cf0 ,\cf3  \cf0 Jens_spatial_before\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_orient_all\cf3  \cf0 ,\cf3  \cf0 Jens_orient_tune_before\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_index\cf3  \cf0 ,\cf3  \cf0 Jens_orient_index_before\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_pref\cf3  \cf0 ,\cf3  \cf0 Jens_orient_pref_before\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_vector\cf3  \cf0 ,\cf3  \cf0 Jens_orient_vec_before\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_size1\cf3  \cf0 ,\cf3  \cf0 Jens_size1_before\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_size2\cf3  \cf0 ,\cf3  \cf0 Jens_size2_before\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_input_L4\cf3  \cf0 ,\cf3  \cf0 Jens_L4_input_before\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches)\cf3  \cf0 temp_orient_total 
+\f1\b \cf15 % temp_orient_total = Jens_orient_index_before = branchIOrientBefore
+\f0\b0 \cf0 \
+\cf3 	\cf0 temp_orient_total\cf3  \cf0 =\cf3  \cf0 Jens_orient_index_before[p]\
+\cf3 	\cf0 temp_orient_total\cf3  \cf0 *=\cf3  \cf0 Jens_NMDA_rate_before\
+\cf3 	\cf7 Wavestats\cf0 /Q\cf3  \cf0 Jens_NMDA_rate_before\
+\cf3 	\cf0 temp_orient_total\cf3  \cf0 /=\cf3  \cf0 V_sum\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 \cb11 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches)\cf3  \cf0 temp_size1_total 
+\f1\b \cf15 % temp_size1_total = Jens_size1_before = branchSize1Before
+\f0\b0 \cf0 \
+\cf3 	\cf0 temp_size1_total\cf3  \cf0 =\cf3  \cf0 Jens_size1_before[p]\
+\cf3 	\cf0 temp_size1_total\cf3  \cf0 *=\cf3  \cf0 Jens_NMDA_rate_before\
+\cf3 	\cf7 Wavestats\cf0 /Q\cf3  \cf0 Jens_NMDA_rate_before\
+\cf3 	\cf0 temp_size1_total\cf3  \cf0 /=\cf3  \cf0 V_sum\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 total_index_before\cf3  \cf0 ,\cf3  \cf0 total_size_before\
+\cf3 	\cf7 Wavestats\cf0 /Q\cf3  \cf0 temp_orient_total\
+\cf3 	\cf0 total_index_before\cf3  \cf0 =\cf3  \cf0 V_sum\
+\cf3 	\cf7 Wavestats\cf0 /Q\cf3  \cf0 temp_size1_total\
+\cf3 	\cf0 total_size_before\cf3  \cf0 =\cf3  \cf0 V_sum\
+\
+\cf3 	\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf3 	\cf5 implement\cf3  \cf5 synaptic\cf3  \cf5 plasticity\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (plasticity_option\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 		\cf0 index_bar\cf3  \cf0 =\cf3  \cf0 0\cf3 														\cf5 //\cf3 	\cf5 first,\cf3  \cf5 create\cf3  \cf5 the\cf3  \cf5 entire\cf3  \cf5 training\cf3  \cf5 stimulus\cf3  \cf5 set\cf0 \cb11 \
+\pard\pardeftab720\partightenfactor0
+\cf3 		\cf6 do\cf0 \
+\cf3 			\cf0 index_scan\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 			\cf6 do\cf3 		\cf0 \
+\cf3 				\cf0 Do_Bar_Scan\cf3  \cf0 ($params_stimulus_wv\cf3  \cf0 ,\cf3  \cf0 bar_length\cf3  \cf0 ,\cf3  \cf0 scan_length\cf3  \cf0 ,\cf3  \cf0 noise_exact\cf3  \cf0 ,\cf3  \cf0 noise_Poiss\cf3  \cf0 ,\cf3  \cf0 noise_frac\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 				\cf0 temp_bar_trainset[][][index_bar]\cf3  \cf0 =\cf3  \cf0 temp_L4_activity[p][q]\
+\cf3 			\cf0 \
+\cf3 				\cf0 index_scan\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 			\cf6 while\cf3  \cf0 (index_scan\cf3  \cf0 <\cf3  \cf0 scan_length)\
+\cf3 			\cf0 \
+\cf3 			\cf0 index_bar\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 		\cf6 while\cf3  \cf0 (index_bar\cf3  \cf0 <\cf3  \cf0 num_bars_train)\
+\cf3 	\cf0 \
+\cf3 		\cf0 Do_Run_BarStim\cf3  \cf0 (temp_bar_trainset\cf3  \cf0 ,\cf3  \cf0 temp_input_L4\cf3  \cf0 ,\cf3  \cf0 temp_input_u\cf3  \cf0 ,\cf3  \cf0 temp_input_wmax\cf3  \cf0 ,\cf3  \cf0 temp_param_dend\cf3  \cf0 ,\cf3  \cf0 $params_stimulus_wv\cf3  \cf0 ,\cf3  \cf0 3)\
+\cf3 		\cf0 \
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_syn_recycle_total\cf3  \cf0 ,\cf3  \cf0 Jens_syn_recycle\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_soma_spikes\cf3  \cf0 ,\cf3  \cf0 Jens_soma_spikes\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_soma_thresh\cf3  \cf0 ,\cf3  \cf0 Jens_soma_thresh\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_soma_gain\cf3  \cf0 ,\cf3  \cf0 Jens_soma_gain\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_soma_inhib\cf3  \cf0 ,\cf3  \cf0 Jens_soma_inhib\
+\cf3 		\cf0 \
+\cf3 		\cf7 Wavestats\cf0 /Q\cf3  \cf0 Jens_syn_recycle\
+\cf3 		\cf7 Make\cf0 /O/N=(V_max+1)\cf3  \cf0 Jens_recycle_hist\
+\cf3 		\cf7 Histogram\cf0 /B=2\cf3  \cf0 Jens_syn_recycle\cf3  \cf0 ,\cf3  \cf0 Jens_recycle_hist\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb12 		\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (num_dend_record\cf3  \cf0 >\cf3  \cf0 0)\
+\cf3 			\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_syn_u_record\cf3  \cf0 ,\cf3  \cf0 Jens_syn_u_rec\
+\cf3 			\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_syn_ID_record\cf3  \cf0 ,\cf3  \cf0 Jens_syn_ID_rec\cf3 			\cf0 \
+\cf3 			\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_wmax_record\cf3  \cf0 ,\cf3  \cf0 Jens_wmax_rec\
+\cf3 			\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_V_record\cf3  \cf0 ,\cf3  \cf0 Jens_branch_V_rec\
+\cf3 			\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_spk_record\cf3  \cf0 ,\cf3  \cf0 Jens_branch_spk_rec\cf3 						\cf0 \
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 		\cf7 \cb11 Make\cf0 /O/N=300\cf3  \cf0 kernel_30\
+\pard\pardeftab720\partightenfactor0
+\cf3 		\cf0 kernel_30\cf3  \cf0 =\cf3  \cf0 x\cf3  \cf0 *\cf3  \cf8 exp\cf0 (-x/30)\
+\cf3 		\cf6 Variable\cf3  \cf0 A\
+\cf3 		\cf0 A\cf3  \cf0 =\cf3  \cf8 sum\cf0 (kernel_30\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf8 inf\cf0 )\
+\cf3 		\cf0 kernel_30\cf3  \cf0 /=\cf3  \cf0 A\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_soma_spikes\cf3  \cf0 ,\cf3  \cf0 temp_soma_spk_smth\
+\cf3 		\cf7 Convolve\cf3  \cf0 kernel_30\cf3  \cf0 ,\cf3  \cf0 temp_soma_spk_smth\cf3  \cf0 ,\cf3  \cf0 temp_soma_spk_smth\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf3 	\cf5 calculate\cf3  \cf5 statistics\cf3  \cf5 AFTER\cf3  \cf5 plasticity\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 Do_Run_BarStim\cf3  \cf0 (temp_bar_testset\cf3  \cf0 ,\cf3  \cf0 temp_input_L4\cf3  \cf0 ,\cf3  \cf0 temp_input_u\cf3  \cf0 ,\cf3  \cf0 temp_input_wmax\cf3  \cf0 ,\cf3  \cf0 temp_param_dend\cf3  \cf0 ,\cf3  \cf0 $params_stimulus_wv\cf3  \cf0 ,\cf3  \cf0 0)\
+\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_NMDA_spikes\cf3  \cf0 ,\cf3  \cf0 Jens_NMDA_spikes_after\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_soma_spikes\cf3  \cf0 ,\cf3  \cf0 Jens_soma_spikes_after\
+\cf3 	\cf0 NMDA_spikes_after\cf3  \cf0 =\cf3  \cf8 sum\cf0 (Jens_NMDA_spikes_after\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf8 inf\cf0 )\
+\cf3 	\cf0 cell_spikes_after\cf3  \cf0 =\cf3  \cf8 sum\cf0 (Jens_soma_spikes_after\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf8 inf\cf0 )\
+\cf3 	\cf0 \
+\cf3 	\cf7 Print\cf3  \cf4 "After\cf3  \cf4 plasticity:\cf3  \cf4 total\cf3  \cf4 #\cf3  \cf4 NMDA\cf3  \cf4 spikes\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 NMDA_spikes_after\cf3  \cf0 ,\cf3  \cf4 "total\cf3  \cf4 #\cf3  \cf4 somatic\cf3  \cf4 spikes\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 cell_spikes_after\
+\cf3 	\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb12 	\cf6 Variable\cf3  \cf0 NMDA_spk_per_stim\cf3  \cf0 ,\cf3  \cf0 NMDA_spk_per_branch\cf3  \cf0 ,\cf3  \cf0 soma_rate\
+\cf3 	\cf0 NMDA_spk_per_stim\cf3  \cf0 =\cf3  \cf0 NMDA_spikes_after\cf3  \cf0 /\cf3  \cf0 num_timesteps\
+\cf3 	\cf0 NMDA_spk_per_branch\cf3  \cf0 =\cf3  \cf0 NMDA_spk_per_stim\cf3  \cf0 /\cf3  \cf0 num_branches\
+\cf3 	\cf0 soma_rate\cf3  \cf0 =\cf3  \cf0 cell_spikes_after\cf3  \cf0 /\cf3  \cf0 num_timesteps\
+\cf3 	\cf0 \
+\cf3 	\cf7 Print\cf3  \cf4 "NMDA\cf3  \cf4 spikes\cf3  \cf4 per\cf3  \cf4 bar\cf3  \cf4 stimuli\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 NMDA_spk_per_stim\cf3  \cf0 ,\cf3  \cf4 "NMDA\cf3  \cf4 spikes\cf3  \cf4 per\cf3  \cf4 branch\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 NMDA_spk_per_branch\cf3 	\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb11 	\cf6 if\cf3  \cf0 (soma_g_leak\cf3  \cf0 ==\cf3  \cf0 0)\
+\cf3 		\cf7 Print\cf3  \cf4 "After\cf3  \cf4 plasticity:\cf3  \cf4 soma_thresh\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 Jens_soma_thresh[\cf8 inf\cf0 ]\cf3 	\cf0 ,\cf3  \cf4 "mV\cf3   \cf4 spike\cf3  \cf4 rate\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 soma_rate\
+\cf3 	\cf6 else\cf0 \
+\cf3 		\cf7 Print\cf3  \cf4 "After\cf3  \cf4 plasticity:\cf3  \cf4 soma_gain\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 Jens_soma_gain[\cf8 inf\cf0 ]\cf3 	\cf0 ,\cf3  \cf4 "\cf3  \cf4 spike\cf3  \cf4 rate\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 soma_rate\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_soma_EPSP\cf3  \cf0 ,\cf3  \cf0 Jens_soma_EPSP_after\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_NMDA_rate\cf3  \cf0 ,\cf3  \cf0 Jens_NMDA_rate_after\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_V\cf3  \cf0 ,\cf3  \cf0 Jens_branch_V_after\
+\cf3 	\cf0 Jens_NMDA_rate_after\cf3  \cf0 /=\cf3  \cf0 num_timesteps\cf3 										\cf5 //\cf3 	\cf5 convert\cf3  \cf5 to\cf3  \cf5 a\cf3  \cf5 firing\cf3  \cf5 probability\cf3  \cf5 per\cf3  \cf5 time\cf3  \cf5 bin\cf0 \
+\cf3 	\cf0 Jens_branch_V_after\cf3  \cf0 /=\cf3  \cf0 num_timesteps\cf3 										\cf5 //\cf3 	\cf5 convert\cf3  \cf5 to\cf3  \cf5 an\cf3  \cf5 average\cf3  \cf5 voltage\cf3  \cf5 response\cf3  \cf5 for\cf3  \cf5 each\cf3  \cf5 branch\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_hist\cf3  \cf0 ,\cf3  \cf0 Jens_branch_hist_after\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_soma_hist\cf3  \cf0 ,\cf3  \cf0 Jens_soma_hist_after\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb12 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_input_L4\cf3  \cf0 ,\cf3  \cf0 Jens_L4_input_after\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_input_u\cf3  \cf0 ,\cf3  \cf0 Jens_syn_u_after\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_input_wmax\cf3  \cf0 ,\cf3  \cf0 Jens_syn_wmax_after\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_input_u\cf3  \cf0 ,\cf3  \cf0 Jens_w_after\
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb11 	\cf0 Jens_w_after\cf3  \cf0 =\cf3  \cf0 Jens_syn_wmax_after\cf3  \cf0 /\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 exp\cf0 (-Jens_syn_u_after))\
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb1 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb11 	\cf7 Make\cf0 /O/N=51\cf3  \cf0 Jens_u_hist_after\
+\cf3 	\cf7 Histogram\cf3  \cf0 Jens_syn_u_after\cf3  \cf0 ,\cf3  \cf0 Jens_u_hist_after\
+\cf3 	\cf7 Make\cf0 /O/N=21\cf3  \cf0 Jens_wmax_hist_after\
+\cf3 	\cf7 Histogram\cf3  \cf0 Jens_syn_wmax_after\cf3  \cf0 ,\cf3  \cf0 Jens_wmax_hist_after\
+\cf3 	\cf0 \
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_RF\cf3  \cf0 ,\cf3  \cf0 Jens_RF_after\
+\cf3 	\cf0 \
+\cf3 	\cf0 Dendritic_RF_Analyze\cf3  \cf0 (Jens_RF_after\cf3  \cf0 ,\cf3  \cf0 Jens_stim_test\cf3  \cf0 ,\cf3  \cf0 0)\cf3 				\cf5 //\cf3 	\cf5 calculate\cf3  \cf5 receptive\cf3  \cf5 fields\cf3  \cf5 for\cf3  \cf5 dendritic\cf3  \cf5 branches\cf3 	\cf0 \
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_spatial_all\cf3  \cf0 ,\cf3  \cf0 Jens_spatial_after\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_orient_all\cf3  \cf0 ,\cf3  \cf0 Jens_orient_tune_after\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_index\cf3  \cf0 ,\cf3  \cf0 Jens_orient_index_after\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_pref\cf3  \cf0 ,\cf3  \cf0 Jens_orient_pref_after\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_vector\cf3  \cf0 ,\cf3  \cf0 Jens_orient_vec_after\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_size1\cf3  \cf0 ,\cf3  \cf0 Jens_size1_after\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_branch_size2\cf3  \cf0 ,\cf3  \cf0 Jens_size2_after\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb12 	\cf7 Duplicate\cf0 /O\cf3  \cf0 temp_input_L4\cf3  \cf0 ,\cf3  \cf0 Jens_L4_input_after\
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb11 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches)\cf3  \cf0 temp_orient_total\
+\cf3 	\cf0 temp_orient_total\cf3  \cf0 =\cf3  \cf0 Jens_orient_index_after[p]\
+\cf3 	\cf0 temp_orient_total\cf3  \cf0 *=\cf3  \cf0 Jens_NMDA_rate_after\
+\cf3 	\cf7 Wavestats\cf0 /Q\cf3  \cf0 Jens_NMDA_rate_after\
+\cf3 	\cf0 temp_orient_total\cf3  \cf0 /=\cf3  \cf0 V_sum\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches)\cf3  \cf0 temp_size1_total\
+\cf3 	\cf0 temp_size1_total\cf3  \cf0 =\cf3  \cf0 Jens_size1_after[p]\
+\cf3 	\cf0 temp_size1_total\cf3  \cf0 *=\cf3  \cf0 Jens_NMDA_rate_after\
+\cf3 	\cf7 Wavestats\cf0 /Q\cf3  \cf0 Jens_NMDA_rate_after\
+\cf3 	\cf0 temp_size1_total\cf3  \cf0 /=\cf3  \cf0 V_sum\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 total_index_after\cf3  \cf0 ,\cf3  \cf0 total_size_after\
+\cf3 	\cf7 Wavestats\cf0 /Q\cf3  \cf0 temp_orient_total\
+\cf3 	\cf0 total_index_after\cf3  \cf0 =\cf3  \cf0 V_sum\
+\cf3 	\cf7 Wavestats\cf0 /Q\cf3  \cf0 temp_size1_total\
+\cf3 	\cf0 total_size_after\cf3  \cf0 =\cf3  \cf0 V_sum\
+\cf3 	\cf0 \
+\cf3 	\cf7 Print\cf3  \cf4 "Before\cf3  \cf4 plasticity:\cf3  \cf4 average\cf3  \cf4 orientation\cf3  \cf4 index\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 total_index_before\cf3  \cf0 ,\cf3  \cf4 "\cf3   \cf4 average\cf3  \cf4 size\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 total_size_before\
+\cf3 	\cf7 Print\cf3  \cf4 "After\cf3  \cf4 plasticity:\cf3  \cf4 average\cf3  \cf4 orientation\cf3  \cf4 index\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 total_index_after\cf3  \cf0 ,\cf3  \cf4 "\cf3   \cf4 average\cf3  \cf4 size\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 total_size_after\
+\cf3 	\cf0 \
+\cf3 	\cf6 \cb12 if\cf3  \cf0 (\cf8 cmpstr\cf0 (suffix_str\cf3  \cf0 ,\cf3  \cf4 ""\cf0 )\cf3  \cf0 !=\cf3  \cf0 0)\cf3 									\cf5 //\cf3 	\cf5 save\cf3  \cf5 characterization\cf3  \cf5 waves\cf3  \cf5 with\cf3  \cf5 new\cf3  \cf5 names\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 		\cf6 String\cf3  \cf0 new_wave_name\cf3  \cf0 ,\cf3  \cf0 prefix_str\
+\cf3 		\cf0 prefix_str\cf3  \cf0 =\cf3  \cf0 $names_wv[0]\
+\cf3 		\cf0 new_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf4 "_p_dend"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 $params_dendrite_wv\cf3  \cf0 ,\cf3  \cf0 $new_wave_name\
+\cf3 		\cf0 new_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf4 "_p_stim"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 $params_stimulus_wv\cf3  \cf0 ,\cf3  \cf0 $new_wave_name\
+\cf3 		\cf0 \
+\cf3 		\cf0 Archive_Data\cf3  \cf0 (suffix_str\cf3  \cf0 ,\cf3  \cf0 names_wv\cf3  \cf0 ,\cf3  \cf0 1)\
+\cf3 	\cf6 endif\cf0 \
+\
+\
+\cf3 	\cf0 time_elapsed\cf3  \cf0 =\cf3  \cf8 ticks\cf3  \cf0 -\cf3  \cf0 time_elapsed\
+\cf3 	\cf0 time_elapsed\cf3  \cf0 /=\cf3  \cf0 60\cf3 												\cf5 //\cf3 	\cf5 convert\cf3  \cf5 to\cf3  \cf5 time\cf3  \cf5 measured\cf3  \cf5 in\cf3  \cf5 seconds\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (time_elapsed\cf3  \cf0 >\cf3  \cf0 5)\
+\cf3 		\cf7 Print\cf3  \cf4 "Run\cf3  \cf4 time\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 time_elapsed\cf3  \cf0 ,\cf3  \cf4 "sec"\cf0 \
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf6 EndMacro\cf0 \
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 Macro\cf3  \cf5 allows\cf3  \cf5 three\cf3  \cf5 possible\cf3  \cf5 data\cf3  \cf5 archiving\cf3  \cf5 options:\cf0 \
+\cf5 //\cf3 		\cf5 1)\cf3  \cf5 saves\cf3  \cf5 currents\cf3  \cf5 'Jens'\cf3  \cf5 waves\cf3  \cf5 into\cf3  \cf5 archival\cf3  \cf5 waves\cf3  \cf5 with\cf3  \cf5 new\cf3  \cf5 names\cf3  \cf5 using\cf3  \cf5 an\cf3  \cf5 ending,\cf3  \cf5 'suffix_str'\cf0 \
+\cf5 //\cf3 		\cf5 2)\cf3  \cf5 takes\cf3  \cf5 waves\cf3  \cf5 with\cf3  \cf5 archived\cf3  \cf5 names\cf3  \cf5 and\cf3  \cf5 duplicates\cf3  \cf5 them\cf3  \cf5 back\cf3  \cf5 into\cf3  \cf5 the\cf3  \cf5 active\cf3  \cf5 waves\cf0 \
+\cf5 //\cf3 			\cf5 Note:\cf3  \cf5 this\cf3  \cf5 is\cf3  \cf5 necessary\cf3  \cf5 to\cf3  \cf5 use\cf3  \cf5 visualization\cf3  \cf5 macros\cf3  \cf5 (Jens3\cf3  \cf5 and\cf3  \cf5 Jens4)\cf3  \cf5 with\cf3  \cf5 these\cf3  \cf5 archived\cf3  \cf5 data\cf0 \
+\cf5 //\cf3 		\cf5 3)\cf3  \cf5 kills\cf3  \cf5 a\cf3  \cf5 set\cf3  \cf5 of\cf3  \cf5 archival\cf3  \cf5 waves\cf3  \cf5 that\cf3  \cf5 use\cf3  \cf5 an\cf3  \cf5 ending,\cf3  \cf5 'suffix_str'\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Macro\cf3  \cf0 Archive_Data\cf3  \cf0 (suffix_str\cf3  \cf0 ,\cf3  \cf0 names_wv\cf3  \cf0 ,\cf3  \cf0 archive_option)\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 String\cf3  \cf0 suffix_str\cf3  \cf0 =\cf3  \cf0 g_suffix_str\cf3  \cf0 ,\cf3  \cf0 names_wv\cf3  \cf0 =\cf3  \cf0 g_names_wv\
+\cf3 	\cf6 Variable\cf3  \cf0 archive_option\cf3  \cf0 =\cf3  \cf0 g_archive_option\
+\cf3 	\cf6 Prompt\cf3  \cf0 suffix_str\cf3  \cf0 ,\cf3  \cf4 "Suffix\cf3  \cf4 string\cf3  \cf4 for\cf3  \cf4 naming:"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 names_wv\cf3  \cf0 ,\cf3  \cf4 "Wave\cf3  \cf4 for\cf3  \cf4 stimulus\cf3  \cf4 parameters:"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf8 WaveList\cf0 (\cf4 "*names*dend*"\cf3  \cf0 ,\cf3  \cf4 ";"\cf3  \cf0 ,\cf3  \cf4 ""\cf0 )\
+\cf3 	\cf6 Prompt\cf3  \cf0 archive_option\cf3  \cf0 ,\cf3  \cf4 "Which\cf3  \cf4 archive\cf3  \cf4 option?"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf4 "Store\cf3  \cf4 active\cf3  \cf4 waves\cf3  \cf4 into\cf3  \cf4 archive;copt\cf3  \cf4 achive\cf3  \cf4 waves\cf3  \cf4 to\cf3  \cf4 active;kill\cf3  \cf4 archive\cf3  \cf4 waves"\cf0 \
+\cf3 	\cf7 PauseUpdate\cf3  \cf0 ;\cf3  \cf7 Silent\cf3  \cf0 1\
+\cf3 	\cf0 \
+\cf3 	\cf0 g_suffix_str\cf3  \cf0 =\cf3  \cf0 suffix_str\cf3  \cf0 ;\cf3  \cf0 g_names_wv\cf3  \cf0 =\cf3  \cf0 names_wv\
+\cf3 	\cf0 g_archive_option\cf3  \cf0 =\cf3  \cf0 archive_option\
+\
+\
+\cf3 	\cf6 String\cf3  \cf0 old_wave_name\cf3  \cf0 ,\cf3  \cf0 new_wave_name\cf3  \cf0 ,\cf3  \cf0 prefix_str\cf3  \cf0 ,\cf3  \cf0 version_str\cf3  \cf0 ,\cf3  \cf0 abort_str\
+\cf3 	\cf0 version_str\cf3  \cf0 =\cf3  \cf4 ""\cf0 \
+\cf3 	\cf0 prefix_str\cf3  \cf0 =\cf3  \cf0 $names_wv[0]\cf3  \cf0 +\cf3  \cf0 version_str\
+\cf3 			\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 index_name\cf3  \cf0 ,\cf3  \cf0 num_names\
+\cf3 	\cf0 num_names\cf3  \cf0 =\cf3  \cf8 numpnts\cf0 ($names_wv)\
+\cf3 	\cf0 index_name\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 	\cf6 do\cf3 	\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (archive_option\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 			\cf0 old_wave_name\cf3  \cf0 =\cf3  \cf4 "Jens"\cf3  \cf0 +\cf3  \cf0 $names_wv[index_name]\cf3  \cf0 +\cf3  \cf4 "_before"\cf0 \
+\cf3 			\cf0 new_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf0 $names_wv[index_name]\cf3  \cf0 +\cf3  \cf4 "_b"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 			\cf6 if\cf3  \cf0 (\cf8 WaveExists\cf0 ($old_wave_name)\cf3  \cf0 !=\cf3  \cf0 1)\
+\cf3 				\cf0 abort_str\cf3  \cf0 =\cf3  \cf4 "Cannot\cf3  \cf4 find\cf3  \cf4 wave\cf3  \cf4 =\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf0 old_wave_name\
+\cf3 				\cf7 Abort\cf3  \cf0 abort_str\
+\cf3 			\cf6 endif\cf0 \
+\cf3 			\cf7 Duplicate\cf0 /O\cf3  \cf0 $old_wave_name\cf3  \cf0 ,\cf3  \cf0 $new_wave_name\
+\cf3 			\cf0 \
+\cf3 			\cf0 old_wave_name\cf3  \cf0 =\cf3  \cf4 "Jens"\cf3  \cf0 +\cf3  \cf0 $names_wv[index_name]\cf3  \cf0 +\cf3  \cf4 "_after"\cf0 \
+\cf3 			\cf0 new_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf0 $names_wv[index_name]\cf3  \cf0 +\cf3  \cf4 "_a"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 			\cf7 Duplicate\cf0 /O\cf3  \cf0 $old_wave_name\cf3  \cf0 ,\cf3  \cf0 $new_wave_name\
+\cf3 		\cf6 endif\cf3 		\cf0 \
+\cf3 	\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (archive_option\cf3  \cf0 ==\cf3  \cf0 2)\
+\cf3 			\cf0 old_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf0 $names_wv[index_name]\cf3  \cf0 +\cf3  \cf4 "_b"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 			\cf0 new_wave_name\cf3  \cf0 =\cf3  \cf4 "Jens"\cf3  \cf0 +\cf3  \cf0 $names_wv[index_name]\cf3  \cf0 +\cf3  \cf4 "_before"\cf0 \
+\cf3 			\cf6 if\cf3  \cf0 (\cf8 WaveExists\cf0 ($old_wave_name)\cf3  \cf0 !=\cf3  \cf0 1)\
+\cf3 				\cf0 abort_str\cf3  \cf0 =\cf3  \cf4 "Cannot\cf3  \cf4 find\cf3  \cf4 wave\cf3  \cf4 =\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf0 old_wave_name\
+\cf3 				\cf7 Abort\cf3  \cf0 abort_str\
+\cf3 			\cf6 endif\cf0 \
+\cf3 			\cf7 Duplicate\cf0 /O\cf3  \cf0 $old_wave_name\cf3  \cf0 ,\cf3  \cf0 $new_wave_name\
+\cf3 			\cf0 \
+\cf3 			\cf0 old_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf0 $names_wv[index_name]\cf3  \cf0 +\cf3  \cf4 "_a"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 			\cf0 new_wave_name\cf3  \cf0 =\cf3  \cf4 "Jens"\cf3  \cf0 +\cf3  \cf0 $names_wv[index_name]\cf3  \cf0 +\cf3  \cf4 "_after"\cf0 \
+\cf3 			\cf7 Duplicate\cf0 /O\cf3  \cf0 $old_wave_name\cf3  \cf0 ,\cf3  \cf0 $new_wave_name\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (archive_option\cf3  \cf0 ==\cf3  \cf0 3)\
+\cf3 			\cf0 old_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf0 $names_wv[index_name]\cf3  \cf0 +\cf3  \cf4 "_b"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 			\cf6 if\cf3  \cf0 (\cf8 WaveExists\cf0 ($old_wave_name)\cf3  \cf0 !=\cf3  \cf0 1)\
+\cf3 				\cf0 abort_str\cf3  \cf0 =\cf3  \cf4 "Cannot\cf3  \cf4 find\cf3  \cf4 wave\cf3  \cf4 =\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf0 old_wave_name\
+\cf3 				\cf7 Abort\cf3  \cf0 abort_str\
+\cf3 			\cf6 endif\cf0 \
+\cf3 			\cf7 Killwaves\cf0 /Z\cf3  \cf0 $old_wave_name\
+\cf3 			\cf0 \
+\cf3 			\cf0 old_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf0 $names_wv[index_name]\cf3  \cf0 +\cf3  \cf4 "_a"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 			\cf7 Killwaves\cf0 /Z\cf3  \cf0 $old_wave_name\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf0 \
+\cf3 		\cf0 index_name\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 	\cf6 while\cf3  \cf0 (index_name\cf3  \cf0 <\cf3  \cf0 num_names)\
+\
+\cf5 //\cf3 	\cf5 handle\cf3  \cf5 waves\cf3  \cf5 from\cf3  \cf5 the\cf3  \cf5 training\cf3  \cf5 period\cf3  \cf5 and\cf3  \cf5 other\cf3  \cf5 essential\cf3  \cf5 waves\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (archive_option\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 		\cf0 new_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf4 "_soma_thresh"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 Jens_soma_thresh\cf3  \cf0 ,\cf3  \cf0 $new_wave_name\
+\cf3 		\cf0 new_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf4 "_syn_recycle"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 Jens_syn_recycle\cf3  \cf0 ,\cf3  \cf0 $new_wave_name\cf3 	\cf0 \
+\cf3 		\cf0 new_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf4 "_stim_test_hist"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 Jens_stim_test\cf3  \cf0 ,\cf3  \cf0 $new_wave_name\
+\cf3 	\cf6 endif\cf0 \
+\cf3 		\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (archive_option\cf3  \cf0 ==\cf3  \cf0 2)\
+\cf3 		\cf0 old_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf4 "_soma_thresh"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 $old_wave_name\cf3  \cf0 ,\cf3  \cf0 Jens_soma_thresh\
+\cf3 		\cf0 old_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf4 "_syn_recycle"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 $old_wave_name\cf3 	\cf0 ,\cf3  \cf0 Jens_syn_recycle\
+\cf3 		\cf0 old_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf4 "_stim_test_hist"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 $old_wave_name\cf3  \cf0 ,\cf3  \cf0 Jens_stim_test\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (archive_option\cf3  \cf0 ==\cf3  \cf0 3)\
+\cf3 		\cf0 old_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf4 "_soma_thresh"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 		\cf7 Killwaves\cf0 /Z\cf3  \cf0 $old_wave_name\
+\cf3 		\cf0 old_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf4 "_syn_recycle"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 		\cf7 Killwaves\cf0 /Z\cf3  \cf0 $old_wave_name\
+\cf3 		\cf0 old_wave_name\cf3  \cf0 =\cf3  \cf0 prefix_str\cf3  \cf0 +\cf3  \cf4 "_stim_test_hist"\cf3  \cf0 +\cf3  \cf0 suffix_str\
+\cf3 		\cf7 Killwaves\cf0 /Z\cf3  \cf0 $old_wave_name\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 EndMacro\cf0 \
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Macro\cf3  \cf0 Unpack_StimID\cf3  \cf0 (params_stimulus_wv\cf3  \cf0 ,\cf3  \cf0 L4_input_ID)\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 String\cf3  \cf0 params_stimulus_wv\cf3  \cf0 =\cf3  \cf0 g_params_stimulus_wv\
+\cf3 	\cf6 Variable\cf3  \cf0 L4_input_ID\
+\cf3 	\cf6 Prompt\cf3  \cf0 params_stimulus_wv\cf3  \cf0 ,\cf3  \cf4 "Wave\cf3  \cf4 for\cf3  \cf4 stimulus\cf3  \cf4 parameters:"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf8 WaveList\cf0 (\cf4 "*params*stim*"\cf3  \cf0 ,\cf3  \cf4 ";"\cf3  \cf0 ,\cf3  \cf4 ""\cf0 )\
+\cf3 	\cf6 Prompt\cf3  \cf0 L4_input_ID\cf3  \cf0 ,\cf3  \cf4 "ID\cf3  \cf4 for\cf3  \cf4 input\cf3  \cf4 from\cf3  \cf4 L4:"\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf0 g_params_stimulus_wv\cf3  \cf0 =\cf3  \cf0 params_stimulus_wv\
+\cf3 	\cf0 \
+\cf3 	\cf0 Do_Unpack_StimID ($params_stimulus_wv\cf3  \cf0 ,\cf3  \cf0 L4_input_ID\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf0 1)\
+\cf3 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 EndMacro\cf3  \cf0 \
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb11 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 function\cf3  \cf5 takes\cf3  \cf5 input\cf3  \cf5 from\cf3  \cf5 a\cf3  \cf5 single\cf3  \cf5 bar\cf3  \cf5 stimulus\cf3  \cf5 and\cf3  \cf5 calculates\cf3  \cf5 dendritic\cf3  \cf5 activity\cf0 \
+\cf5 //\cf3 		\cf5 'synapse_identity'\cf3  \cf5 has\cf3  \cf5 labels\cf3  \cf5 for\cf3  \cf5 which\cf3  \cf5 L4\cf3  \cf5 cell\cf3  \cf5 provides\cf3  \cf5 input\cf3  \cf5 to\cf3  \cf5 each\cf3  \cf5 synapse\cf0 \
+\cf5 //\cf3 		\cf5 'synapse_weight'\cf3  \cf5 has\cf3  \cf5 the\cf3  \cf5 EPSP\cf3  \cf5 size\cf3  \cf5 for\cf3  \cf5 each\cf3  \cf5 synapse\cf0 \
+\cf5 //\cf3 		\cf5 'stimulus_bar'\cf3  \cf5 has\cf3  \cf5 the\cf3  \cf5 activity\cf3  \cf5 in\cf3  \cf5 the\cf3  \cf5 L4\cf3  \cf5 population\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 function\cf3  \cf5 assumes\cf3  \cf5 that\cf3  \cf5 synapses\cf3  \cf5 are\cf3  \cf5 organized\cf3  \cf5 into\cf3  \cf5 distinct\cf3  \cf5 spatial\cf3  \cf5 clusters\cf3  \cf5 with\cf3  \cf5 ecery\cf3  \cf5 synapses\cf3  \cf5 associated\cf3  \cf5 with\cf3  \cf5 a\cf3  \cf5 unique\cf3  \cf5 cluster\cf0 \
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 Example:\cf3 	\cf5 Dendritic_Clusters\cf3  \cf5 (temp_input_L4\cf3  \cf5 ,\cf3  \cf5 temp_input_u\cf3  \cf5 ,\cf3  \cf5 temp_input_wmax\cf3  \cf5 ,\cf3  \cf5 temp_no_plast\cf3  \cf5 ,\cf3  \cf5 stimulus_bar\cf3  \cf5 ,\cf3  \cf5 params_dend1\cf3  \cf5 ,\cf3  \cf5 0\cf3  \cf5 ,\cf3  \cf5 0)\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Function\cf3  \cf0 Dendritic_Clusters\cf3  \cf0 (synapse_identity\cf3  \cf0 ,\cf3  \cf0 synapse_u\cf3  \cf0 ,\cf3  \cf0 synapse_w_max\cf3  \cf0 ,\cf3  \cf0 synapse_plast\cf3  \cf0 ,\cf3  \cf0 stimulus_bar\cf3  \cf0 ,\cf3  \cf0 params_dend_wv\cf3  \cf0 ,\cf3  \cf0 backprop_flag\cf3  \cf0 ,\cf3  \cf0 plasticity_flag)\
+\cf3 	\cf6 Wave\cf3  \cf0 synapse_identity\cf3  \cf0 ,\cf3  \cf0 synapse_u\cf3  \cf0 ,\cf3  \cf0 synapse_w_max\cf3  \cf0 ,\cf3  \cf0 synapse_plast\cf3  \cf0 ,\cf3  \cf0 stimulus_bar\cf3  \cf0 ,\cf3  \cf0 params_dend_wv\
+\cf3 	\cf6 Variable\cf3  \cf0 backprop_flag\cf3  \cf0 ,\cf3  \cf0 plasticity_flag\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf3 	\cf5 plasticity_flag\cf3  \cf5 ==\cf3  \cf5 0\cf3 		\cf5 no\cf3  \cf5 plasticity\cf0 \
+\cf5 //\cf3 	\cf5 plasticity_flag\cf3  \cf5 ==\cf3  \cf5 1\cf3 		\cf5 somatic\cf3  \cf5 adaptation\cf3  \cf5 only\cf0 \
+\cf5 //\cf3 	\cf5 plasticity_flag\cf3  \cf5 ==\cf3  \cf5 2\cf3 		\cf5 add\cf3  \cf5 in\cf3  \cf5 plasticity\cf3  \cf5 of\cf3  \cf5 dendritic\cf3  \cf5 branches\cf0 \
+\cf5 //\cf3 	\cf5 plasticity_flag\cf3  \cf5 ==\cf3  \cf5 3\cf3 		\cf5 all\cf3  \cf5 plasticity\cf3  \cf5 (i.e.\cf3  \cf5 add\cf3  \cf5 in\cf3  \cf5 synaptic\cf3  \cf5 plastiity)\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 branch_size\cf3  \cf0 ,\cf3  \cf0 branch_thresh\cf3  \cf0 ,\cf3  \cf0 syn_strenth\cf3  \cf0 ,\cf3  \cf0 backprop_AP\cf3  \cf0 ,\cf3  \cf0 noise_synapse\cf3  \cf0 ,\cf3  \cf0 noise_branch\
+\cf3 	\cf0 branch_size\cf3  \cf0 =\cf3  \cf0 params_dend_wv[2]\
+\cf3 	\cf0 branch_thresh\cf3  \cf0 =\cf3  \cf0 params_dend_wv[5]\
+\cf3 	\cf0 syn_strenth\cf3  \cf0 =\cf3  \cf0 params_dend_wv[3]\
+\cf3 	\cf0 backprop_AP\cf3  \cf0 =\cf3  \cf0 params_dend_wv[8]\
+\cf3 	\cf0 noise_synapse\cf3  \cf0 =\cf3  \cf0 params_dend_wv[9]\
+\cf3 	\cf0 noise_branch\cf3  \cf0 =\cf3  \cf0 params_dend_wv[10]\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 weight_range\cf3  \cf0 ,\cf3  \cf0 du_potent\cf3  \cf0 ,\cf3  \cf0 du_depress\cf3  \cf0 ,\cf3  \cf0 du_decay\cf3  \cf0 ,\cf3  \cf0 du_baseline\cf3  \cf0 ,\cf3  \cf0 u_recycle\cf3  \cf0 ,\cf3  \cf0 u_max\cf3  \cf0 ,\cf3  \cf0 plast_time\
+\cf3 	\cf0 weight_range\cf3  \cf0 =\cf3  \cf0 params_dend_wv[12]\
+\cf3 	\cf0 du_potent\cf3  \cf0 =\cf3  \cf0 params_dend_wv[13]\
+\cf3 	\cf0 du_depress\cf3  \cf0 =\cf3  \cf0 params_dend_wv[14]\
+\cf3 	\cf0 du_decay\cf3  \cf0 =\cf3  \cf0 params_dend_wv[15]\
+\cf3 	\cf0 du_baseline\cf3  \cf0 =\cf3  \cf0 params_dend_wv[16]\
+\cf3 	\cf0 u_recycle\cf3  \cf0 =\cf3  \cf0 params_dend_wv[17]\
+\cf3 	\cf0 u_max\cf3  \cf0 =\cf3  \cf0 params_dend_wv[18]\cf3 	\cf0 \
+\cf3 	\cf0 plast_time\cf3  \cf0 =\cf3  \cf0 params_dend_wv[19]\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 scale_NMDA\cf3  \cf0 ,\cf3  \cf0 scale_no_NMDA\cf3  \cf0 ,\cf3  \cf0 branch_g_leak\cf3  \cf0 ,\cf3  \cf0 branch_g_inhib0\cf3  \cf0 ,\cf3  \cf0 V_exc\cf3  \cf0 ,\cf3  \cf0 V_Na\cf3  \cf0 ,\cf3  \cf0 branch_g_Na\
+\cf3 	\cf0 scale_NMDA\cf3  \cf0 =\cf3  \cf0 params_dend_wv[20]\
+\cf3 	\cf0 scale_no_NMDA\cf3  \cf0 =\cf3  \cf0 params_dend_wv[21]\
+\cf3 	\cf0 branch_g_leak\cf3  \cf0 =\cf3  \cf0 params_dend_wv[22]\
+\cf3 	\cf0 branch_g_inhib0\cf3  \cf0 =\cf3  \cf0 params_dend_wv[23]\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 \cb11 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 V_exc\cf3  \cf0 =\cf3  \cf0 60\
+\cf3 	\cf0 V_Na\cf3  \cf0 =\cf3  \cf0 100\cb1 \
+\cf3 \cb11 	\cf0 branch_g_Na\cf3  \cf0 =\cf3  \cf0 branch_g_leak\cf3  \cf0 *\cf3  \cf0 backprop_AP\cf3  \cf0 /\cf3  \cf0 (V_Na\cf3  \cf0 +\cf3  \cf0 backprop_AP)\
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb1 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_branches\cf3  \cf0 ,\cf3  \cf0 actual_thresh\
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb11 	\cf0 num_branches\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (synapse_identity\cf3  \cf0 ,\cf3  \cf0 0)\
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb1 	\cf0 \
+\cf3 	\cf6 \cb11 Variable\cf3  \cf0 num_L4_neurons\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf7 Wavestats\cf0 /Q\cf3  \cf0 synapse_identity\
+\cf3 	\cf0 num_L4_neurons\cf3  \cf0 =\cf3  \cf0 V_max\cf3  \cf0 +\cf3  \cf0 1\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 \
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 synapse_identity\cf3  \cf0 ,\cf3  \cf0 temp_dendritic_activity\
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches)\cf3  \cf0 temp_branch_activity\cf3  \cf0 ,\cf3  \cf0 temp_branch_spike\cf3  \cf0 ,\cf3  \cf0 temp_branch_g_exc\cf3  \cf0 ,\cf3  \cf0 temp_branch_gain\
+\cf3 	\cf7 Make\cf0 /O/N=(branch_size)\cf3  \cf0 temp_basal_activity\
+\cf3 	\cf0 \cb10 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 synapse_u\cf3  \cf0 ,\cf3  \cf0 temp_syn_weight\cf3  \cf0 ,\cf3  \cf0 temp_syn_recycle\cf3  \cf0 ,\cf3  \cf0 syn_g_inhib\
+\cf3 	\cf6 i\cb11 f\cf3  \cf0 (branch_g_leak\cf3  \cf0 >\cf3  \cf0 0)\cf3 												/\cf5 /\cf3 	\cf5 use\cf3  \cf5 inhibitory\cf3  \cf5 shunting\cf3  \cf5 based\cf3  \cf5 gain\cf3  \cf5 control\cf0 \
+\cf3 		\cf0 syn_g_inhib\cf3  \cf0 =\cf3  \cf0 (V_exc\cf3  \cf0 /\cf3  \cf0 synapse_w_max\cf3  \cf0 -\cf3  \cf0 1)\cf3  \cf0 -\cf3  \cf0 branch_g_leak\cf3 				\cf5 //\cf3 	\cf5 first,\cf3  \cf5 decode\cf3  \cf5 the\cf3  \cf5 inhibitory\cf3  \cf5 conductance\cf3  \cf5 in\cf3  \cf5 each\cf3  \cf5 branch\cf0 \
+\cf3 		\cf0 temp_syn_weight\cf3  \cf0 =\cf3  \cf0 1\cf3  \cf0 /\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 exp\cf0 (-synapse_u))\cf3 							\cf5 //\cf3 	\cf5 in\cf3  \cf5 this\cf3  \cf5 case,\cf3  \cf5 'temp_syn_weight'\cf3  \cf5 encodes\cf3  \cf5 only\cf3  \cf5 the\cf3  \cf5 *conductance*\cf3  \cf5 of\cf3  \cf5 each\cf3  \cf5 synapse\cf0 \
+\cf3 	\cf6 else\cf0 \
+\cf3 		\cf0 temp_syn_weight\cf3  \cf0 =\cf3  \cf0 synapse_w_max\cf3  \cf0 /\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 exp\cf0 (-synapse_u))\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 temp_syn_recycle\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\cf3 	\cf0 temp_dendritic_activity\cf3  \cf0 =\cf3  \cf0 stimulus_bar[synapse_identity[p][q]]\cf3 				\cf5 //\cf3 	\cf5 determine\cf3  \cf5 which\cf3  \cf5 L4\cf3  \cf5 cell\cf3  \cf5 provides\cf3  \cf5 input\cf3  \cf5 from\cf3  \cf5 each\cf3  \cf5 synapse 
+\f1\b \cf15 // now called synActivity
+\f0\b0 \cf0 \
+\cf3 	\cf0 temp_dendritic_activity\cf3  \cf0 *=\cf3  \cf0 temp_syn_weight\cf3 								\cf5 //\cf3 	\cf5 determine\cf3  \cf5 synaptic\cf3  \cf5 weight\cf0 \
+\cf3 	\cf0 temp_dendritic_activity\cf3  \cf0 *=\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 gnoise\cf0 (noise_synapse))\cf3 						\cf5 //\cf3 	\cf5 add\cf3  \cf5 multiplicative\cf3  \cf5 noise\cf3  \cf5 to\cf3  \cf5 each\cf3  \cf5 synapse\cf3 		\cf0 \
+\cf3 	\cf0 temp_branch_spike\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 index_branch\cf3  \cf0 ,\cf3  \cf0 index_synapse\cf3  \cf0 ,\cf3  \cf0 branch_g_exc\cf3  \cf0 ,\cf3  \cf0 branch_g_inh\cf3  \cf0 ,\cf3  \cf0 branch_gain\cf3  \cf0 ,\cf3  \cf0 branch_activity\cf3  \cf0 ,\cf3  \cf0 branch_spike\cf3  \cf0 ,\cf3  \cf0 total_NMDA_spikes\cf3  \cf0 ,\cf3  \cf0 rand\
+\cf3 	\cf6 Variable\cf3  \cf0 index_L4_input\cf3  \cf0 ,\cf3  \cf0 index_x\cf3  \cf0 ,\cf3  \cf0 index_y\cf3  \cf0 ,\cf3  \cf0 index_orient\
+\cf3 	\cf0 total_NMDA_spikes\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\cf3 	\cf6 for\cf3  \cf0 (index_branch\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_branch\cf3  \cf0 <\cf3  \cf0 num_branches\cf3  \cf0 ;\cf3  \cf0 index_branch\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 		\cf0 temp_basal_activity[]\cf3  \cf0 =\cf3  \cf0 temp_dendritic_activity[index_branch][p]\
+\cf3 		\cf0 branch_g_exc\cf3  \cf0 =\cf3  \cf8 sum\cf0 (temp_basal_activity\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf0 branch_size\cf3  \cf0 -\cf3  \cf0 1)\
+\cf3 		\cf0 branch_g_inh\cf3  \cf0 =\cf3  \cf0 syn_g_inhib[index_branch][0] // 
+\f1\b \cf15 now branchSynGInhib
+\f0\b0 \cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (branch_g_leak\cf3  \cf0 ==\cf3  \cf0 0)\cf3 											\cf5 //\cf3 	\cf5 use\cf3  \cf5 direct\cf3  \cf5 changes\cf3  \cf5 on\cf3  \cf5 w_max\cf3  \cf5 for\cf3  \cf5 gain\cf3  \cf5 control\cf0 \
+\cf3 			\cf0 branch_activity\cf3  \cf0 =\cf3  \cf0 branch_g_exc\cf3 	\cf0 \
+\cf3 			\cf0 branch_activity\cf3  \cf0 +=\cf3  \cf0 (backprop_flag\cf3  \cf0 ==\cf3  \cf0 1)\cf3  \cf0 *\cf3  \cf0 backprop_AP\cf3 				\cf5 //\cf3 	\cf5 add\cf3  \cf5 depolarization\cf3  \cf5 due\cf3  \cf5 to\cf3  \cf5 a\cf3  \cf5 backpropagating\cf3  \cf5 action\cf3  \cf5 potential\cf3 	\cf0 \
+\cf3 			\cf0 branch_gain\cf3  \cf0 =\cf3  \cf0 1\cf3 						\cf0 \
+\cf3 		\cf6 else\cf3 															\cf5 //\cf3 	\cf5 use\cf3  \cf5 inhibitory\cf3  \cf5 shunting\cf3  \cf5 based\cf3  \cf5 gain\cf3  \cf5 control\cf0 \
+\cf3 			\cf0 branch_activity\cf3  \cf0 =\cf3  \cf0 branch_g_exc\cf3  \cf0 *\cf3  \cf0 V_exc\cf3  \cf0 +\cf3  \cf0 branch_g_Na\cf3  \cf0 *\cf3  \cf0 V_Na\cf3  \cf0 *\cf3  \cf0 (backprop_flag\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 			\cf0 branch_activity\cf3  \cf0 /=\cf3  \cf0 (branch_g_exc\cf3  \cf0 +\cf3  \cf0 branch_g_leak\cf3  \cf0 +\cf3  \cf0 branch_g_inh\cf3  \cf0 +\cf3  \cf0 branch_g_Na\cf3  \cf0 *\cf3  \cf0 (backprop_flag\cf3  \cf0 ==\cf3  \cf0 1))\
+\cf3 			\cf0 branch_gain\cf3  \cf0 =\cf3  \cf0 V_exc\cf3  \cf0 /\cf3  \cf0 (branch_g_exc\cf3  \cf0 +\cf3  \cf0 branch_g_leak\cf3  \cf0 +\cf3  \cf0 branch_g_inh\cf3  \cf0 +\cf3  \cf0 branch_g_Na\cf3  \cf0 *\cf3  \cf0 (backprop_flag\cf3  \cf0 ==\cf3  \cf0 1))\
+\cf3 		\cf6 endif\cf3 		\cf0 \
+\cf3 		\cf0 temp_dendritic_activity[index_branch][]\cf3  \cf0 *=\cf3  \cf0 branch_gain\cf3 					\cf5 //\cf3 	\cf5 apply\cf3  \cf5 inhibitory\cf3  \cf5 gain\cf3  \cf5 control\cf3  \cf5 to\cf3  \cf5 EPSPs\cf0 \
+\cf3 		\cf0 \
+\cf3 		\cf0 temp_branch_activity[index_branch]\cf3  \cf0 =\cf3  \cf0 branch_activity\
+\cf3 		\cf0 temp_branch_g_exc[index_branch]\cf3  \cf0 =\cf3  \cf0 branch_g_exc\
+\cf3 		\cf0 temp_branch_gain[index_branch]\cf3  \cf0 =\cf3  \cf0 branch_gain\
+\cf3 		\cf0 \
+\cf3 		\cf0 actual_thresh\cf3  \cf0 =\cf3  \cf0 branch_thresh\cf3  \cf0 *\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 gnoise\cf0 (noise_branch))\
+\cf3 		\cf0 branch_spike\cf3  \cf0 =\cf3  \cf0 (branch_activity\cf3  \cf0 >=\cf3  \cf0 actual_thresh)\
+\cf3 		\cf0 temp_branch_spike[index_branch]\cf3  \cf0 =\cf3  \cf0 branch_spike\
+\cf3 			\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (plasticity_flag\cf3  \cf0 >=\cf3  \cf0 2) 
+\f1\b \cf15 // 3 because of indexing
+\f0\b0 \cf3 										\cf5 //\cf3 	\cf5 adjust\cf3  \cf5 dendritic\cf3  \cf5 gain\cf3  \cf5 to\cf3  \cf5 adapt\cf3  \cf5 NMDA\cf3  \cf5 spike\cf3  \cf5 rate\cf0 \
+\cf3 			\cf6 if\cf3  \cf0 (branch_spike)\cf3 																\cf0 \
+\cf3 				\cf6 if\cf3  \cf0 (branch_g_leak\cf3  \cf0 ==\cf3  \cf0 0)\
+\cf3 					\cf0 synapse_w_max[index_branch][]\cf3  \cf0 *=\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf0 scale_NMDA)\cf3 			\cf5 //\cf3 	\cf5 synaptic\cf3  \cf5 scaling\cf3  \cf5 to\cf3  \cf5 adjust\cf3  \cf5 the\cf3  \cf5 rate\cf3  \cf5 of\cf3  \cf5 NMDA\cf3  \cf5 spikes\cf0 \
+\cf3 				\cf6 else\cf0 \
+\cf3 					\cf0 syn_g_inhib[index_branch][]\cf3  \cf0 -=\cf3  \cf0 scale_NMDA\cf3 				\cf5 //\cf3 	\cf5 increment\cf3  \cf5 the\cf3  \cf5 inhibitory\cf3  \cf5 conductance\cf3  \cf5 to\cf3  \cf5 decrease\cf3  \cf5 gain\cf3  \cf5 (scale_NMDA\cf3  \cf5 <\cf3  \cf5 0)\cf0 \
+\cf3 				\cf6 endif\cf0 \
+\cf3 			\cf6 else\cf0 \
+\cf3 				\cf6 if\cf3  \cf0 (branch_g_leak\cf3  \cf0 ==\cf3  \cf0 0)\
+\cf3 					\cf0 synapse_w_max[index_branch][]\cf3  \cf0 *=\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf0 scale_no_NMDA)\cf3 		\cf5 //\cf3  \cf5 synaptic\cf3  \cf5 scaling\cf3  \cf5 to\cf3  \cf5 adjust\cf3  \cf5 the\cf3  \cf5 rate\cf3  \cf5 of\cf3  \cf5 NMDA\cf3  \cf5 spikes\cf0 \
+\cf3 				\cf6 else\cf0 \
+\cf3 					\cf0 syn_g_inhib[index_branch][]\cf3  \cf0 -=\cf3  \cf0 scale_no_NMDA\cf3 				\cf5 //\cf3 	\cf5 decrement\cf3  \cf5 the\cf3  \cf5 inhibitory\cf3  \cf5 conductance\cf3  \cf5 to\cf3  \cf5 increase\cf3  \cf5 gain\cf3  \cf5 (scale_no_NMDA\cf3  \cf5 >\cf3  \cf5 0)\cf0 \
+\cf3 				\cf6 endif\cf0 \
+\cf3 			\cf6 endif\cf0 \
+\cf3 		\cf6 endif\cf3 							\cf5 //\cf3 	\cf5 plasticity_flag\cf3  \cf5 >=\cf3  \cf5 2\cf0 \
+\cf3 		\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (plasticity_flag\cf3  \cf0 ==\cf3  \cf0 3) 
+\f1\b \cf15 // 4 because of indexing
+\f0\b0 \cf0 \
+\cf3 			\cf6 if\cf3  \cf0 (branch_spike)\cf3 		\cf0 \
+\cf3 				\cf0 synapse_plast[index_branch][]\cf3  \cf0 =\cf3  \cf0 plast_time\cf3 					\cf5 //\cf3 	\cf5 sets\cf3  \cf5 up\cf3  \cf5 the\cf3  \cf5 time\cf3  \cf5 window\cf3  \cf5 for\cf3  \cf5 synaptic\cf3  \cf5 plasticity\cf0 \
+\cf3 			\cf6 else\cf3 			\cf0 \
+\cf3 				\cf0 synapse_plast[index_branch][]\cf3  \cf0 -=\cf3  \cf0 1\cf3 							\cf5 //\cf3 	\cf5 decrements\cf3  \cf5 the\cf3  \cf5 time\cf3  \cf5 window\cf3  \cf5 for\cf3  \cf5 synaptic\cf3  \cf5 plasticity\cf0 \
+\cf3 			\cf6 endif\cf0 \
+\cf3 				\cf0 \
+\cf3 			\cf6 for\cf3  \cf0 (index_synapse\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_synapse\cf3  \cf0 <\cf3  \cf0 branch_size\cf3  \cf0 ;\cf3  \cf0 index_synapse\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 				\cf6 if\cf3  \cf0 (synapse_plast[index_branch][index_synapse]\cf3  \cf0 >\cf3  \cf0 0)\cf3 		\cf0 \
+\cf3 					\cf0 synapse_u[index_branch][index_synapse]\cf3  \cf0 +=\cf3  \cf0 du_potent\cf3  \cf0 *\cf3  \cf0 (temp_dendritic_activity[index_branch][index_synapse]\cf3  \cf0 !=\cf3  \cf0 0)\
+\cf3 					\cf0 synapse_u[index_branch][index_synapse]\cf3  \cf0 +=\cf3  \cf0 du_depress\cf3  \cf0 *\cf3  \cf0 (temp_dendritic_activity[index_branch][index_synapse]\cf3  \cf0 ==\cf3  \cf0 0)\
+\cf3 				\cf6 else\cf0 \
+\cf3 					\cf0 synapse_u[index_branch][index_synapse]\cf3  \cf0 +=\cf3  \cf0 du_decay\cf3  \cf0 *\cf3  \cf0 (temp_dendritic_activity[index_branch][index_synapse]\cf3  \cf0 !=\cf3  \cf0 0)\
+\cf3 					\cf0 synapse_u[index_branch][index_synapse]\cf3  \cf0 +=\cf3  \cf0 du_baseline\cf3  \cf0 *\cf3  \cf0 (temp_dendritic_activity[index_branch][index_synapse]\cf3  \cf0 ==\cf3  \cf0 0)\
+\cf3 				\cf6 endif\cf0 \
+\cf3 				\cf6 if\cf3  \cf0 (synapse_u[index_branch][index_synapse]\cf3  \cf0 <\cf3  \cf0 u_recycle)\cf3 			\cf5 //\cf3 	\cf5 retract\cf3  \cf5 the\cf3  \cf5 spine\cf3  \cf5 and\cf3  \cf5 grow\cf3  \cf5 a\cf3  \cf5 new\cf3  \cf5 one\cf0 \
+\cf3 					\cf0 rand\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (0.5\cf3  \cf0 *\cf3  \cf0 num_L4_neurons\cf3  \cf0 *\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 enoise\cf0 (1)))\cf3 						\cf0 \
+\cf3 					\cf0 synapse_identity[index_branch][index_synapse]\cf3  \cf0 =\cf3  	\cf0 rand\cf3 			\cf5 //\cf3 	\cf5 randomize\cf3  \cf5 input\cf3  \cf5 cell\cf0 \
+\cf3 					\cf0 synapse_u[index_branch][index_synapse]\cf3  \cf0 =\cf3  \cf8 enoise\cf0 (weight_range)\cf3 	\cf5 //\cf3 	\cf5 randomize\cf3  \cf5 a\cf3  \cf5 new\cf3  \cf5 value\cf3  \cf5 of\cf3  \cf5 u\cf0 \
+\cf3 					\cf0 temp_syn_recycle[index_branch][index_synapse]\cf3  \cf0 +=\cf3  \cf0 1\cf3 			\cf5 //\cf3 	\cf5 count\cf3  \cf5 all\cf3  \cf5 the\cf3  \cf5 instances\cf3  \cf5 of\cf3  \cf5 synaptic\cf3  \cf5 recycling\cf0 \
+\cf3 				\cf6 endif\cf0 \
+\cf3 			\cf6 endfor\cf3 					\cf5 //\cf3 	\cf5 index_synapse\cf0 \
+\cf3 		\cf6 endif\cf3 							\cf5 //\cf3 	\cf5 plasticity_flag\cf3  \cf5 ==\cf3  \cf5 3\cf0 \
+\cf3 				\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (branch_spike)\
+\cf3 			\cf0 total_NMDA_spikes\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 			\cf0 temp_dendritic_activity[index_branch][]\cf3  \cf0 =\cf3  \cf0 0\cf3 							\cf5 //\cf3 	\cf5 shunt\cf3  \cf5 the\cf3  \cf5 linear\cf3  \cf5 EPSPs\cf3  \cf5 when\cf3  \cf5 there\cf3  \cf5 is\cf3  \cf5 an\cf3  \cf5 NMDA\cf3  \cf5 spike\cf0 \
+\cf3 		\cf6 endif\cf0 \
+\
+\cf3 	\cf6 endfor\cf3 							\cf5 //\cf3 	\cf5 index_branch\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf0 synapse_u\cf3  \cf0 =\cf3  \cf8 min\cf0 (synapse_u\cf3  \cf0 ,\cf3  \cf0 u_max)\
+\cf3 	\cf0 syn_g_inhib\cf3  \cf0 =\cf3  \cf8 max\cf0 (syn_g_inhib\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (branch_g_leak\cf3  \cf0 >\cf3  \cf0 0)\
+\cf3 		\cf0 synapse_w_max\cf3  \cf0 =\cf3  \cf0 V_exc\cf3  \cf0 /\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf0 branch_g_leak\cf3  \cf0 +\cf3  \cf0 syn_g_inhib)\cf3 					\cf5 //\cf3 	\cf5 re-encode\cf3  \cf5 the\cf3  \cf5 inhibitory\cf3  \cf5 conductance\cf3  \cf5 into\cf3  \cf5 the\cf3  \cf5 wave\cf3  \cf5 'synapse_w_max'\cf0 \
+\cf3 	\cf6 endif\cf0 \
+\cf3 		\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf6 return\cf3  \cf0 (total_NMDA_spikes)\
+\cf3 	\cf0 \
+\cf6 End\cf0 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 function\cf3  \cf5 takes\cf3  \cf5 the\cf3  \cf5 spike\cf3  \cf5 pattern\cf3  \cf5 in\cf3  \cf5 a\cf3  \cf5 single\cf3  \cf5 time\cf3  \cf5 bin\cf3  \cf5 and\cf3  \cf5 increments\cf3  \cf5 both\cf3  \cf5 RF\cf3  \cf5 histograms 
+\f1\b \cf15 // coded directly into calcDendActivity (do_Run_BarStim
+\f0\b0 \cf0 \
+\cf5 //\cf0 \
+\cf5 //\cf3 		\cf5 Example:\cf3 	\cf5 Dendritic_RF_Calc\cf3  \cf5 (identity_L4_wv\cf3  \cf5 ,\cf3  \cf5 stimulus_bar\cf3  \cf5 ,\cf3  \cf5 temp_branch_spike\cf3  \cf5 ,\cf3  \cf5 temp_branch_RF\cf3  \cf5 ,\cf3  \cf5 cum_stim_RF\cf3  \cf5 ,\cf3  \cf5 soma_spike)\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Function\cf3  \cf0 Dendritic_RF_Calc\cf3  \cf0 (synapse_identity\cf3  \cf0 ,\cf3  \cf0 stimulus_bar\cf3  \cf0 ,\cf3  \cf0 branch_spikes\cf3  \cf0 ,\cf3  \cf0 branch_RF\cf3  \cf0 ,\cf3  \cf0 cum_stim_RF\cf3  \cf0 ,\cf3  \cf0 soma_spike)\
+\cf3 	\cf6 Wave\cf3  \cf0 synapse_identity\cf3  \cf0 ,\cf3  \cf0 stimulus_bar\cf3  \cf0 ,\cf3  \cf0 branch_spikes\cf3  \cf0 ,\cf3  \cf0 branch_RF\cf3  \cf0 ,\cf3  \cf0 cum_stim_RF\
+\cf3 	\cf6 Variable\cf3  \cf0 soma_spike\
+\
+\cf3 	\cf6 Variable\cf3  \cf0 num_branches\cf3  \cf0 ,\cf3  \cf0 branch_size\
+\cf3 	\cf0 num_branches\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (synapse_identity\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 	\cf0 branch_size\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (synapse_identity\cf3  \cf0 ,\cf3  \cf0 1)\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient\cf3  \cf0 ,\cf3  \cf0 num_L4_neurons\
+\cf3 	\cf0 num_x\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (branch_RF\cf3  \cf0 ,\cf3  \cf0 1)\
+\cf3 	\cf0 num_y\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (branch_RF\cf3  \cf0 ,\cf3  \cf0 2)\
+\cf3 	\cf0 num_orient\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (branch_RF\cf3  \cf0 ,\cf3  \cf0 3)\
+\cf3 	\cf0 num_L4_neurons\cf3  \cf0 =\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 num_y\cf3  \cf0 *\cf3  \cf0 num_orient\
+\cf3 		\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 index_branch\cf3  \cf0 ,\cf3  \cf0 index_L4_input\cf3  \cf0 ,\cf3  \cf0 index_orient\cf3  \cf0 ,\cf3  \cf0 index_x\cf3  \cf0 ,\cf3  \cf0 index_y\
+\cf3 		\cf0 \
+\cf3 	\cf6 for\cf3  \cf0 (index_L4_input\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_L4_input\cf3  \cf0 <\cf3  \cf0 num_L4_neurons\cf3  \cf0 ;\cf3  \cf0 index_L4_input\cf3  \cf0 +=\cf3  \cf0 1)\cf3 				\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (stimulus_bar[index_L4_input]\cf3  \cf0 ==\cf3  \cf0 1)\cf3 										/\cf5 /\cf3 	\cf5 this\cf3  \cf5 L4\cf3  \cf5 simple\cf3  \cf5 cells\cf3  \cf5 was\cf3  \cf5 active\cf3 				\cf0 \
+\cf3 			\cf0 index_orient\cf3  \cf0 =\cf3  \cf8 mod\cf0 (index_L4_input\cf3  \cf0 ,\cf3  \cf0 4) 
+\f1\b \cf15 i grouped my L4s together so did floor(iL4Input/64)
+\f0\b0 \cf0 \
+\cf3 			\cf0 index_y\cf3  \cf0 =\cf3  \cf8 trunc\cf0 ((index_L4_input\cf3  \cf0 -\cf3  \cf0 index_orient)\cf3  \cf0 /\cf3  \cf0 num_x\cf3  \cf0 /\cf3  \cf0 num_orient)\
+\cf3 			\cf0 index_x\cf3  \cf0 =\cf3  \cf8 trunc\cf0 ((index_L4_input\cf3  \cf0 -\cf3  \cf0 index_orient\cf3  \cf0 -\cf3  \cf0 index_y\cf3  \cf0 *\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 num_orient)\cf3  \cf0 /\cf3  \cf0 num_orient)\
+\cf3 			\cf0 \
+\cf3 			\cf0 cum_stim_RF[index_x][index_y][index_orient]\cf3  \cf0 +=\cf3  \cf0 1\cf3 							\cf5 //\cf3 	\cf5 increment\cf3  \cf5 the\cf3  \cf5 cumulative\cf3  \cf5 stimulus\cf3  \cf5 histogram\cf3  \cf5 only\cf3  \cf5 once\cf3  \cf5 per\cf3  \cf5 time\cf3  \cf5 step\cf0 \
+\cf3 									\cf0 \
+\cf3 			\cf6 for\cf3  \cf0 (index_branch\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_branch\cf3  \cf0 <\cf3  \cf0 num_branches\cf3  \cf0 ;\cf3  \cf0 index_branch\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 				\cf6 if\cf3  \cf0 (branch_spikes[index_branch]\cf3  \cf0 ==\cf3  \cf0 1)\cf3 								\cf5 //\cf3 	\cf5 increment\cf3  \cf5 branch\cf3  \cf5 RF,\cf3  \cf5 if\cf3  \cf5 it\cf3  \cf5 had\cf3  \cf5 an\cf3  \cf5 NMDA\cf3  \cf5 spike\cf0 \
+\cf3 					\cf0 branch_RF[index_branch][index_x][index_y][index_orient]\cf3  \cf0 +=\cf3  \cf0 1\cf3 	\cf0 \
+\cf3 				\cf6 endif\cf0 \
+\cf3 			\cf6 endfor\cf3 						\cf5 //\cf3 	\cf5 index_branch\cf0 \
+\cf3 			\cf0 \
+\cf3 			\cf6 if\cf3  \cf0 (soma_spike\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 				\cf0 branch_RF[num_branches][index_x][index_y][index_orient]\cf3  \cf0 +=\cf3  \cf0 1\cf3 			\cf5 //\cf3 	\cf5 this\cf3  \cf5 row\cf3  \cf5 encodes\cf3  \cf5 the\cf3  \cf5 somatic\cf3  \cf5 RF\cf0 \
+\cf3 			\cf6 endif\cf0 \
+\cf3 		\cf0 \
+\cf3 		\cf6 endif\cf3 							\cf5 //\cf3 	\cf5 stimulus_bar[index_L4_input]\cf3  \cf5 ==\cf3  \cf5 1\cf3 	\cf0 \
+\cf3 		\cf0 \
+\cf3 	\cf6 endfor\cf3 								\cf5 //\cf3 	\cf5 index_L4_input\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf6 return\cf3  \cf0 (1)\
+\cf6 End\cf0 \
+\
+\cf3 	\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 function\cf3  \cf5 takes\cf3  \cf5 the\cf3  \cf5 histogram\cf3  \cf5 of\cf3  \cf5 stimuli\cf3  \cf5 causing\cf3  \cf5 an\cf3  \cf5 NMDA\cf3  \cf5 spike\cf3  \cf5 for\cf3  \cf5 each\cf3  \cf5 branch\cf3  \cf5 and\cf3  \cf5 calculates:\cf0 \
+\cf5 //\cf3 		\cf5 1)\cf3  \cf5 orientation\cf3  \cf5 tuning\cf3  \cf5 curves\cf3  \cf5 for\cf3  \cf5 each\cf3  \cf5 branch\cf0 \
+\cf5 //\cf3 		\cf5 2)\cf3  \cf5 spatial\cf3  \cf5 receptive\cf3  \cf5 fields\cf3  \cf5 for\cf3  \cf5 each\cf3  \cf5 branch\cf0 \
+\cf5 //\cf3 		\cf5 'branch_spike_hist'\cf3  \cf5 is\cf3  \cf5 a\cf3  \cf5 4D\cf3  \cf5 tensor\cf3  \cf5 with\cf3  \cf5 counts\cf3  \cf5 for\cf3  \cf5 [branch][x][y][orientation]\cf0 \
+\cf5 //\cf3 			\cf5 row\cf3  \cf5 'num_branches'\cf3  \cf5 is\cf3  \cf5 for\cf3  \cf5 the\cf3  \cf5 RF\cf3  \cf5 of\cf3  \cf5 the\cf3  \cf5 soma\cf0 \
+\cf5 //\cf3 		\cf5 creates\cf3  \cf5 output\cf3  \cf5 waves:\cf3  	\cf5 'temp_branch_spatial_all'\cf0 \
+\cf5 //\cf3 										\cf5 'temp_branch_orient_all'\cf0 \
+\cf5 //\cf3 										\cf5 'temp_branch_size1'\cf3   \cf5 &\cf3   \cf5 'temp_branch_size2'\cf0 \
+\cf5 //\cf3 										\cf5 'temp_branch_index'\cf0 \
+\cf5 //\cf3 										\cf5 'temp_branch_pref'\cf0 \
+\cf5 //\cf3 										\cf5 'temp_branch_vector'\cf0 \
+\cf5 //\cf3 		\cf5 Note:\cf3  \cf5 last\cf3  \cf5 two\cf3  \cf5 rows\cf3  \cf5 are:\cf3  \cf5 i)\cf3  \cf5 soma\cf3  \cf5 RF,\cf3  \cf5 ii)\cf3  \cf5 composite\cf3  \cf5 RF\cf0 \
+\cf5 //\cf0 \
+\cf5 //\cf3 		\cf5 Example:\cf3  \cf5 Dendritic_RF_Analyze\cf3  \cf5 (Jens_RF_before\cf3  \cf5 ,\cf3  \cf5 Jens_stim_test\cf3  \cf5 ,\cf3  \cf5 0)\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Function\cf3  \cf0 Dendritic_RF_Analyze\cf3  \cf0 (branch_spike_hist\cf3  \cf0 ,\cf3  \cf0 cum_stim_hist\cf3  \cf0 ,\cf3  \cf0 output_option)\
+\cf3 	\cf6 Wave\cf3  \cf0 branch_spike_hist\cf3  \cf0 ,\cf3  \cf0 cum_stim_hist\
+\cf3 	\cf6 Variable\cf3  \cf0 output_option\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_branches\cf3  \cf0 ,\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient\cf3  \cf0 ,\cf3  \cf0 num_L4_neurons\
+\cf3 	\cf0 num_branches\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (branch_spike_hist\cf3  \cf0 ,\cf3  \cf0 0) 
+\f1\b \cf15 this is actually (num_branches + 1)
+\f0\b0 \cf0 \
+\cf3 	\cf0 num_x\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (branch_spike_hist\cf3  \cf0 ,\cf3  \cf0 1)\
+\cf3 	\cf0 num_y\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (branch_spike_hist\cf3  \cf0 ,\cf3  \cf0 2)\
+\cf3 	\cf0 num_orient\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (branch_spike_hist\cf3  \cf0 ,\cf3  \cf0 3)\
+\cf3 	\cf0 num_L4_neurons\cf3  \cf0 =\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 num_y\cf3  \cf0 *\cf3  \cf0 num_orient\
+\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (output_option\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 		\cf7 Print\cf3  \cf4 "num_branches\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 num_branches\cf3  \cf0 ,\cf3  \cf4 "num_x\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf4 "num_y\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf4 "num_orient\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 num_orient\cf3  \cf0 ,\cf3  \cf4 "num_L4_neurons\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 num_L4_neurons\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches\cf3  \cf0 +\cf3  \cf0 1\cf3  \cf0 ,\cf3  \cf0 num_orient)\cf3  \cf0 temp_branch_orient_all\
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches\cf3  \cf0 +\cf3  \cf0 1\cf3  \cf0 ,\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_y)\cf3  \cf0 temp_branch_spatial_all\
+\cf3 	\cf7 Make\cf0 /O/N=(num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient)\cf3  \cf0 temp_branch_RF_frac\
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches\cf3  \cf0 +\cf3  \cf0 1)\cf3  \cf0 temp_branch_index\cf3  \cf0 ,\cf3  \cf0 temp_branch_pref\cf3  \cf0 ,\cf3  \cf0 temp_branch_size1\cf3  \cf0 ,\cf3  \cf0 temp_branch_size2\cf3  \cf0 ,\cf3  \cf0 temp_branch_Rmax\
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches\cf3  \cf0 +\cf3  \cf0 1,\cf3  \cf0 2)\cf3  \cf0 temp_branch_vector\
+\cf3 	\cf7 Make\cf0 /O/N=(num_orient)\cf3  \cf0 temp_orient_tuning\cf3  \cf0 ,\cf3  \cf0 temp_cum_orient\cf3  \cf0 ,\cf3  \cf0 temp_composite_orient\
+\cf3 	\cf7 Make\cf0 /O/N=(num_x\cf3  \cf0 ,\cf3  \cf0 num_y)\cf3  \cf0 temp_spatial_RF\cf3  \cf0 ,\cf3  \cf0 temp_cum_spatial\cf3  \cf0 ,\cf3  \cf0 temp_composite_spatial\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 index_branch\cf3  \cf0 ,\cf3  \cf0 index_x\cf3  \cf0 ,\cf3  \cf0 index_y\cf3  \cf0 ,\cf3  \cf0 index_orient\
+\cf3 	\cf6 Variable\cf3  \cf0 pref\cf3  \cf0 ,\cf3  \cf0 null\cf3  \cf0 ,\cf3  \cf0 orient_index\cf3  \cf0 ,\cf3  \cf0 orient_vec_x\cf3  \cf0 ,\cf3  \cf0 orient_vec_y\cf3  \cf0 ,\cf3  \cf0 orient_norm\cf3  \cf0 ,\cf3  \cf0 RF_size1\cf3  \cf0 ,\cf3  \cf0 RF_size2\
+\cf3 	\cf0 \
+\cf3 	\cf0 temp_cum_orient\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 temp_cum_spatial\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf3 	\cf5 first\cf3  \cf5 compile\cf3  \cf5 the\cf3  \cf5 composite\cf3  \cf5 histograms\cf3  \cf5 of\cf3  \cf5 all\cf3  \cf5 stimulus\cf3  \cf5 events\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 for\cf3  \cf0 (index_orient\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_orient\cf3  \cf0 <\cf3  \cf0 num_orient\cf3  \cf0 ;\cf3  \cf0 index_orient\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 		\cf6 for\cf3  \cf0 (index_x\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_x\cf3  \cf0 <\cf3  \cf0 num_x\cf3  \cf0 ;\cf3  \cf0 index_x\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 			\cf6 for\cf3  \cf0 (index_y\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_y\cf3  \cf0 <\cf3  \cf0 num_x\cf3  \cf0 ;\cf3  \cf0 index_y\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 				\cf0 temp_cum_orient[index_orient]\cf3  \cf0 +=\cf3  \cf0 cum_stim_hist[index_x][index_y][index_orient]\
+\cf3 				\cf0 temp_cum_spatial[index_x][index_y]\cf3  \cf0 +=\cf3  \cf0 cum_stim_hist[index_x][index_y][index_orient]\
+\cf3 			\cf6 endfor\cf3 							\cf5 //\cf3 	\cf5 index_y\cf0 \
+\cf3 		\cf6 endfor\cf3 								\cf5 //\cf3 	\cf5 index_x\cf0 \
+\cf3 	\cf6 endfor\cf3 									\cf5 //\cf3 	\cf5 index_orient\cf3 	\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf0 temp_composite_orient\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 temp_composite_spatial\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\cf3 	\cf6 for\cf3  \cf0 (index_branch\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_branch\cf3  \cf0 <\cf3  \cf0 num_branches\cf3  \cf0 ;\cf3  \cf0 index_branch\cf3  \cf0 +=\cf3  \cf0 1)\cf3 						\cf5 //\cf3 	\cf5 include\cf3  \cf5 analysis\cf3  \cf5 of\cf3  \cf5 soma,\cf3  \cf5 but\cf3  \cf5 not\cf3  \cf5 composite\cf3  \cf5 RF\cf0 \
+\cf3 		\cf0 temp_orient_tuning\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 		\cf0 temp_spatial_RF\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 		\cf0 \
+\cf3 		\cf6 for\cf3  \cf0 (index_orient\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_orient\cf3  \cf0 <\cf3  \cf0 num_orient\cf3  \cf0 ;\cf3  \cf0 index_orient\cf3  \cf0 +=\cf3  \cf0 1)\cf3 					\cf5 //\cf3 	\cf5 compile\cf3  \cf5 orientation\cf3  \cf5 tuning\cf3  \cf5 curve\cf3  \cf5 over\cf3  \cf5 all\cf3  \cf5 (x,y)\cf0 \
+\cf3 			\cf6 for\cf3  \cf0 (index_x\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_x\cf3  \cf0 <\cf3  \cf0 num_x\cf3  \cf0 ;\cf3  \cf0 index_x\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 				\cf6 for\cf3  \cf0 (index_y\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_y\cf3  \cf0 <\cf3  \cf0 num_x\cf3  \cf0 ;\cf3  \cf0 index_y\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 					\cf0 temp_orient_tuning[index_orient]\cf3  \cf0 +=\cf3  \cf0 branch_spike_hist[index_branch][index_x][index_y][index_orient]\
+\cf3 					\cf0 temp_spatial_RF[index_x][index_y]\cf3  \cf0 +=\cf3  \cf0 branch_spike_hist[index_branch][index_x][index_y][index_orient]\
+\cf3 				\cf6 endfor\cf3 							\cf5 //\cf3 	\cf5 index_y\cf0 \
+\cf3 			\cf6 endfor\cf3 								\cf5 //\cf3 	\cf5 index_x\cf0 \
+\cf3 		\cf6 endfor\cf3 									\cf5 //\cf3 	\cf5 index_orient\cf3 	\cf0 \
+\cf3 		\cf0 temp_branch_orient_all[index_branch][]\cf3  \cf0 =\cf3  \cf0 temp_orient_tuning[q]\cf3  \cf0 /\cf3  \cf0 temp_cum_orient[q]\
+\cf3 		\cf0 temp_branch_spatial_all[index_branch][][]\cf3  \cf0 =\cf3  \cf0 temp_spatial_RF[q][r]\cf3  \cf0 /\cf3  \cf0 temp_cum_spatial[q][r]\
+\cf3 		\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (index_branch\cf3  \cf0 <\cf3  \cf0 (num_branches\cf3  \cf0 -\cf3  \cf0 1))\cf3 											\cf5 //\cf3 	\cf5 only\cf3  \cf5 include\cf3  \cf5 dendritic\cf3  \cf5 branches\cf3  \cf5 in\cf3  \cf5 the\cf3  \cf5 composite\cf3  \cf5 RF\cf0 \
+\cf3 			\cf0 temp_composite_orient\cf3  \cf0 +=\cf3  \cf0 temp_orient_tuning\
+\cf3 			\cf0 temp_composite_spatial\cf3  \cf0 +=\cf3  \cf0 temp_spatial_RF\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf0 \
+\cf3 		\cf0 temp_branch_RF_frac\cf3  \cf0 =\cf3  \cf0 branch_spike_hist[index_branch][p][q][r]\cf3  \cf0 /\cf3  \cf0 cum_stim_hist[p][q][r]\
+\cf3 		\cf7 Wavestats\cf0 /Q\cf3  \cf0 temp_branch_RF_frac\
+\cf3 		\cf0 temp_branch_Rmax[index_branch]\cf3  \cf0 =\cf3  \cf0 V_max\
+\cf3 	\cf6 endfor\cf3 										\cf5 //\cf3 	\cf5 index_branch\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf0 temp_composite_orient\cf3  \cf0 /=\cf3  \cf0 (num_branches\cf3  \cf0 -\cf3  \cf0 1)\cf3 											\cf5 //\cf3 	\cf5 'num_branches'\cf3  \cf5 =\cf3  \cf5 #\cf3  \cf5 branches\cf3  \cf5 +\cf3  \cf5 1\cf3  \cf5 soma\cf0 \
+\cf3 	\cf0 temp_composite_spatial\cf3  \cf0 /=\cf3  \cf0 (num_branches\cf3  \cf0 -\cf3  \cf0 1)\
+\cf3 	\cf0 \
+\cf3 	\cf0 temp_branch_orient_all[num_branches][]\cf3  \cf0 =\cf3  \cf0 temp_composite_orient[q]\cf3  \cf0 /\cf3  \cf0 temp_cum_orient[q]\
+\cf3 	\cf0 temp_branch_spatial_all[num_branches][][]\cf3  \cf0 =\cf3  \cf0 temp_composite_spatial[q][r]\cf3  \cf0 /\cf3  \cf0 temp_cum_spatial[q][r]\
+\cf3 	\cf0 \
+\cf3 	\cf6 for\cf3  \cf0 (index_branch\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_branch\cf3  \cf0 <=\cf3  \cf0 num_branches\cf3  \cf0 ;\cf3  \cf0 index_branch\cf3  \cf0 +=\cf3  \cf0 1)\cf3 					\cf5 //\cf3 	\cf5 calculate\cf3  \cf5 further\cf3  \cf5 statistics\cf3  \cf5 over\cf3  \cf5 all\cf3  \cf5 RF,\cf3  \cf5 including\cf3  \cf5 composite\cf0 \
+\cf3 		\cf0 \
+\cf3 		\cf0 temp_spatial_RF\cf3  \cf0 =\cf3  \cf0 temp_branch_spatial_all[index_branch][p][q]\
+\cf3 		\cf0 \
+\cf3 		\cf7 Wavestats\cf0 /Q\cf3  	\cf0 temp_spatial_RF\
+\cf3 		\cf0 RF_size1\cf3  \cf0 =\cf3  \cf0 V_sum\cf3  \cf0 /\cf3  \cf0 V_max\
+\cf3 		\cf0 temp_branch_size1[index_branch]\cf3  \cf0 =\cf3  \cf0 RF_size1\
+\cf3 		\cf0 \
+\cf3 		\cf0 temp_spatial_RF\cf3  \cf0 /=\cf3  \cf0 V_max\
+\cf3 		\cf0 temp_spatial_RF\cf3  \cf0 =\cf3  \cf0 (temp_spatial_RF\cf3  \cf0 >\cf3  \cf0 0.2)\
+\cf3 		\cf0 RF_size2\cf3  \cf0 =\cf3  \cf8 sum\cf0 (temp_spatial_RF\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf8 inf\cf0 )\
+\cf3 		\cf0 temp_branch_size2[index_branch]\cf3  \cf0 =\cf3  \cf0 RF_size2\
+\cf3 			\cf0 \
+\cf3 		\cf0 temp_orient_tuning\cf3  \cf0 =\cf3  \cf0 temp_branch_orient_all[index_branch][p]\
+\cf3 		\cf0 \
+\cf3 		\cf7 Wavestats\cf0 /Q\cf3  \cf0 temp_orient_tuning\
+\cf3 		\cf0 pref\cf3  \cf0 =\cf3  \cf0 V_maxloc\
+\cf3 		\cf0 null\cf3  \cf0 =\cf3  \cf0 V_minloc\
+\cf3 				\cf0 \
+\cf3 		\cf0 orient_index\cf3  \cf0 =\cf3  \cf0 (temp_orient_tuning[pref]\cf3  \cf0 -\cf3  \cf0 temp_orient_tuning[null])\cf3  \cf0 /\cf3  \cf0 V_sum\
+\cf3 		\cf0 temp_branch_index[index_branch]\cf3  \cf0 =\cf3  \cf0 orient_index\
+\cf3 		\cf0 temp_branch_pref[index_branch]\cf3  \cf0 =\cf3  \cf0 pref\
+\cf3 		\cf0 \
+\cf3 		\cf0 orient_vec_x\cf3  \cf0 =\cf3  \cf0 temp_orient_tuning[1]\cf3  \cf0 -\cf3  \cf0 temp_orient_tuning[3]\
+\cf3 		\cf0 orient_vec_y\cf3  \cf0 =\cf3  \cf0 temp_orient_tuning[0]\cf3  \cf0 -\cf3  \cf0 temp_orient_tuning[2]\cf3 		\cf0 \
+\cf3 		\cf0 orient_norm\cf3  \cf0 =\cf3  \cf0 V_rms\
+\cf3 		\cf0 \
+\cf3 		\cf0 orient_vec_x\cf3  \cf0 /=\cf3  \cf0 orient_norm\
+\cf3 		\cf0 orient_vec_y\cf3  \cf0 /=\cf3  \cf0 orient_norm\
+\cf3 		\cf0 temp_branch_vector[index_branch][0]\cf3  \cf0 =\cf3  \cf0 orient_vec_x\
+\cf3 		\cf0 temp_branch_vector[index_branch][1]\cf3  \cf0 =\cf3  \cf0 orient_vec_y\
+\cf3 			\cf6 endfor\cf3 										\cf5 //\cf3 	\cf5 index_branch\cf0 \
+\
+\cf3 	\cf6 return\cf3  \cf0 (1)\cf3 	\cf0 \
+\cf3 	\cf0 \
+\cf6 End\cf0 \cb1 \
+\
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf3 	\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 utility\cf3  \cf5 function\cf3  \cf5 decodes\cf3  \cf5 (x,y,theta)\cf3  \cf5 from\cf3  \cf5 an\cf3  \cf5 index\cf3  \cf5 value\cf3  \cf5 and\cf3  \cf5 prints\cf3  \cf5 it\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Function\cf3  \cf0 Do_Unpack_StimID\cf3  \cf0 (params_stim_wv\cf3  \cf0 ,\cf3  \cf0 index_L4_input\cf3  \cf0 ,\cf3  \cf0 output_option\cf3  \cf0 ,\cf3  \cf0 print_option)\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 Wave\cf3  \cf0 params_stim_wv\
+\cf3 	\cf6 Variable\cf3  \cf0 index_L4_input\cf3  \cf0 ,\cf3  \cf0 output_option\cf3  \cf0 ,\cf3  \cf0 print_option\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient\
+\cf3 	\cf0 num_x\cf3  \cf0 =\cf3  \cf0 params_stim_wv[0]\
+\cf3 	\cf0 num_y\cf3  \cf0 =\cf3  \cf0 params_stim_wv[1]\
+\cf3 	\cf0 num_orient\cf3  \cf0 =\cf3  \cf0 params_stim_wv[2]\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 index_x\cf3  \cf0 ,\cf3  \cf0 index_y\cf3  \cf0 ,\cf3  \cf0 index_orient\
+\cf3 	\cf0 index_orient\cf3  \cf0 =\cf3  \cf8 mod\cf0 (index_L4_input\cf3  \cf0 ,\cf3  \cf0 4)\
+\cf3 	\cf0 index_y\cf3  \cf0 =\cf3  \cf8 trunc\cf0 ((index_L4_input\cf3  \cf0 -\cf3  \cf0 index_orient)\cf3  \cf0 /\cf3  \cf0 num_x\cf3  \cf0 /\cf3  \cf0 num_orient)\
+\cf3 	\cf0 index_x\cf3  \cf0 =\cf3  \cf8 trunc\cf0 ((index_L4_input\cf3  \cf0 -\cf3  \cf0 index_orient\cf3  \cf0 -\cf3  \cf0 index_y\cf3  \cf0 *\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 num_orient)\cf3  \cf0 /\cf3  \cf0 num_orient)\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=3\cf3  \cf0 temp_L4_stats\
+\cf3 	\cf0 temp_L4_stats[0]\cf3  \cf0 =\cf3  \cf0 index_x\
+\cf3 	\cf0 temp_L4_stats[1]\cf3  \cf0 =\cf3  \cf0 index_y\
+\cf3 	\cf0 temp_L4_stats[2]\cf3  \cf0 =\cf3  \cf0 index_orient\
+\
+\cf3 	\cf6 if\cf3  \cf0 (print_option\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 		\cf7 Print\cf3  \cf4 "index_x\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 index_x\cf3  \cf0 ,\cf3  \cf4 "index_y\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 index_y\cf3  \cf0 ,\cf3  \cf4 "index_orient\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 index_orient\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (output_option\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 		\cf6 return\cf3  \cf0 (index_x)\
+\cf3 	\cf6 endif\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (output_option\cf3  \cf0 ==\cf3  \cf0 2)\
+\cf3 		\cf6 return\cf3  \cf0 (index_y)\
+\cf3 	\cf6 endif\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (output_option\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 		\cf6 return\cf3  \cf0 (index_orient)\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 End\cf0 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 Function\cf3  \cf5 takes\cf3  \cf5 a\cf3  \cf5 pattern\cf3  \cf5 of\cf3  \cf5 activity\cf3  \cf5 in\cf3  \cf5 the\cf3  \cf5 L4\cf3  \cf5 population,\cf3  \cf5 'L4_input_activity'\cf0 \
+\cf5 //\cf3 		\cf5 and\cf3  \cf5 creates\cf3  \cf5 stimulus\cf3  \cf5 display\cf3  \cf5 waves\cf3  \cf5 to\cf3  \cf5 visualize\cf3  \cf5 the\cf3  \cf5 frame\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Function\cf3  \cf0 Do_Unpack_Input\cf3  \cf0 (params_stim_wv\cf3  \cf0 ,\cf3  \cf0 L4_input_activity)\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 Wave\cf3  \cf0 params_stim_wv\cf3  \cf0 ,\cf3  \cf0 L4_input_activity\
+\cf3 	\cf6 WAVE\cf3  \cf0 temp_L4_stats\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_L4_inputs\
+\cf3 	\cf0 num_L4_inputs\cf3  \cf0 =\cf3  \cf8 numpnts\cf0 (L4_input_activity)\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_L4_inputs)\cf3  \cf0 display_stim_xloc\cf3  \cf0 ,\cf3  \cf0 display_stim_yloc\cf3  \cf0 ,\cf3  \cf0 display_stim_orient\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 index_L4\cf3  \cf0 ,\cf3  \cf0 num_stim\
+\cf3 	\cf0 \
+\cf3 	\cf0 num_stim\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf6 for\cf3  \cf0 (index_L4\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_L4\cf3  \cf0 <\cf3  \cf0 num_L4_inputs\cf3  \cf0 ;\cf3  \cf0 index_L4\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 		\cf6 if\cf3  \cf0 (L4_input_activity[index_L4]\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 			\cf0 Do_Unpack_StimID\cf3  \cf0 (params_stim_wv\cf3  \cf0 ,\cf3  \cf0 index_L4\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 			\cf0 display_stim_xloc[num_stim]\cf3  \cf0 =\cf3  \cf0 temp_L4_stats[0]\
+\cf3 			\cf0 display_stim_yloc[num_stim]\cf3  \cf0 =\cf3  \cf0 temp_L4_stats[1]\
+\cf3 			\cf0 display_stim_orient[num_stim]\cf3  \cf0 =\cf3  \cf0 temp_L4_stats[2]\
+\cf3 			\cf0 num_stim\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 		\cf6 endif\cf3 	\cf0 \
+\cf3 	\cf6 endfor\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf7 Redimension\cf0 /N=(num_stim)\cf3  \cf0 display_stim_xloc\cf3  \cf0 ,\cf3  \cf0 display_stim_yloc\cf3  \cf0 ,\cf3  \cf0 display_stim_orient\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=4\cf3  \cf0 temp_orient_markers\
+\cf3 	\cf0 temp_orient_markers\cf3  \cf0 =\cf3  \cf0 \{9\cf3  \cf0 ,\cf3  \cf0 20\cf3  \cf0 ,\cf3  \cf0 10\cf3  \cf0 ,\cf3  \cf0 21\}\
+\cf3 	\cf0 display_stim_orient\cf3  \cf0 =\cf3  \cf0 temp_orient_markers[display_stim_orient]\
+\cf3 	\cf0 \
+\cf3 	\cf6 return\cf3  \cf0 (num_stim)\
+\pard\pardeftab720\partightenfactor0
+\cf6 End\cf0 \
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 Function\cf3  \cf5 makes\cf3  \cf5 a\cf3  \cf5 convolution\cf3  \cf5 kernel\cf3  \cf5 with\cf3  \cf5 a\cf3  \cf5 width\cf3  \cf5 of\cf3  \cf5 'tau'\cf3  \cf5 points\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Function\cf3  \cf0 Do_Kernel\cf3  \cf0 (tau)\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 Variable\cf3  \cf0 tau\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_pnts\cf3  \cf0 ,\cf3  \cf0 weight\
+\cf3 	\cf0 num_pnts\cf3  \cf0 =\cf3  \cf0 10\cf3  \cf0 *\cf3  \cf0 tau\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_pnts)\cf3  \cf0 temp_kernel\
+\cf3 	\cf0 temp_kernel\cf3  \cf0 =\cf3  \cf0 x\cf3  \cf0 *\cf3  \cf8 exp\cf0 (-x\cf3  \cf0 /\cf3  \cf0 tau)\
+\cf3 	\cf0 \
+\cf3 	\cf0 weight\cf3  \cf0 =\cf3  \cf8 sum\cf0 (temp_kernel\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf8 inf\cf0 )\
+\cf3 	\cf0 temp_kernel\cf3  \cf0 /=\cf3  \cf0 weight\
+\cf3 	\cf0 \
+\cf3 	\cf6 return\cf3  \cf0 (num_pnts)\
+\pard\pardeftab720\partightenfactor0
+\cf6 End\cf0 \
+\
+\
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 this\cf3  \cf5 Function\cf3  \cf5 takes\cf3  \cf5 the\cf3  \cf5 entire\cf3  \cf5 stimulus\cf3  \cf5 set\cf3  \cf5 and\cf3  \cf5 increments\cf3  \cf5 the\cf3  \cf5 cumulative\cf3  \cf5 histogram\cf0 \
+\cf5 //\cf3 		\cf5 'stimulus_wv'\cf3  \cf5 is\cf3  \cf5 1D\cf3  \cf5 with\cf3  \cf5 size\cf3  \cf5 =\cf3  \cf5 num_L4_neurons\cf0 \
+\cf5 //\cf3 		\cf5 creates\cf3  \cf5 'temp_RF_histogram'\cf3  \cf5 which\cf3  \cf5 includes\cf3  \cf5 the\cf3  \cf5 current\cf3  \cf5 increment\cf3  \cf5 to\cf3  \cf5 the\cf3  \cf5 receptive\cf3  \cf5 field\cf0 \
+\cf5 //\cf3 		\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Function\cf3  \cf0 Do_Stim_Histogram\cf3  \cf0 (params_stim_wv\cf3  \cf0 ,\cf3  \cf0 stim_set_wv)\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 Wave\cf3  \cf0 params_stim_wv\cf3  \cf0 ,\cf3  \cf0 stim_set_wv\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_L4_neurons\cf3  \cf0 ,\cf3  \cf0 num_scans\cf3  \cf0 ,\cf3  \cf0 num_bars\
+\cf3 	\cf0 num_L4_neurons\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (stim_set_wv\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 	\cf0 num_scans\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (stim_set_wv\cf3  \cf0 ,\cf3  \cf0 1)\
+\cf3 	\cf0 num_bars\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (stim_set_wv\cf3  \cf0 ,\cf3  \cf0 2)\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient\
+\cf3 	\cf0 num_x\cf3  \cf0 =\cf3  \cf0 params_stim_wv[0]\
+\cf3 	\cf0 num_y\cf3  \cf0 =\cf3  \cf0 params_stim_wv[1]\
+\cf3 	\cf0 num_orient\cf3  \cf0 =\cf3  \cf0 params_stim_wv[2]\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 index_L4_input\cf3  \cf0 ,\cf3  \cf0 index_bar\cf3  \cf0 ,\cf3  \cf0 index_scan\cf3  \cf0 ,\cf3  \cf0 index_x\cf3  \cf0 ,\cf3  \cf0 index_y\cf3  \cf0 ,\cf3  \cf0 index_orient\
+\cf3 	\cf6 Variable\cf3  \cf0 active_inputs_now\cf3  \cf0 ,\cf3  \cf0 active_inputs_total\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient)\cf3  \cf0 temp_stim_hist\
+\cf3 	\cf7 Make\cf0 /O/N=(num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient)\cf3  \cf0 temp_stim_total_hist\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\cf3 	\cf6 for\cf3  \cf0 (index_bar\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_bar\cf3  \cf0 <\cf3  \cf0 num_bars\cf3  \cf0 ;\cf3  \cf0 index_bar\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 		\cf6 for\cf3  \cf0 (index_scan\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_scan\cf3  \cf0 <\cf3  \cf0 num_scans\cf3  \cf0 ;\cf3  \cf0 index_scan\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 			\cf0 temp_stim_hist\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 			\cf6 for\cf3  \cf0 (index_L4_input\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_L4_input\cf3  \cf0 <\cf3  \cf0 num_L4_neurons\cf3  \cf0 ;\cf3  \cf0 index_L4_input\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 				\cf6 if\cf3  \cf0 (stim_set_wv[index_L4_input][index_scan][index_bar]\cf3  \cf0 ==\cf3  \cf0 1)\cf3 										\cf5 //\cf3 	\cf5 this\cf3  \cf5 L4\cf3  \cf5 simple\cf3  \cf5 cells\cf3  \cf5 was\cf3  \cf5 active\cf0 \
+\cf3 					\cf0 index_orient\cf3  \cf0 =\cf3  \cf8 mod\cf0 (index_L4_input\cf3  \cf0 ,\cf3  \cf0 4)\
+\cf3 					\cf0 index_y\cf3  \cf0 =\cf3  \cf8 trunc\cf0 ((index_L4_input\cf3  \cf0 -\cf3  \cf0 index_orient)\cf3  \cf0 /\cf3  \cf0 num_x\cf3  \cf0 /\cf3  \cf0 num_orient)\
+\cf3 					\cf0 index_x\cf3  \cf0 =\cf3  \cf8 trunc\cf0 ((index_L4_input\cf3  \cf0 -\cf3  \cf0 index_orient\cf3  \cf0 -\cf3  \cf0 index_y\cf3  \cf0 *\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 num_orient)\cf3  \cf0 /\cf3  \cf0 num_orient)\
+\cf3 					\cf0 temp_stim_hist[index_x][index_y][index_orient]\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 				\cf6 endif\cf0 \
+\cf3 			\cf6 endfor\cf3 					\cf5 //\cf3 	\cf5 index_L4_input\cf0 \
+\cf3 			\cf0 \
+\cf3 			\cf0 active_inputs_now\cf3  \cf0 =\cf3  \cf8 sum\cf0 (temp_stim_hist\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf8 inf\cf0 )\
+\cf3 			\cf6 if\cf3  \cf0 (active_inputs_now\cf3  \cf0 !=\cf3  \cf0 4)\
+\cf3 	\cf5 //\cf3 			\cf5 Print\cf3  \cf5 "For\cf3  \cf5 index_bar\cf3  \cf5 ="\cf3  \cf5 ,\cf3  \cf5 index_bar\cf3  \cf5 ,\cf3  \cf5 "index_scan\cf3  \cf5 ="\cf3  \cf5 ,\cf3  \cf5 index_scan\cf3  \cf5 ,\cf3  \cf5 "found\cf3  \cf5 only"\cf3  \cf5 ,\cf3  \cf5 active_inputs_now\cf3  \cf5 ,\cf3  \cf5 "active\cf3  \cf5 inputs"\cf0 \
+\cf3 				\cf6 if\cf3  \cf0 ((index_bar\cf3  \cf0 ==\cf3  \cf0 0)\cf3  \cf0 *\cf3  \cf0 (index_scan\cf3  \cf0 ==\cf3  \cf0 1))\
+\cf3 				\cf6 endif\cf0 \
+\cf3 			\cf6 endif\cf0 \
+\cf3 			\cf0 \
+\cf3 			\cf0 temp_stim_total_hist\cf3  \cf0 +=\cf3  \cf0 temp_stim_hist\
+\cf3 			\cf0 active_inputs_total\cf3 	\cf0 +=\cf3  \cf0 active_inputs_now\
+\cf3 	\cf0 \
+\cf3 		\cf6 endfor\cf3 						\cf5 //\cf3 	\cf5 index_scan\cf0 \
+\cf3 	\cf6 endfor\cf3 							\cf5 //\cf3 	\cf5 index_bar\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf6 return\cf3  \cf0 (active_inputs_total)\
+\
+\pard\pardeftab720\partightenfactor0
+\cf6 End\cf0 \
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 function\cf3  \cf5 loops\cf3  \cf5 through\cf3  \cf5 a\cf3  \cf5 set\cf3  \cf5 of\cf3  \cf5 stimuli,\cf3  \cf5 calls\cf3  \cf5 'Dendritic_Clusters'\cf3  \cf5 once\cf3  \cf5 per\cf3  \cf5 time\cf3  \cf5 step,\cf3  \cf5 and\cf3  \cf5 implements\cf3  \cf5 somatic\cf3  \cf5 adaptation\cf0 \
+\cf5 //\cf3 		\cf5 'bar_stim_wv'\cf3  \cf5 contains\cf3  \cf5 a\cf3  \cf5 set\cf3  \cf5 of\cf3  \cf5 stimuli,\cf3  \cf5 with\cf3  \cf5 'num_bars'\cf3  \cf5 each\cf3  \cf5 moving\cf3  \cf5 over\cf3  \cf5 'num_scans'\cf3  \cf5 of\cf3  \cf5 time\cf3  \cf5 steps\cf0 \
+\cf5 //\cf3 		\cf5 'input_L4_wv'\cf3  \cf5 contains\cf3  \cf5 the\cf3  \cf5 identity\cf3  \cf5 of\cf3  \cf5 the\cf3  \cf5 L4\cf3  \cf5 cell\cf3  \cf5 providing\cf3  \cf5 input\cf3  \cf5 to\cf3  \cf5 each\cf3  \cf5 synapse\cf0 \
+\cf5 //\cf3 		\cf5 'input_u_wv'\cf3  \cf5 and\cf3  \cf5 'input_wmax_wv'\cf3  \cf5 contain\cf3  \cf5 the\cf3  \cf5 u\cf3  \cf5 potential\cf3  \cf5 and\cf3  \cf5 w_max\cf3  \cf5 for\cf3  \cf5 each\cf3  \cf5 synapse\cf0 \
+\cf5 //\cf0 \
+\cf5 //\cf3 		\cf5 Example:\cf3 		\cf5 Do_Run_BarStim\cf3  \cf5 (temp_bar_testset\cf3  \cf5 ,\cf3  \cf5 temp_input_L4\cf3  \cf5 ,\cf3  \cf5 temp_input_u\cf3  \cf5 ,\cf3  \cf5 temp_input_wmax\cf3  \cf5 ,\cf3  \cf5 $params_dendrite_wv\cf3  \cf5 ,\cf3  \cf5 $params_stimulus_wv\cf3  \cf5 ,\cf3  \cf5 0)\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Function\cf3  \cf0 Do_Run_BarStim\cf3  \cf0 (bar_stim_wv\cf3  \cf0 ,\cf3  \cf0 identity_L4_wv\cf3  \cf0 ,\cf3  \cf0 input_u_wv\cf3  \cf0 ,\cf3  \cf0 input_wmax_wv\cf3  \cf0 ,\cf3  \cf0 p_dend_wv\cf3  \cf0 ,\cf3  \cf0 p_stim_wv\cf3  \cf0 ,\cf3  \cf0 plasticity_flag) 
+\f1\b \cf15 // now called stimulusUpdate
+\f0\b0 \cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 Wave\cf3  \cf0 bar_stim_wv\cf3  \cf0 ,\cf3  \cf0 identity_L4_wv\cf3  \cf0 ,\cf3  \cf0 input_u_wv\cf3  \cf0 ,\cf3  \cf0 input_wmax_wv\cf3  \cf0 ,\cf3  \cf0 p_dend_wv\cf3  \cf0 ,\cf3  \cf0 p_stim_wv\
+\cf3 	\cf6 Variable\cf3  \cf0 plasticity_flag\
+\cf3 	\cf6 WAVE\cf3  \cf0 temp_branch_activity\cf3  \cf0 ,\cf3  \cf0 temp_branch_spike\cf3  \cf0 ,\cf3  \cf0 temp_dendritic_activity\cf3  \cf0 ,\cf3  \cf0 temp_syn_recycle\
+\cf3 	\cf0 \
+\cf3 	\cf6 \cb11 Variable\cf3  \cf0 num_L4_inputs\cf3  \cf0 ,\cf3  \cf0 num_scans\cf3  \cf0 ,\cf3  \cf0 num_bars\cf3  \cf0 ,\cf3  \cf0 num_timesteps\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 num_L4_inputs\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (bar_stim_wv\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 	\cf0 num_scans\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (bar_stim_wv\cf3  \cf0 ,\cf3  \cf0 1)\
+\cf3 	\cf0 num_bars\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (bar_stim_wv\cf3  \cf0 ,\cf3  \cf0 2)\
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb1 	\cf0 num_timesteps\cf3  \cf0 =\cf3  \cf0 num_bars\cf3  \cf0 *\cf3  \cf0 num_scans\
+\cf3 	\cf0 \
+\cf3 	\cf6 \cb11 Variable\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient\cf3  \cf0 ,\cf3  \cf0 num_L4_neurons\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 num_x\cf3  \cf0 =\cf3  \cf0 p_stim_wv[0]\
+\cf3 	\cf0 num_y\cf3  \cf0 =\cf3  \cf0 p_stim_wv[1]\
+\cf3 	\cf0 num_orient\cf3  \cf0 =\cf3  \cf0 p_stim_wv[2]\
+\cf3 	\cf0 num_L4_neurons\cf3  \cf0 =\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 num_y\cf3  \cf0 *\cf3  \cf0 num_orient\cf3 	\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_branches\cf3  \cf0 ,\cf3  \cf0 branch_size\
+\cf3 	\cf0 num_branches\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (input_u_wv\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 	\cf0 branch_size\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (input_u_wv\cf3  \cf0 ,\cf3  \cf0 1)\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_L4_inputs)\cf3  \cf0 stimulus_bar\
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches+1\cf3  \cf0 ,\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient)\cf3  \cf0 temp_branch_RF\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf7 Make\cf0 /O/N=(num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient)\cf3  \cf0 cum_stim_RF\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches\cf3  \cf0 ,\cf3  \cf0 branch_size)\cf3  \cf0 temp_plast\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf0 temp_syn_recycle_total\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches)\cf3  \cf0 temp_branch_V\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf0 temp_NMDA_rate\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf7 Make\cf0 /O/N=(num_timesteps)\cf3  \cf0 temp_NMDA_spikes\cf3  \cf0 ,\cf3  \cf0 temp_soma_activity\cf3  \cf0 ,\cf3  \cf0 temp_soma_EPSP\cf3  \cf0 ,\cf3  \cf0 temp_soma_spikes\cf3  \cf0 ,\cf3  \cf0 temp_soma_thresh\cf3  \cf0 ,\cf3  \cf0 temp_soma_gain\cf3  \cf0 ,\cf3  \cf0 temp_soma_inhib 
+\f1\b \cf15 \cb1 \kerning1\expnd0\expndtw0 % NMDASpikesPerTimestep, didSomaSpikePerTimestep
+\fs20 \
+
+\f0\b0\fs24 \cf0 \cb11 \expnd0\expndtw0\kerning0
+\
+\cf3 		\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_dend_record\cf3  \cf0 ,\cf3  \cf0 timestep_record\cf3  \cf0 ,\cf3  \cf0 num_record_points\
+\cf3 	\cf0 num_dend_record\cf3  \cf0 =\cf3  \cf0 p_stim_wv[11]\
+\cf3 	\cf0 timestep_record\cf3  \cf0 =\cf3  \cf0 p_stim_wv[12]\
+\cf3 	\cf0 num_record_points\cf3  \cf0 =\cf3  \cf8 ceil\cf0 (num_timesteps\cf3  \cf0 /\cf3  \cf0 timestep_record) 
+\f1\b \cf13 SANJANA: use recordingTimeInterval
+\f0\b0 \cf0 \
+\cf3 		\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (num_dend_record\cf3  \cf0 >\cf3  \cf0 0)\
+\cf3 		\cf6 if\cf3  \cf0 (num_dend_record\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 			\cf7 Make\cf0 /O/N=(num_record_points\cf3  \cf0 ,\cf3  \cf0 branch_size)\cf3  \cf0 temp_syn_u_record\cf3  \cf0 ,\cf3  \cf0 temp_syn_ID_record\
+\cf3 			\cf7 Make\cf0 /O/N=(num_record_points)\cf3  \cf0 temp_branch_wmax_record\cf3  \cf0 ,\cf3  \cf0 temp_branch_V_record\cf3  \cf0 ,\cf3  \cf0 temp_branch_spk_record\
+\cf3 		\cf6 else\cf0 \
+\cf3 			\cf7 Make\cf0 /O/N=(num_record_points\cf3  \cf0 ,\cf3  \cf0 branch_size\cf3  \cf0 ,\cf3  \cf0 num_dend_record)\cf3  \cf0 temp_syn_u_record\cf3  \cf0 ,\cf3  \cf0 temp_syn_ID_record\
+\cf3 			\cf7 Make\cf0 /O/N=(num_record_points\cf3  \cf0 ,\cf3  \cf0 num_dend_record)\cf3  \cf0 temp_branch_wmax_record\cf3  \cf0 ,\cf3  \cf0 temp_branch_V_record\cf3  \cf0 ,\cf3  \cf0 temp_branch_spk_record\
+\cf3 		\cf6 endif\cf0 \
+\cf3 	\cf6 endif\cf0 \
+\cf3 		\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 syn_attenuation\cf3  \cf0 ,\cf3  \cf0 branch_thresh\cf3  \cf0 ,\cf3  \cf0 branch_strength\cf3  \cf0 ,\cf3  \cf0 soma_thresh\cf3  \cf0 ,\cf3  \cf0 backprop_AP\cf3  \cf0 ,\cf3  \cf0 soma_gain\
+\cf3 	\cf0 syn_attenuation\cf3  \cf0 =\cf3  \cf0 p_dend_wv[4]\
+\cf3 	\cf0 branch_thresh\cf3  \cf0 =\cf3  \cf0 p_dend_wv[5]\cf3 	\cf0 \
+\cf3 	\cf0 branch_strength\cf3  \cf0 =\cf3  \cf0 p_dend_wv[6]\
+\cf3 	\cf0 soma_thresh\cf3  \cf0 =\cf3  \cf0 p_dend_wv[7]\
+\cf3 	\cf0 backprop_AP\cf3  \cf0 =\cf3  \cf0 p_dend_wv[8]\
+\cf3 	\cf0 soma_gain\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 soma_plus\cf3  \cf0 ,\cf3  \cf0 soma_minus\cf3  \cf0 ,\cf3  \cf0 soma_g_leak\cf3  \cf0 ,\cf3  \cf0 soma_g_inhib\
+\cf3 	\cf0 soma_plus\cf3  \cf0 =\cf3  \cf0 p_dend_wv[24]\
+\cf3 	\cf0 soma_minus\cf3  \cf0 =\cf3  \cf0 p_dend_wv[25]\
+\cf3 	\cf0 soma_g_leak\cf3  \cf0 =\cf3  \cf0 p_dend_wv[26]\
+\cf3 	\cf0 soma_g_inhib\cf3  \cf0 =\cf3  \cf0 p_dend_wv[27]\
+\cf3 	\
+	
+\f1\b \cf15 // make branch histogram
+\f0\b0 \cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 dend_bins\cf3  \cf0 ,\cf3  \cf0 soma_bin_size\cf3  \cf0 ,\cf3  \cf0 soma_num_bins\
+\cf3 	\cf0 dend_bins\cf3  \cf0 =\cf3  \cf8 ceil\cf0 (branch_thresh\cf3  \cf0 *\cf3  \cf0 20)\
+\cf3 	\cf7 Make\cf0 /O/N=(dend_bins)\cf3  \cf0 temp_branch_hist\cf3  \cf0 =\cf3  \cf0 0 
+\f1\b \cf15 // an array with num_bins bins
+\f0\b0 \cf0 \
+\cf3 	\cf7 SetScale\cf0 /P\cf3  \cf0 x\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf0 1\cf3  \cf0 ,\cf3  \cf4 "mV"\cf3  \cf0 ,\cf3  \cf0 temp_branch_hist 
+\f1\b \cf15 // x ticks every 1 mV
+\f0\b0 \cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (soma_g_leak\cf3  \cf0 ==\cf3  \cf0 0) 
+\f1\b \cf15 // set (arbitrarily?) soma bin size
+\f0\b0 \cf0 \
+\cf3 		\cf0 soma_bin_size\cf3  \cf0 =\cf3  \cf0 0.5\
+\cf3 		\cf0 soma_num_bins\cf3  \cf0 =\cf3  \cf8 ceil\cf0 (100\cf3  \cf0 /\cf3  \cf0 soma_bin_size)\
+\cf3 	\cf6 else\cf0 \
+\cf3 		\cf0 soma_bin_size\cf3  \cf0 =\cf3  \cf0 0.2\
+\cf3 		\cf0 soma_num_bins\cf3  \cf0 =\cf3  \cf8 ceil\cf0 (40\cf3  \cf0 /\cf3  \cf0 soma_bin_size)\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(soma_num_bins)\cf3  \cf0 temp_soma_hist\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf7 SetScale\cf0 /P\cf3  \cf0 x\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf0 soma_bin_size\cf3  \cf0 ,\cf3  \cf4 "mV"\cf3  \cf0 ,\cf3  \cf0 temp_soma_hist 
+\f1\b \cf15 // x ticks
+\f0\b0 \cf0 \
+\
+\cf3 	\cf6 Variable\cf3  \cf0 index_bar\cf3  \cf0 ,\cf3  \cf0 index_scan\cf3  \cf0 ,\cf3  \cf0 index_time\cf3  \cf0 ,\cf3  \cf0 soma_spike\cf3  \cf0 ,\cf3  \cf0 total_spikes\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 Variable\cf3  \cf0 soma_NMDA_spikes\cf3  \cf0 ,\cf3  \cf0 soma_EPSPs\cf3  \cf0 ,\cf3  \cf0 soma_activity\
+\
+\cf3 	\cf0 \cb11 total_spikes\cf3  \cf0 =\cf3  \cf0 0\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 index_time\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 index_bar\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 soma_spike\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf6 do\cf0 \
+\cf3 		\cf0 index_scan\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 		\cf6 do\cf0 \
+\cf3 			\cf0 stimulus_bar\cf3  \cf0 =\cf3  \cf0 bar_stim_wv[p][index_scan][index_bar]\
+\
+\cf3 			\cf0 Dendritic_Clusters\cf3  \cf0 (identity_L4_wv\cf3  \cf0 ,\cf3  \cf0 input_u_wv\cf3  \cf0 ,\cf3  \cf0 input_wmax_wv\cf3  \cf0 ,\cf3  \cf0 temp_plast\cf3  \cf0 ,\cf3  \cf0 stimulus_bar\cf3  \cf0 ,\cf3  \cf0 p_dend_wv\cf3  \cf0 ,\cf3  \cf0 soma_spike\cf3  \cf0 ,\cf3  \cf0 plasticity_flag)\
+\cf3 			\cf0 \
+\cf3 			\cf0 temp_syn_recycle_total\cf3  \cf0 +=\cf3  \cf0 temp_syn_recycle 
+\f1\b \cf15 // instance variable updated in calcDendActivity
+\f0\b0 \cf3 			\cf0 \
+\cf3 			\cf0 temp_branch_V\cf3  \cf0 +=\cf3  \cf0 temp_branch_activity 
+\f1\b \cf15 // temp_branch_activity = stepBranchActivity
+\f0\b0 \cf0 \
+\cf3 			\cf0 temp_NMDA_rate\cf3  \cf0 +=\cf3  \cf0 temp_branch_spike 
+\f1\b \cf15 // temp_NMDA_rate = BranchDidNMDADpike, temp_branch_spike = stepBranchDidNMDASpike
+\f0\b0 \cf0 \cb1 \
+\cf3 \cb11 			\cf7 Histogram\cf0 /A/B=2\cf3  \cf0 temp_branch_activity\cf3  \cf0 ,\cf3  \cf0 temp_branch_hist\
+\cf3 			\cf0 \
+\cf3 			\cf6 if\cf3  \cf0 (soma_g_leak\cf3  \cf0 ==\cf3  \cf0 0)\
+\cf3 				\cf0 soma_gain\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 			\cf6 else\cf0 \
+\cf3 				\cf0 soma_gain\cf3  \cf0 =\cf3  \cf0 1\cf3  \cf0 /\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf0 soma_g_leak\cf3  \cf0 +\cf3  \cf0 soma_g_inhib)\
+\cf3 			\cf6 endif\cf0 \
+\cf3 			\cf0 \
+\cf3 			\cf0 soma_NMDA_spikes\cf3  \cf0 =\cf3  \cf8 sum\cf0 (temp_branch_spike\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf8 inf\cf0 )\cf3  \cf0 *\cf3  \cf0 branch_strength\cf3  \cf0 *\cf3  \cf0 soma_gain\
+\cf3 			\cf0 soma_EPSPs\cf3  \cf0 =\cf3  \cf8 sum\cf0 (temp_dendritic_activity\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf8 inf\cf0 )\cf3  \cf0 /\cf3  \cf0 syn_attenuation\cf3  \cf0 *\cf3  \cf0 soma_gain\
+\cf3 			\cf0 soma_activity\cf3  \cf0 =\cf3  \cf0 soma_NMDA_spikes\cf3  \cf0 +\cf3  \cf0 soma_EPSPs\
+\cf3 			\cf0 \
+\cf3 			\cf0 temp_NMDA_spikes[index_time]\cf3  \cf0 =\cf3  \cf0 soma_NMDA_spikes\cf3  \cf0 /\cf3  \cf0 branch_strength\cf3  \cf0 /\cf3  \cf0 soma_gain\
+\cf3 			\cf0 temp_soma_activity[index_time]\cf3  \cf0 =\cf3  \cf0 soma_activity\
+\cf3 			\cf0 temp_soma_EPSP[index_time]\cf3  \cf0 =\cf3  \cf0 soma_EPSPs\
+\cf3 				\cf0 \
+\cf3 			\cf0 soma_spike\cf3  \cf0 =\cf3  \cf0 (soma_activity\cf3  \cf0 >=\cf3  \cf0 soma_thresh)\
+\cf3 			\cf0 temp_soma_spikes[index_time]\cf3  \cf0 =\cf3  \cf0 soma_spike\
+\cf3 			\cf0 total_spikes\cf3  \cf0 +=\cf3  \cf0 soma_spike\
+\cf3 			\cf0 \
+\cf3 			\cf6 if\cf3  \cf0 (plasticity_flag)\cf3 											\cf5 //\cf3 	\cf5 adpatively\cf3  \cf5 adjust\cf3  \cf5 the\cf3  \cf5 threshold\cf3  \cf5 for\cf3  \cf5 somatic\cf3  \cf5 spikes\cf0 \
+\cf3 				\cf6 if\cf3  \cf0 (soma_g_leak\cf3  \cf0 ==\cf3  \cf0 0)\
+\cf3 					\cf6 if\cf3  \cf0 (soma_spike)\
+\cf3 						\cf0 soma_thresh\cf3  \cf0 +=\cf3  \cf0 soma_plus\
+\cf3 					\cf6 else\cf0 \
+\cf3 						\cf0 soma_thresh\cf3  \cf0 +=\cf3  \cf0 soma_minus\
+\cf3 					\cf6 endif\cf0 \
+\cf3 				\cf6 else\cf0 \
+\cf3 					\cf6 if\cf3  \cf0 (soma_spike)\
+\cf3 						\cf0 soma_g_inhib\cf3  \cf0 +=\cf3  \cf0 soma_plus\cf3 						\cf5 //\cf3 	\cf5 increase\cf3  \cf5 inhibition\cf3  \cf5 to\cf3  \cf5 decrease\cf3  \cf5 somatic\cf3  \cf5 gain\cf0 \
+\cf3 					\cf6 else\cf0 \
+\cf3 						\cf0 soma_g_inhib\cf3  \cf0 +=\cf3  \cf0 soma_minus\cf3 						\cf5 //\cf3 	\cf5 decrease\cf3  \cf5 inhibition\cf3  \cf5 to\cf3  \cf5 increase\cf3  \cf5 somatic\cf3  \cf5 gain\cf0 \
+\cf3 					\cf6 endif\cf0 \
+\cf3 					\cf0 soma_g_inhib\cf3  \cf0 =\cf3  \cf8 max\cf0 (soma_g_inhib\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 				\cf6 endif\cf3 			\cf0 \
+\cf3 			\cf6 endif\cf3 							\cf5 //\cf3 	\cf5 plasticity_flag\cf0 \
+\cf3 			\cf0 \
+\cf3 			\cf0 temp_soma_thresh[index_time]\cf3  \cf0 =\cf3  \cf0 soma_thresh\
+\cf3 			\cf0 temp_soma_gain[index_time]\cf3  \cf0 =\cf3  \cf0 soma_gain\
+\cf3 			\cf0 temp_soma_inhib[index_time]\cf3  \cf0 =\cf3  \cf0 soma_g_inhib\
+\cf3 						\cf0 \
+\cf3 			\cf0 Dendritic_RF_Calc\cf3  \cf0 (identity_L4_wv\cf3  \cf0 ,\cf3  \cf0 stimulus_bar\cf3  \cf0 ,\cf3  \cf0 temp_branch_spike\cf3  \cf0 ,\cf3  \cf0 temp_branch_RF\cf3  \cf0 ,\cf3  \cf0 cum_stim_RF\cf3  \cf0 ,\cf3  \cf0 soma_spike)\
+\cf3 			\cf0 \
+\cf3 			\cf6 if\cf3  \cf0 (\cf8 mod\cf0 (index_time\cf3  \cf0 ,\cf3  \cf0 timestep_record)\cf3  \cf0 ==\cf3  \cf0 0)\cf3 			\cf5 //\cf3  \cf5 potentially\cf3  \cf5 record\cf3  \cf5 information\cf3  \cf5 about\cf3  \cf5 synapses\cf3  \cf5 over\cf3  \cf5 time\cf0 \
+\cf3 				\cf6 if\cf3  \cf0 (num_dend_record\cf3  \cf0 >\cf3  \cf0 0)\cf3 									\cf5 //\cf3 	\cf5 record\cf3  \cf5 this\cf3  \cf5 information\cf0 \
+\cf3 					\cf6 if\cf3  \cf0 (num_dend_record\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 						\cf0 temp_syn_u_record[index_time][]\cf3  \cf0 =\cf3  \cf0 input_u_wv[0][q]\
+\cf3 						\cf0 temp_syn_ID_record[index_time][]\cf3  \cf0 =\cf3  \cf0 identity_l4_wf[0][q]\cf3 				\cf0 \
+\cf3 						\cf0 temp_branch_wmax_record[index_time]\cf3  \cf0 =\cf3  \cf0 input_wmax_wv[0]\
+\cf3 						\cf0 temp_branch_V_record[index_time]\cf3  \cf0 =\cf3  \cf0 temp_branch_activity[0]\
+\cf3 						\cf0 temp_branch_spk_record[index_time]\cf3  \cf0 =\cf3  \cf0 temp_branch_spike[0]\
+\cf3 						\cf0 \
+\cf3 					\cf6 else\cf3  \cf0 \
+\cf3 						\cf0 temp_syn_u_record[index_time][][]\cf3  \cf0 =\cf3  \cf0 input_u_wv[r][q]\
+\cf3 						\cf0 temp_syn_ID_record[index_time][][]\cf3  \cf0 =\cf3  \cf0 identity_L4_wv[r][q]\cf3 			\cf0 \
+\cf3 						\cf0 temp_branch_wmax_record[index_time][]\cf3  \cf0 =\cf3  \cf0 input_wmax_wv[q]\
+\cf3 						\cf0 temp_branch_V_record[index_time][]\cf3  \cf0 =\cf3  \cf0 temp_branch_activity[q]\
+\cf3 						\cf0 temp_branch_spk_record[index_time][]\cf3  \cf0 =\cf3  \cf0 temp_branch_spike[q]\
+\cf3 					\cf6 endif\cf0 \
+\cf3 				\cf6 endif\cf0 \
+\cf3 			\cf6 endif\cf0 \
+\cf3 						\cf0 \
+\cf3 			\cf0 index_time\cf3  \cf0 +=\cf3  \cf0 1\cf3 	\cf0 \
+\cf3 			\cf0 index_scan\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 		\cf6 while\cf3  \cf0 (index_scan\cf3  \cf0 <\cf3  \cf0 num_scans)\
+\cf3 		\cf0 \
+\cf3 		\cf0 index_bar\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 	\cf6 while\cf3  \cf0 (index_bar\cf3  \cf0 <\cf3  \cf0 num_bars)\
+\cf3 	\cf0 \
+\cf3 	\cf0 temp_branch_V\cf3  \cf0 /=\cf3  \cf0 index_time\
+\cf3 	\cf0 \
+\cf3 	\cf7 Histogram\cf0 /B=2\cf3  \cf0 temp_soma_activity\cf3  \cf0 ,\cf3  \cf0 temp_soma_hist 
+\f1\b \cf15 # set bin size from destination wave
+\f0\b0 \cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 NMDA_spike_max\
+\cf3 	\cf7 Wavestats\cf0 /Q\cf3  \cf0 temp_NMDA_spikes\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb12 	\cf0 NMDA_spike_max\cf3  \cf0 =\cf3  \cf0 V_max\
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb1 	\cf0 \cb12 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf7 Make\cf0 /O/N=(NMDA_spike_max\cf3  \cf0 +\cf3  \cf0 1)\cf3  \cf0 temp_NMDA_spk_hist\
+\cf3 	\cf7 SetScale\cf0 /P\cf3  \cf0 x\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf0 1\cf3  \cf0 ,\cf3  \cf0 temp_NMDA_spk_hist\
+\cf3 	\cf7 Histogram\cf0 /B=2\cf3  \cf0 temp_NMDA_spikes\cf3  \cf0 ,\cf3  \cf0 temp_NMDA_spk_hist\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb11 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (plasticity_flag\cf3  \cf0 >\cf3  \cf0 0)\cf3 											\cf5 //\cf3 	\cf5 copy\cf3  \cf5 adapted\cf3  \cf5 thresholds\cf3  \cf5 into\cf3  \cf5 the\cf3  \cf5 parameter\cf3  \cf5 wave\cf0 \
+\cf3 		\cf0 p_dend_wv[7]\cf3  \cf0 =\cf3  \cf0 soma_thresh\
+\cf3 		\cf0 p_dend_wv[27]\cf3  \cf0 =\cf3  \cf0 soma_g_inhib\
+\cf3 	\cf6 endif\cf0 \
+\
+\cf3 	\cf6 return\cf3  \cf0 (total_spikes)\
+\cf3 	\cf0 \
+\cf6 End\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb1 \
+\
+\
+\
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 function\cf3  \cf5 takes\cf3  \cf5 input\cf3  \cf5 from\cf3  \cf5 a\cf3  \cf5 single\cf3  \cf5 bar\cf3  \cf5 stimulus\cf3  \cf5 and\cf3  \cf5 calculates\cf3  \cf5 dendritic\cf3  \cf5 activity\cf0 \
+\cf5 //\cf3 		\cf5 'synapse_identity'\cf3  \cf5 has\cf3  \cf5 labels\cf3  \cf5 for\cf3  \cf5 which\cf3  \cf5 L4\cf3  \cf5 cell\cf3  \cf5 provides\cf3  \cf5 input\cf3  \cf5 to\cf3  \cf5 each\cf3  \cf5 synapse\cf0 \
+\cf5 //\cf3 		\cf5 'synapse_weight'\cf3  \cf5 has\cf3  \cf5 the\cf3  \cf5 EPSP\cf3  \cf5 size\cf3  \cf5 for\cf3  \cf5 each\cf3  \cf5 synapse\cf0 \
+\cf5 //\cf3 		\cf5 'stimulus_bar'\cf3  \cf5 has\cf3  \cf5 the\cf3  \cf5 activity\cf3  \cf5 in\cf3  \cf5 the\cf3  \cf5 L4\cf3  \cf5 population\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 function\cf3  \cf5 assumes\cf3  \cf5 that\cf3  \cf5 synapses\cf3  \cf5 are\cf3  \cf5 organized\cf3  \cf5 onto\cf3  \cf5 distinct\cf3  \cf5 basal\cf3  \cf5 dendrites\cf3  \cf5 with\cf3  \cf5 explicit\cf3  \cf5 spatial\cf3  \cf5 layout\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Function\cf3  \cf0 Dendritic_Branch\cf3  \cf0 (synapse_identity\cf3  \cf0 ,\cf3  \cf0 synapse_u\cf3  \cf0 ,\cf3  \cf0 stimulus_bar\cf3  \cf0 ,\cf3  \cf0 params_dend_wv\cf3  \cf0 ,\cf3  \cf0 synapse_plast\cf3  \cf0 ,\cf3  \cf0 plasticity_flag)\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 Wave\cf3  \cf0 synapse_identity\cf3  \cf0 ,\cf3  \cf0 synapse_u\cf3  \cf0 ,\cf3  \cf0 stimulus_bar\cf3  \cf0 ,\cf3  \cf0 params_dend_wv\cf3  \cf0 ,\cf3  \cf0 synapse_plast\
+\cf3 	\cf6 Variable\cf3  \cf0 plasticity_flag\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 branch_size\cf3  \cf0 ,\cf3  \cf0 branch_thresh\cf3  \cf0 ,\cf3  \cf0 syn_strenth\cf3  \cf0 ,\cf3  \cf0 noise_synapse\cf3  \cf0 ,\cf3  \cf0 noise_branch\
+\cf3 	\cf0 branch_size\cf3  \cf0 =\cf3  \cf0 params_dend_wv[2]\
+\cf3 	\cf0 branch_thresh\cf3  \cf0 =\cf3  \cf0 params_dend_wv[5]\
+\cf3 	\cf0 syn_strenth\cf3  \cf0 =\cf3  \cf0 params_dend_wv[3]\
+\cf3 	\cf0 noise_synapse\cf3  \cf0 =\cf3  \cf0 params_dend_wv[8]\
+\cf3 	\cf0 noise_branch\cf3  \cf0 =\cf3  \cf0 params_dend_wv[9]\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 du_potent\cf3  \cf0 ,\cf3  \cf0 du_depress\cf3  \cf0 ,\cf3  \cf0 du_decay\cf3  \cf0 ,\cf3  \cf0 u_recycle\cf3  \cf0 ,\cf3  \cf0 plast_time\
+\cf3 	\cf0 du_potent\cf3  \cf0 =\cf3  \cf0 params_dend_wv[12]\
+\cf3 	\cf0 du_depress\cf3  \cf0 =\cf3  \cf0 params_dend_wv[13]\
+\cf3 	\cf0 du_decay\cf3  \cf0 =\cf3  \cf0 params_dend_wv[14]\
+\cf3 	\cf0 u_recycle\cf3  \cf0 =\cf3  \cf0 params_dend_wv[15]\
+\cf3 	\cf0 plast_time\cf3  \cf0 =\cf3  \cf0 params_dend_wv[16]\
+\cf3 		\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_syn_per_branch\cf3  \cf0 ,\cf3  \cf0 num_basals\cf3  \cf0 ,\cf3  \cf0 num_NMDA_branch\cf3  \cf0 ,\cf3  \cf0 branch_offset\cf3  \cf0 ,\cf3  \cf0 actual_thresh\
+\cf3 	\cf0 num_syn_per_branch\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (synapse_identity\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 	\cf0 num_basals\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (synapse_identity\cf3  \cf0 ,\cf3  \cf0 1)\
+\cf3 	\cf0 num_NMDA_branch\cf3  \cf0 =\cf3  \cf0 num_syn_per_branch\cf3  \cf0 -\cf3  \cf0 branch_size\
+\cf3 	\cf0 branch_offset\cf3  \cf0 =\cf3  \cf8 ceil\cf0 (branch_size\cf3  \cf0 /\cf3  \cf0 2)\
+\cf3 	\cf0 \
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 synapse_identity\cf3  \cf0 ,\cf3  \cf0 temp_dendritic_activity\
+\cf3 	\cf7 Make\cf0 /O/N=(num_NMDA_branch\cf3  \cf0 ,\cf3  \cf0 num_basals)\cf3  \cf0 temp_branch_activity\cf3  \cf0 ,\cf3  \cf0 temp_branch_spike\
+\cf3 	\cf7 Make\cf0 /O/N=(num_NMDA_branch)\cf3  \cf0 temp_basal_activity\
+\cf3 	\cf0 \
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 synapse_u\cf3  \cf0 ,\cf3  \cf0 temp_syn_weight\
+\cf3 	\cf0 temp_syn_weight\cf3  \cf0 =\cf3  \cf8 tanh\cf0 (synapse_u)\cf3  \cf0 *\cf3  \cf0 syn_strenth\
+\cf3 	\cf0 \
+\cf3 	\cf0 temp_dendritic_activity\cf3  \cf0 =\cf3  \cf0 stimulus_bar[synapse_identity[p][q]]\cf3 			\cf5 //\cf3 	\cf5 determine\cf3  \cf5 which\cf3  \cf5 L4\cf3  \cf5 cell\cf3  \cf5 provides\cf3  \cf5 input\cf3  \cf5 from\cf3  \cf5 each\cf3  \cf5 synapse\cf0 \
+\cf3 	\cf0 temp_dendritic_activity\cf3  \cf0 *=\cf3  \cf0 temp_syn_weight\cf3 									\cf5 //\cf3 	\cf5 determine\cf3  \cf5 synaptic\cf3  \cf5 weight\cf0 \
+\cf3 	\cf0 temp_dendritic_activity\cf3  \cf0 *=\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 gnoise\cf0 (noise_synapse))\cf3 						\cf5 //\cf3 	\cf5 add\cf3  \cf5 multiplicative\cf3  \cf5 noise\cf3  \cf5 to\cf3  \cf5 each\cf3  \cf5 synapse\cf0 \
+\cf3 	\cf0 temp_branch_spike\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 index_basal\cf3  \cf0 ,\cf3  \cf0 index_synapse\cf3  \cf0 ,\cf3  \cf0 branch_activity\cf3  \cf0 ,\cf3  \cf0 branch_spike\cf3  \cf0 ,\cf3  \cf0 total_spikes\
+\cf3 	\cf0 total_spikes\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\cf3 	\cf6 for\cf3  \cf0 (index_basal\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_basal\cf3  \cf0 <\cf3  \cf0 num_basals\cf3  \cf0 ;\cf3  \cf0 index_basal\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 		\cf0 temp_basal_activity[]\cf3  \cf0 =\cf3  \cf0 temp_dendritic_activity[p][index_basal]\
+\cf3 		\cf6 for\cf3  \cf0 (index_synapse\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_synapse\cf3  \cf0 <\cf3  \cf0 num_NMDA_branch\cf3  \cf0 ;\cf3  \cf0 index_synapse\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 			\cf0 branch_activity\cf3  \cf0 =\cf3  \cf8 sum\cf0 (temp_basal_activity\cf3  \cf0 ,\cf3  \cf0 index_synapse\cf3  \cf0 ,\cf3  \cf0 index_synapse\cf3  \cf0 +\cf3  \cf0 branch_size\cf3  \cf0 -\cf3  \cf0 1)\cf3 		\cf0 \
+\cf3 			\cf0 temp_branch_activity[index_synapse][index_basal]\cf3  \cf0 =\cf3  \cf0 branch_activity\
+\cf3 		\cf6 endfor\cf3 						\cf5 //\cf3 	\cf5 index_synapse\cf0 \
+\cf3 	\cf6 endfor\cf3 							\cf5 //\cf3 	\cf5 index_basal\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf6 for\cf3  \cf0 (index_basal\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_basal\cf3  \cf0 <\cf3  \cf0 num_basals\cf3  \cf0 ;\cf3  \cf0 index_basal\cf3  \cf0 +=\cf3  \cf0 1)\cf3 	\cf0 \
+\cf3 		\cf6 for\cf3  \cf0 (index_synapse\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_synapse\cf3  \cf0 <\cf3  \cf0 num_NMDA_branch\cf3  \cf0 ;\cf3  \cf0 index_synapse\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 			\cf0 actual_thresh\cf3  \cf0 =\cf3  \cf0 branch_thresh\cf3  \cf0 *\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 gnoise\cf0 (noise_branch))\
+\cf3 			\cf0 branch_spike\cf3  \cf0 =\cf3  \cf0 (temp_branch_activity[index_synapse][index_basal]\cf3  \cf0 >=\cf3  \cf0 actual_thresh)\
+\cf3 			\cf0 temp_branch_spike[index_synapse][index_basal]\cf3  \cf0 =\cf3  \cf0 branch_spike\
+\cf3 			\cf0 \
+\cf3 			\cf6 if\cf3  \cf0 (plasticity_flag\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 				\cf6 if\cf3  \cf0 (branch_spike)\
+\cf3 					\cf0 synapse_plast[index_synapse\cf3  \cf0 ,\cf3  \cf0 index_synapse\cf3  \cf0 +\cf3  \cf0 num_NMDA_branch\cf3  \cf0 -\cf3  \cf0 1][index_basal]\cf3  \cf0 =\cf3  \cf0 plast_time\
+\cf3 					\cf0 synapse_u[index_synapse\cf3  \cf0 +\cf3  \cf0 num_NMDA_branch\cf3  \cf0 -\cf3  \cf0 1][index_basal]\cf3  \cf0 +=\cf3  \cf0 du_potent\cf3  \cf0 *\cf3  \cf0 (temp_dendritic_activity[p\cf3  \cf0 -\cf3  \cf0 index_synapse][index_basal]\cf3  \cf0 !=\cf3  \cf0 0)\
+\cf3 					\cf0 synapse_u[index_synapse\cf3  \cf0 +\cf3  \cf0 num_NMDA_branch\cf3  \cf0 -\cf3  \cf0 1][index_basal]\cf3  \cf0 +=\cf3  \cf0 du_depress\cf3  \cf0 *\cf3  \cf0 (temp_dendritic_activity[p\cf3  \cf0 -\cf3  \cf0 index_synapse][index_basal]\cf3  \cf0 ==\cf3  \cf0 0)\
+\cf3 				\cf6 else\cf0 \
+\cf3 					\cf0 synapse_u[index_synapse\cf3  \cf0 +\cf3  \cf0 num_NMDA_branch\cf3  \cf0 -\cf3  \cf0 1][index_basal]\cf3  \cf0 +=\cf3  \cf0 du_decay\cf3  \cf0 *\cf3  \cf0 (synapse_plast[p][index_basal]\cf3  \cf0 >\cf3  \cf0 0)\
+\cf3 					\cf0 synapse_plast[index_synapse\cf3  \cf0 ,\cf3  \cf0 index_synapse\cf3  \cf0 +\cf3  \cf0 num_NMDA_branch\cf3  \cf0 -\cf3  \cf0 1][index_basal]\cf3  \cf0 -=\cf3  \cf0 1\
+\cf3 				\cf6 endif\cf0 \
+\cf3 			\cf6 endif\cf0 \
+\cf3 			\cf0 synapse_plast\cf3  \cf0 =\cf3  \cf8 max\cf0 (synapse_plast\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 			\cf0 \
+\cf3 			\cf6 if\cf3  \cf0 (branch_spike)\
+\cf3 				\cf0 index_synapse\cf3  \cf0 +=\cf3  \cf0 branch_offset\
+\cf3 				\cf0 total_spikes\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 			\cf6 endif\cf0 \
+\cf3 			\cf0 \
+\cf3 		\cf6 endfor\cf3 						\cf5 //\cf3 	\cf5 index_synapse\cf0 \
+\cf3 	\cf6 endfor\cf3 							\cf5 //\cf3 	\cf5 index_basal\cf0 \
+\
+\cf3 	\cf6 return\cf3  \cf0 (total_spikes)\
+\cf3 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 End\cf0 \
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 function\cf3  \cf5 takes\cf3  \cf5 input\cf3  \cf5 from\cf3  \cf5 a\cf3  \cf5 single\cf3  \cf5 bar\cf3  \cf5 stimulus\cf3  \cf5 and\cf3  \cf5 calculates\cf3  \cf5 dendritic\cf3  \cf5 activity\cf0 \
+\cf5 //\cf3 		\cf5 'synapse_identity'\cf3  \cf5 has\cf3  \cf5 labels\cf3  \cf5 for\cf3  \cf5 which\cf3  \cf5 L4\cf3  \cf5 cell\cf3  \cf5 provides\cf3  \cf5 input\cf3  \cf5 to\cf3  \cf5 each\cf3  \cf5 synapse\cf0 \
+\cf5 //\cf3 		\cf5 'stimulus_bar'\cf3  \cf5 has\cf3  \cf5 the\cf3  \cf5 activity\cf3  \cf5 in\cf3  \cf5 the\cf3  \cf5 L4\cf3  \cf5 population\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Function\cf3  \cf0 Dendrites_Test\cf3  \cf0 (synapse_identity\cf3  \cf0 ,\cf3  \cf0 stimulus_bar\cf3  \cf0 ,\cf3  \cf0 branch_size\cf3  \cf0 ,\cf3  \cf0 branch_thresh\cf3  \cf0 ,\cf3  \cf0 noise_synapse\cf3  \cf0 ,\cf3  \cf0 noise_branch)\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 Wave\cf3  \cf0 synapse_identity\cf3  \cf0 ,\cf3  \cf0 stimulus_bar\
+\cf3 	\cf6 Variable\cf3  \cf0 branch_size\cf3  \cf0 ,\cf3  \cf0 branch_thresh\cf3  \cf0 ,\cf3  \cf0 noise_synapse\cf3  \cf0 ,\cf3  \cf0 noise_branch\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_syn_per_branch\cf3  \cf0 ,\cf3  \cf0 num_basals\cf3  \cf0 ,\cf3  \cf0 num_NMDA_branch\cf3  \cf0 ,\cf3  \cf0 branch_offset\cf3  \cf0 ,\cf3  \cf0 actual_thresh\
+\cf3 	\cf0 num_syn_per_branch\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (synapse_identity\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 	\cf0 num_basals\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (synapse_identity\cf3  \cf0 ,\cf3  \cf0 1)\
+\cf3 	\cf0 num_NMDA_branch\cf3  \cf0 =\cf3  \cf0 num_syn_per_branch\cf3  \cf0 -\cf3  \cf0 branch_size\
+\cf3 	\cf0 branch_offset\cf3  \cf0 =\cf3  \cf8 ceil\cf0 (branch_size\cf3  \cf0 /\cf3  \cf0 2)\
+\cf3 	\cf0 \
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 synapse_identity\cf3  \cf0 ,\cf3  \cf0 temp_dendritic_activity\
+\cf3 	\cf7 Make\cf0 /O/N=(num_NMDA_branch\cf3  \cf0 ,\cf3  \cf0 num_basals)\cf3  \cf0 temp_branch_activity\cf3  \cf0 ,\cf3  \cf0 temp_branch_spike\
+\cf3 	\cf7 Make\cf0 /O/N=(num_NMDA_branch)\cf3  \cf0 temp_basal_activity\
+\cf3 	\cf0 \
+\cf3 	\cf0 temp_dendritic_activity\cf3  \cf0 =\cf3  \cf0 stimulus_bar[synapse_identity[p][q]]\cf3 			\cf5 //\cf3 	\cf5 determine\cf3  \cf5 whether\cf3  \cf5 each\cf3  \cf5 synapse\cf3  \cf5 is\cf3  \cf5 active\cf0 \
+\cf3 	\cf0 temp_dendritic_activity\cf3  \cf0 *=\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 gnoise\cf0 (noise_synapse))\cf3 						\cf5 //\cf3 	\cf5 add\cf3  \cf5 multiplicative\cf3  \cf5 noise\cf3  \cf5 to\cf3  \cf5 each\cf3  \cf5 synapse\cf0 \
+\cf3 	\cf0 temp_branch_spike\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 index_basal\cf3  \cf0 ,\cf3  \cf0 index_synapse\cf3  \cf0 ,\cf3  \cf0 branch_activity\cf3  \cf0 ,\cf3  \cf0 branch_spike\cf3  \cf0 ,\cf3  \cf0 total_spikes\
+\cf3 	\cf0 total_spikes\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\cf3 	\cf6 for\cf3  \cf0 (index_basal\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_basal\cf3  \cf0 <\cf3  \cf0 num_basals\cf3  \cf0 ;\cf3  \cf0 index_basal\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 		\cf0 temp_basal_activity[]\cf3  \cf0 =\cf3  \cf0 temp_dendritic_activity[p][index_basal]\
+\cf3 		\cf6 for\cf3  \cf0 (index_synapse\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_synapse\cf3  \cf0 <\cf3  \cf0 num_NMDA_branch\cf3  \cf0 ;\cf3  \cf0 index_synapse\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 			\cf0 branch_activity\cf3  \cf0 =\cf3  \cf8 sum\cf0 (temp_basal_activity\cf3  \cf0 ,\cf3  \cf0 index_synapse\cf3  \cf0 ,\cf3  \cf0 index_synapse\cf3  \cf0 +\cf3  \cf0 branch_size\cf3  \cf0 -\cf3  \cf0 1)\cf3 		\cf0 \
+\cf3 			\cf0 temp_branch_activity[index_synapse][index_basal]\cf3  \cf0 =\cf3  \cf0 branch_activity\
+\cf3 		\cf6 endfor\cf3 						\cf5 //\cf3 	\cf5 index_synapse\cf0 \
+\cf3 	\cf6 endfor\cf3 							\cf5 //\cf3 	\cf5 index_basal\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf6 for\cf3  \cf0 (index_basal\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_basal\cf3  \cf0 <\cf3  \cf0 num_basals\cf3  \cf0 ;\cf3  \cf0 index_basal\cf3  \cf0 +=\cf3  \cf0 1)\cf3 	\cf0 \
+\cf3 		\cf6 for\cf3  \cf0 (index_synapse\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_synapse\cf3  \cf0 <\cf3  \cf0 num_NMDA_branch\cf3  \cf0 ;\cf3  \cf0 index_synapse\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 			\cf0 actual_thresh\cf3  \cf0 =\cf3  \cf0 branch_thresh\cf3  \cf0 *\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 gnoise\cf0 (noise_branch))\
+\cf3 			\cf0 branch_spike\cf3  \cf0 =\cf3  \cf0 (temp_branch_activity[index_synapse][index_basal]\cf3  \cf0 >=\cf3  \cf0 actual_thresh)\
+\cf3 			\cf0 temp_branch_spike[index_synapse][index_basal]\cf3  \cf0 =\cf3  \cf0 branch_spike\
+\cf3 			\cf6 if\cf3  \cf0 (branch_spike)\
+\cf3 				\cf0 index_synapse\cf3  \cf0 +=\cf3  \cf0 branch_offset\
+\cf3 				\cf0 total_spikes\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 			\cf6 endif\cf0 \
+\cf3 		\cf6 endfor\cf3 						\cf5 //\cf3 	\cf5 index_synapse\cf0 \
+\cf3 	\cf6 endfor\cf3 							\cf5 //\cf3 	\cf5 index_basal\cf0 \
+\
+\cf3 	\cf6 return\cf3  \cf0 (total_spikes)\
+\cf3 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 End\cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb11 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 function\cf3  \cf5 randomly\cf3  \cf5 creates\cf3  \cf5 a\cf3  \cf5 single\cf3  \cf5 bar\cf3  \cf5 input\cf3  \cf5 in\cf3  \cf5 L4\cf3  \cf5 with\cf3  \cf5 a\cf3  \cf5 length\cf3  \cf5 'bar_length'\cf0 \
+\cf5 //\cf3 		\cf5 orientation\cf3  \cf5 and\cf3  \cf5 location\cf3  \cf5 are\cf3  \cf5 randomly\cf3  \cf5 chosen\cf0 \
+\cf5 //\cf3 		\cf5 the\cf3  \cf5 output\cf3  \cf5 is\cf3  \cf5 a\cf3  \cf5 wave,\cf3  \cf5 'temp_L4_activity'\cf3  \cf5 that\cf3  \cf5 is\cf3  \cf5 [0,1]\cf3  \cf5 for\cf3  \cf5 each\cf3  \cf5 L4\cf3  \cf5 neuron\cf0 \
+\cf5 //\cf3 	\cf5 if\cf3  \cf5 'scan_length'\cf3  \cf5 >\cf3  \cf5 1,\cf3  \cf5 generate\cf3  \cf5 a\cf3  \cf5 set\cf3  \cf5 of\cf3  \cf5 bars\cf3  \cf5 corresponding\cf3  \cf5 to\cf3  \cf5 a\cf3  \cf5 sequence\cf3  \cf5 of\cf3  \cf5 locations\cf3  \cf5 swept\cf3  \cf5 over\cf3  \cf5 at\cf3  \cf5 constant\cf3  \cf5 velocity\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Function\cf3  \cf0 Do_Bar_Scan\cf3  \cf0 (params_stim_wv\cf3  \cf0 ,\cf3  \cf0 bar_length\cf3  \cf0 ,\cf3  \cf0 scan_length\cf3  \cf0 ,\cf3  \cf0 noise_exact\cf3  \cf0 ,\cf3  \cf0 noise_Poiss\cf3  \cf0 ,\cf3  \cf0 noise_frac\cf3  \cf0 ,\cf3  \cf0 output_flag)\
+\cf3 	\cf6 Wave\cf3  \cf0 params_stim_wv\
+\cf3 	\cf6 Variable\cf3  \cf0 bar_length\cf3  \cf0 ,\cf3  \cf0 scan_length\cf3  \cf0 ,\cf3  \cf0 noise_exact\cf3  \cf0 ,\cf3  \cf0 noise_Poiss\cf3  \cf0 ,\cf3  \cf0 noise_frac\cf3  \cf0 ,\cf3  \cf0 output_flag\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient\cf3  \cf0 ,\cf3  \cf0 num_L4_inputs\
+\cf3 	\cf0 num_x\cf3  \cf0 =\cf3  \cf0 params_stim_wv[0]\
+\cf3 	\cf0 num_y\cf3  \cf0 =\cf3  \cf0 params_stim_wv[1]\
+\cf3 	\cf0 num_orient\cf3  \cf0 =\cf3  \cf0 params_stim_wv[2]\
+\cf3 	\cf0 num_L4_inputs\cf3  \cf0 =\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 num_y\cf3  \cf0 *\cf3  \cf0 num_orient\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_L4_inputs\cf3  \cf0 ,\cf3  \cf0 scan_length)\cf3  \cf0 temp_L4_activity\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf7 Make\cf0 /O/N=(bar_length\cf3  \cf0 ,\cf3  \cf0 scan_length)\cf3  \cf0 temp_bar_xloc\cf3  \cf0 ,\cf3  \cf0 temp_bar_yloc\
+\cf3 	\cf7 Make\cf0 /O/N=(num_L4_inputs)\cf3  \cf0 temp_sort\cf3  \cf0 ,\cf3  \cf0 temp_sort_p\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 orientation,\cf3  \cf0 x_loc\cf3  \cf0 ,\cf3  \cf0 y_loc\cf3  \cf0 ,\cf3  \cf0 x_loc_0\cf3  \cf0 ,\cf3  \cf0 y_loc_0\
+\cf3 	\cf6 Variable\cf3  \cf0 x_center_0\cf3  \cf0 ,\cf3  \cf0 x_center\cf3  \cf0 ,\cf3  \cf0 y_center_0\cf3  \cf0 ,\cf3  \cf0 y_center\
+\cf3 	\cf6 Variable\cf3  \cf0 del_x\cf3  \cf0 ,\cf3  \cf0 del_y\cf3  \cf0 ,\cf3  \cf0 scan_x\cf3  \cf0 ,\cf3  \cf0 scan_y\
+\cf3 	\cf6 Variable\cf3  \cf0 index_loc\cf3  \cf0 ,\cf3  \cf0 index_L4\cf3  \cf0 ,\cf3  \cf0 index_scan\cf3  \cf0 ,\cf3  \cf0 direction\
+\cf3 	\cf6 Variable\cf3  \cf0 noise_image\cf3  \cf0 ,\cf3  \cf0 noise_offset\cf3  \cf0 ,\cf3  \cf0 index_L4_noise\cf3  \cf0 ,\cf3  \cf0 num_L4_noise\cf3  \cf0 ,\cf3  \cf0 L4_cell\cb1 \
+\cf3 \cb11 	\cf0 \
+\cf3 	\cf0 noise_image\cf3  \cf0 =\cf3  \cf0 0.5\cf3  \cf0 *\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 enoise\cf0 (1))\
+\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (noise_image\cf3  \cf0 >=\cf3  \cf0 noise_frac)\cf3 			\cf5 //\cf3 	\cf5 make\cf3  \cf5 a\cf3  \cf5 bar\cf3  \cf5 scan\cf0 \
+\cf3 								\cf0 \
+\cf3 		\cf0 direction\cf3  \cf0 =\cf3  \cf0 2\cf3  \cf0 *\cf3  \cf8 trunc\cf0 (1\cf3  \cf0 +\cf3  \cf8 enoise\cf0 (1))\cf3  \cf0 -\cf3  \cf0 1 
+\f1\b \cf13 \cb16 SANJANA: this gives 1 every time?
+\f0\b0 \cf0 \cb11 \
+\cf3 		\cf0 orientation\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (2\cf3  \cf0 *\cf3  \cf0 (\cf8 enoise\cf0 (1)\cf3  \cf0 +\cf3  \cf0 1))\
+\cf3 		\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (output_flag\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 			\cf7 Print\cf3  \cf4 "orientation\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 orientation\cf3  \cf0 ,\cf3  \cf4 "direction\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 direction\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 		\cf6 \cb11 if\cf3  \cf0 (orientation\cf3  \cf0 ==\cf3  \cf0 0)\cf3 					\cf5 //\cf3 	\cf5 horizontal,\cf3  \cf5 or\cf3  \cf5 0\'b0\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 			\cf0 del_x\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 			\cf0 del_y\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 			\cf0 scan_x\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 			\cf0 scan_y\cf3  \cf0 =\cf3  \cf0 direction\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (orientation\cf3  \cf0 ==\cf3  \cf0 1)\cf3 					\cf5 //\cf3 	\cf5 45\'b0\cf0 \
+\cf3 			\cf0 del_x\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 			\cf0 del_y\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 			\cf0 scan_x\cf3  \cf0 =\cf3  \cf0 direction\
+\cf3 			\cf0 scan_y\cf3  \cf0 =\cf3  \cf0 -direction\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (orientation\cf3  \cf0 ==\cf3  \cf0 2)\cf3 					\cf5 //\cf3 	\cf5 vertical,\cf3  \cf5 or\cf3  \cf5 90\'b0\cf0 \
+\cf3 			\cf0 del_x\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 			\cf0 del_y\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 			\cf0 scan_x\cf3  \cf0 =\cf3  \cf0 direction\
+\cf3 			\cf0 scan_y\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (orientation\cf3  \cf0 ==\cf3  \cf0 3)\cf3 					\cf5 //\cf3 	\cf5 135\'b0\cf0 \
+\cf3 			\cf0 del_x\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 			\cf0 del_y\cf3  \cf0 =\cf3  \cf0 -1\
+\cf3 			\cf0 scan_x\cf3  \cf0 =\cf3  \cf0 direction\
+\cf3 			\cf0 scan_y\cf3  \cf0 =\cf3  \cf0 direction\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf0 \
+\cf3 		\cf0 x_loc_0\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (0.5\cf3  \cf0 *\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 (\cf8 enoise\cf0 (1)\cf3  \cf0 +\cf3  \cf0 1))\
+\cf3 		\cf0 y_loc_0\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (0.5\cf3  \cf0 *\cf3  \cf0 num_y\cf3  \cf0 *\cf3  \cf0 (\cf8 enoise\cf0 (1)\cf3  \cf0 +\cf3  \cf0 1))\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 		\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (output_flag\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 			\cf7 Print\cf3  \cf4 "del_x\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 del_x\cf3  \cf0 ,\cf3  \cf4 "del_y\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 del_y\cf3  \cf0 ,\cf3  \cf4 "scan_x\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 scan_x\cf3  \cf0 ,\cf3  \cf4 "scan_y\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 scan_y\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf0 \
+\cf3 		\cf0 \cb11 index_scan\cf3  \cf0 =\cf3  \cf0 0\
+\pard\pardeftab720\partightenfactor0
+\cf3 		\cf6 do\cf0 \
+\cf3 			\cf0 x_loc\cf3  \cf0 =\cf3  \cf0 x_loc_0\
+\cf3 			\cf0 y_loc\cf3  \cf0 =\cf3  \cf0 y_loc_0\
+\cf3 			\cf0 index_loc\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 			\cf6 do\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 			\cb11 	\cf0 temp_bar_xloc[index_loc][index_scan]\cf3  \cf0 =\cf3  \cf0 x_loc\
+\pard\pardeftab720\partightenfactor0
+\cf3 				\cf0 temp_bar_yloc[index_loc][index_scan]\cf3  \cf0 =\cf3  \cf0 y_loc\
+\cf3 				\cf0 \
+\cf3 				\cf0 index_L4\cf3  \cf0 =\cf3  \cf0 orientation\cf3  \cf0 +\cf3  \cf0 num_orient\cf3  \cf0 *\cf3  \cf0 x_loc\cf3  \cf0 +\cf3  \cf0 num_orient\cf3  \cf0 *\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 y_loc\
+\cf3 				\cf0 temp_L4_activity[index_L4][index_scan]\cf3  \cf0 =\cf3  \cf0 1\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 				\cf0 \
+\cf3 				\cf6 if\cf3  \cf0 (output_flag\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 					\cf7 Print\cf3  \cf4 "index_loc\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 index_loc\cf3  \cf0 ,\cf3  \cf4 "x_loc\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 x_loc\cf3  \cf0 ,\cf3  \cf4 "y_loc\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 y_loc\cf3  \cf0 ,\cf3  \cf4 "index_L4\cf3  \cf4 ="\cf3  \cf0 ,\cf3  \cf0 index_L4\
+\cf3 				\cf6 endif\cf0 \
+\cf3 				\cf0 \
+\cf3 				\cf0 x_loc\cf3  \cf0 +=\cf3  \cf0 del_x\
+\cf3 				\cf0 \cb11 y_loc\cf3  \cf0 +=\cf3  \cf0 del_y\
+\pard\pardeftab720\partightenfactor0
+\cf3 				\cf0 x_loc\cf3  \cf0 =\cf3  \cf8 mod\cf0 (x_loc\cf3  \cf0 +\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_x)\cf3 							\cf5 //\cf3 	\cf5 wrap-around\cf3  \cf5 locations\cf0 \
+\cf3 				\cf0 y_loc\cf3  \cf0 =\cf3  \cf8 mod\cf0 (y_loc\cf3  \cf0 +\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_y)\
+\cf3 				\cf0 \
+\cf3 				\cf0 index_loc\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 			\cf6 while\cf3  \cf0 (index_loc\cf3  \cf0 <\cf3  \cf0 bar_length)\
+\cf3 							\cf0 \
+\cf3 			\cf6 if\cf3  \cf0 (\cf8 mod\cf0 (orientation\cf3  \cf0 ,\cf3  \cf0 2)\cf3  \cf0 ==\cf3  \cf0 0)\cf3 									\cf5 //\cf3 	\cf5 even\cf3  \cf5 values\cf3  \cf5 means\cf3  \cf5 vertical\cf3  \cf5 or\cf3  \cf5 horizontal\cf0 \
+\cf3 				\cf0 x_loc_0\cf3  \cf0 +=\cf3  \cf0 scan_x\
+\cf3 				\cf0 y_loc_0\cf3  \cf0 +=\cf3  \cf0 scan_y\
+\cf3 			\cf6 else\cf3 																	\cf5 //\cf3 	\cf5 odd\cf3  \cf5 values\cf3  \cf5 means\cf3  \cf5 angles\cf3  \cf5 orientations,\cf3  \cf5 i.e.\cf3  \cf5 45\'b0\cf3  \cf5 or\cf3  \cf5 135\'b0\cf0 \
+\cf3 				\cf0  \
+\cf3 			\cf6 endif\cf0 \
+\
+\cf3 			\cf0 x_loc_0\cf3  \cf0 =\cf3  \cf8 mod\cf0 (x_loc_0\cf3  \cf0 +\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_x)\
+\cf3 			\cf0 y_loc_0\cf3  \cf0 =\cf3  \cf8 mod\cf0 (y_loc_0\cf3  \cf0 +\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_y)\
+\cf3 			\cf0 \
+\cf3 			\cf0 index_scan\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 		\cf6 while\cf3  \cf0 (index_scan\cf3  \cf0 <\cf3  \cf0 scan_length)\
+\cf3 		\cf0 \
+\cf3 	\cf6 endif\cf3 								\cb1 				\cf5 //\cf3 		\cf5 noise_image\cf3  \cf5 >=\cf3  \cf5 0\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 \cb11 \
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf3 	\cf5 now\cf3  \cf5 add\cf3  \cf5 noise\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 noise_offset\cf3  \cf0 =\cf3  \cf0 bar_length\cf3  \cf0 *\cf3  \cf0 (noise_image\cf3  \cf0 >=\cf3  \cf0 noise_frac) 
+\f1\b \cf14 // if this is NOT a pure noise image, at least <bar_length> L4 neurons do not have noise. 
+\f0\b0 \cf0 \
+\cf3 	\cf0 noise_offset\cf3  \cf0 +=\cf3  \cf8 PoissonNoise\cf3  \cf0 (noise_Poiss) 
+\f1\b \cf14 // add a random number of other non-noisy L4 neurons
+\f0\b0 \cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf3 	\cf5 Print\cf3  \cf5 "noise_offset\cf3  \cf5 ="\cf3  \cf5 ,\cf3  \cf5 noise_offset\cf0 \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb11 		\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf14 	// why so complicated??
+\f0\b0 \cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 index_scan\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf6 do\cf3 	\cf0 \
+\cf3 		\cf0 num_L4_noise\cf3  \cf0 =\cf3  \cf0 noise_exact\
+\cf3 				\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (num_L4_noise\cf3  \cf0 >\cf3  \cf0 0)\
+\cf3 			\cf0 temp_sort\cf3  \cf0 =\cf3  \cf0 temp_L4_activity[p][index_scan] 
+\f1\b \cf14 // copy L4 activity array
+\f0\b0 \cf0 \
+\cf3 			\cf0 temp_sort_p\cf3  \cf0 =\cf3  \cf0 p 
+\f1\b \cf14 // make an array containing indices
+\f0\b0 \cf0 \
+\cf3 		\cf0 \
+\cf3 			\cf7 Sort\cf0 /R\cf3  \cf0 temp_sort\cf3  \cf0 ,\cf3  \cf0 temp_sort\cf3  \cf0 ,\cf3  \cf0 temp_sort_p 
+\f1\b \cf14 // sort L4 activity copy, and indices
+\f0\b0 \cf0 \
+\cf3 			\cf0 \
+\cf3 			\cf0 temp_sort[noise_offset\cf3  \cf0 ,\cf3  \cf8 inf\cf0 ]\cf3  \cf0 =\cf3  \cf0 0.9\cf3  \cf0 *\cf3  \cf8 enoise\cf0 (1) 
+\f1\b \cf14 // add +/- 0.9 noise to most of the inactive (0) L4 neurons
+\f0\b0 \cf0 \
+\cf3 			\cf7 Sort\cf0 /R\cf3  \cf0 temp_sort\cf3  \cf0 ,\cf3  \cf0 temp_sort\cf3  \cf0 ,\cf3  \cf0 temp_sort_p 
+\f1\b \cf14 // reverse sort L4 activity and maintain indices
+\f0\b0 \cf0 \
+\cf3 		\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b \cf14 			// make the noisiest <noise_exact> neurons 1s
+\f0\b0 \cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 			\cf0 index_L4_noise\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 			\cf6 do\cf0 \
+\cf3 				\cf0 L4_cell\cf3  \cf0 =\cf3  \cf0 temp_sort_p[noise_offset\cf3  \cf0 +\cf3  \cf0 index_L4_noise] \
+\cf3 				\cf0 temp_L4_activity[L4_cell][index_scan]\cf3  \cf0 =\cf3  \cf0 1 
+\f1\b \cf14 // make the noisiest (closest to 1) cells 1 - # of cells = numL4noise
+\f0\b0 \cf0 \
+\cf3 				\cf0 \
+\cf3 				\cf0 index_L4_noise\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 			\cf6 while\cf3  \cf0 (index_L4_noise\cf3  \cf0 <\cf3  \cf0 num_L4_noise)\
+\cf3 		\cf6 endif\cf0 \
+\cf3 	\cf0 \
+\cf3 		\cf0 index_scan\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 	\cf6 while\cf3  \cf0 (index_scan\cf3  \cf0 <\cf3  \cf0 scan_length)\
+\cf3 	\cf0 \
+\cf3 	\cf6 return\cf3  \cf0 (orientation)\
+\cf3 	\cf0 \cb1 \
+\cf6 \cb11 End\cf0 \
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 Function\cf3  \cf5 generates\cf3  \cf5 an\cf3  \cf5 organized\cf3  \cf5 set\cf3  \cf5 of\cf3  \cf5 bar\cf3  \cf5 stimuli\cf3  \cf5 that\cf3  \cf5 cover\cf3  \cf5 the\cf3  \cf5 entire\cf3  \cf5 range\cf3  \cf5 of\cf3  \cf5 possible\cf3  \cf5 locations\cf3  \cf5 and\cf3  \cf5 orientations\cf0 \
+\cf5 //\cf3 		\cf5 'params_stim_wv'\cf3  \cf5 has\cf3  \cf5 parameters:\cf3 	\cf5 num_x,\cf3  \cf5 num_y,\cf3  \cf5 num_orient\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Function\cf3  \cf0 Do_Bar_TestSet\cf3  \cf0 (params_stim_wv\cf3  \cf0 ,\cf3  \cf0 bar_length)\
+\cf3 	\cf6 Wave\cf3  \cf0 params_stim_wv\
+\cf3 	\cf6 Variable\cf3  \cf0 bar_length\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient\cf3  \cf0 ,\cf3  \cf0 num_L4_inputs\cf3  \cf0 ,\cf3  \cf0 num_timesteps\
+\cf3 	\cf0 num_x\cf3  \cf0 =\cf3  \cf0 params_stim_wv[0]\
+\cf3 	\cf0 num_y\cf3  \cf0 =\cf3  \cf0 params_stim_wv[1]\
+\cf3 	\cf0 num_orient\cf3  \cf0 =\cf3  \cf0 params_stim_wv[2]\
+\cf3 	\cf0 num_L4_inputs\cf3  \cf0 =\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 num_y\cf3  \cf0 *\cf3  \cf0 num_orient\
+\cf3 	\cf0 num_timesteps\cf3  \cf0 =\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 num_y\cf3  \cf0 *\cf3  \cf0 num_orient\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_L4_inputs\cf3  \cf0 ,\cf3  \cf0 num_timesteps)\cf3  \cf0 temp_L4_testset\cf3  \cf0 =\cf3  \cf0 0\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf3 	\cf5 Make/O/N=(num_L4_inputs\cf3  \cf5 ,\cf3  \cf5 num_x\cf3  \cf5 ,\cf3  \cf5 num_y\cf3  \cf5 ,\cf3  \cf5 num_orient)\cf3  \cf5 temp_L4_testset\cf3  \cf5 =\cf3  \cf5 0\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 orientation,\cf3  \cf0 x_loc\cf3  \cf0 ,\cf3  \cf0 y_loc\cf3  \cf0 ,\cf3  \cf0 x_loc_0\cf3  \cf0 ,\cf3  \cf0 y_loc_0\cf3  \cf0 ,\cf3  \cf0 del_x\cf3  \cf0 ,\cf3  \cf0 del_y\
+\cf3 	\cf6 Variable\cf3  \cf0 index_loc\cf3  \cf0 ,\cf3  \cf0 index_L4\cf3  \cf0 ,\cf3  \cf0 index_stimulus\
+\cf3 	\cf0 \
+\cf3 	\cf6 for\cf3  \cf0 (orientation\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 orientation\cf3  \cf0 <\cf3  \cf0 num_orient\cf3  \cf0 ;\cf3  \cf0 orientation\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 		\cf6 if\cf3  \cf0 (orientation\cf3  \cf0 ==\cf3  \cf0 0)\cf3 					\cf5 //\cf3 	\cf5 horizontal,\cf3  \cf5 or\cf3  \cf5 0\'b0\cf0 \
+\cf3 			\cf0 del_x\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 			\cf0 del_y\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (orientation\cf3  \cf0 ==\cf3  \cf0 1)\cf3 					\cf5 //\cf3 	\cf5 45\'b0\cf0 \
+\cf3 			\cf0 del_x\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 			\cf0 del_y\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (orientation\cf3  \cf0 ==\cf3  \cf0 2)\cf3 					\cf5 //\cf3 	\cf5 vertical,\cf3  \cf5 or\cf3  \cf5 90\'b0\cf0 \
+\cf3 			\cf0 del_x\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 			\cf0 del_y\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (orientation\cf3  \cf0 ==\cf3  \cf0 3)\cf3 					\cf5 //\cf3 	\cf5 135\'b0\cf0 \
+\cf3 			\cf0 del_x\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 			\cf0 del_y\cf3  \cf0 =\cf3  \cf0 -1\
+\cf3 		\cf6 endif\cf0 \
+\cf3 			\cf0 \
+\cf3 		\cf6 for\cf3  \cf0 (y_loc_0\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 y_loc_0\cf3  \cf0 <\cf3  \cf0 num_y\cf3  \cf0 ;\cf3  \cf0 y_loc_0\cf3  \cf0 +=\cf3  \cf0 1)\cf3 											\cf5 //\cf3 	\cf5 loop\cf3  \cf5 over\cf3  \cf5 y0\cf3  \cf5 locations\cf3  \cf5 for\cf3  \cf5 the\cf3  \cf5 bar\cf0 \
+\cf3 			\cf6 for\cf3  \cf0 (x_loc_0\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 x_loc_0\cf3  \cf0 <\cf3  \cf0 num_x\cf3  \cf0 ;\cf3  \cf0 x_loc_0\cf3  \cf0 +=\cf3  \cf0 1)\cf3 										\cf5 //\cf3 	\cf5 loop\cf3  \cf5 over\cf3  \cf5 x0\cf3  \cf5 locations\cf3  \cf5 for\cf3  \cf5 the\cf3  \cf5 bar\cf0 \
+\cf3 			\cf0 \
+\cf3 				\cf0 x_loc\cf3  \cf0 =\cf3  \cf0 x_loc_0\
+\cf3 				\cf0 y_loc\cf3  \cf0 =\cf3  \cf0 y_loc_0\
+\cf3 				\cf0 index_stimulus\cf3  \cf0 =\cf3  \cf0 orientation\cf3  \cf0 +\cf3  \cf0 num_orient\cf3  \cf0 *\cf3  \cf0 x_loc_0\cf3  \cf0 +\cf3  \cf0 num_orient\cf3  \cf0 *\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 y_loc_0\
+\cf3 			\cf0 \
+\cf3 				\cf6 for\cf3  \cf0 (index_loc\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_loc\cf3  \cf0 <\cf3  \cf0 bar_length\cf3  \cf0 ;\cf3  \cf0 index_loc\cf3  \cf0 +=\cf3  \cf0 1)\cf3 					\cf5 //\cf3 	\cf5 loop\cf3  \cf5 over\cf3  \cf5 locations\cf3  \cf5 within\cf3  \cf5 a\cf3  \cf5 single\cf3  \cf5 bar\cf0 \
+\cf3 					\cf0 \
+\cf3 					\cf0 index_L4\cf3  \cf0 =\cf3  \cf0 orientation\cf3  \cf0 +\cf3  \cf0 num_orient\cf3  \cf0 *\cf3  \cf0 x_loc\cf3  \cf0 +\cf3  \cf0 num_orient\cf3  \cf0 *\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 y_loc\
+\cf3 					\cf0 temp_L4_testset[index_L4][index_stimulus]\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 					\cf0 \
+\cf3 					\cf0 x_loc\cf3  \cf0 +=\cf3  \cf0 del_x\
+\cf3 					\cf0 y_loc\cf3  \cf0 +=\cf3  \cf0 del_y\
+\cf3 					\cf0 x_loc\cf3  \cf0 =\cf3  \cf8 mod\cf0 (x_loc\cf3  \cf0 +\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_x)\cf3 													\cf5 //\cf3 	\cf5 wrap-around\cf3  \cf5 x-locations\cf0 \
+\cf3 					\cf0 y_loc\cf3  \cf0 =\cf3  \cf8 mod\cf0 (y_loc\cf3  \cf0 +\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_y)\cf3 													\cf5 //\cf3 	\cf5 wrap-around\cf3  \cf5 y-locations\cf0 \
+\cf3 				\cf6 endfor\cf3 								\cf5 //\cf3 	\cf5 index_loc\cf0 \
+\cf3 			\cf6 endfor\cf3 									\cf5 //\cf3 	\cf5 y_loc_0\cf0 \
+\cf3 		\cf6 endfor\cf3 										\cf5 //\cf3 	\cf5 x_loc_0\cf0 \
+\cf3 	\cf6 endfor\cf3 											\cf5 //\cf3 	\cf5 orientation\cf0 \
+\
+\cf3 	\cf6 return\cf3  \cf0 (1)\
+\cf3 	\cf0 \
+\cf6 End\cf0 \cb1 \
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 Function\cf3  \cf5 calculates\cf3  \cf5 the\cf3  \cf5 voltage\cf3  \cf5 response\cf3  \cf5 in\cf3  \cf5 each\cf3  \cf5 dendritic\cf3  \cf5 branch\cf3  \cf5 for\cf3  \cf5 each\cf3  \cf5 stimulus\cf3  \cf5 in\cf3  \cf5 'bar_testset_wv'\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Function\cf3  \cf0 Do_Branch_Responses\cf3  \cf0 (bar_testset_wv\cf3  \cf0 ,\cf3  \cf0 synapse_identity\cf3  \cf0 ,\cf3  \cf0 synapse_u\cf3  \cf0 ,\cf3  \cf0 synapse_w_max\cf3  \cf0 ,\cf3  \cf0 params_dend_wv\cf3  \cf0 ,\cf3  \cf0 params_stim_wv)\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 Wave\cf3  \cf0 bar_testset_wv\cf3  \cf0 ,\cf3  \cf0 synapse_identity\cf3  \cf0 ,\cf3  \cf0 synapse_u\cf3  \cf0 ,\cf3  \cf0 synapse_w_max\cf3  \cf0 ,\cf3  \cf0 params_dend_wv\cf3  \cf0 ,\cf3  \cf0 params_stim_wv\
+\cf3 	\cf6 WAVE\cf3  \cf0 temp_branch_activity\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_L4_inputs\cf3  \cf0 ,\cf3  \cf0 num_stimuli\
+\cf3 	\cf0 num_L4_inputs\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (bar_testset_wv\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 	\cf0 num_stimuli\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (bar_testset_wv\cf3  \cf0 ,\cf3  \cf0 1)\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_branches\cf3  \cf0 ,\cf3  \cf0 branch_size\
+\cf3 	\cf0 num_branches\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (synapse_identity\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 	\cf0 branch_size\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 (synapse_identity\cf3  \cf0 ,\cf3  \cf0 1)\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient\cf3  \cf0 \
+\cf3 	\cf0 num_x\cf3  \cf0 =\cf3  \cf0 params_stim_wv[0]\
+\cf3 	\cf0 num_y\cf3  \cf0 =\cf3  \cf0 params_stim_wv[1]\
+\cf3 	\cf0 num_orient\cf3  \cf0 =\cf3  \cf0 params_stim_wv[2]\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 index_x\cf3  \cf0 ,\cf3  \cf0 index_y\cf3  \cf0 ,\cf3  \cf0 index_orient\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches\cf3  \cf0 ,\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient)\cf3  \cf0 temp_branch_resp\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf7 Make\cf0 /O/N=(num_branches\cf3  \cf0 ,\cf3  \cf0 branch_size)\cf3  \cf0 temp_no_plast\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf7 Make\cf0 /O/N=(num_L4_inputs)\cf3  \cf0 stimulus_bar\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 index_stimulus\cf3  \cf0 ,\cf3  \cf0 noise_synapse\cf3  \cf0 ,\cf3  \cf0 noise_dend\
+\
+\cf5 //\cf3 	\cf5 turn\cf3  \cf5 off\cf3  \cf5 synaptic\cf3  \cf5 and\cf3  \cf5 branch\cf3  \cf5 noise\cf3  \cf5 for\cf3  \cf5 this\cf3  \cf5 calculation\cf3 	\cf0 \
+\cf3 	\cf0 noise_synapse\cf3  \cf0 =\cf3  \cf0 params_dend_wv[9]\
+\cf3 	\cf0 noise_dend\cf3  \cf0 =\cf3  \cf0 params_dend_wv[10]\
+\cf3 	\cf0 params_dend_wv[9]\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 params_dend_wv[10]\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 	\cf0 \
+\cf3 	\cf6 for\cf3  \cf0 (index_stimulus\cf3  \cf0 =\cf3  \cf0 0\cf3  \cf0 ;\cf3  \cf0 index_stimulus\cf3  \cf0 <\cf3  \cf0 num_stimuli\cf3  \cf0 ;\cf3  \cf0 index_stimulus\cf3  \cf0 +=\cf3  \cf0 1)\
+\cf3 		\cf0 stimulus_bar\cf3  \cf0 =\cf3  \cf0 bar_testset_wv[p][index_stimulus]\
+\cf3 	\cf0 \
+\cf3 		\cf0 Dendritic_Clusters\cf3  \cf0 (synapse_identity\cf3  \cf0 ,\cf3  \cf0 synapse_u\cf3  \cf0 ,\cf3  \cf0 synapse_w_max\cf3  \cf0 ,\cf3  \cf0 temp_no_plast\cf3  \cf0 ,\cf3  \cf0 stimulus_bar\cf3  \cf0 ,\cf3  \cf0 params_dend_wv\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 		\cf0 \
+\cf3 		\cf0 index_orient\cf3  \cf0 =\cf3  \cf8 mod\cf0 (index_stimulus\cf3  \cf0 ,\cf3  \cf0 4)\
+\cf3 		\cf0 index_y\cf3  \cf0 =\cf3  \cf8 trunc\cf0 ((index_stimulus\cf3  \cf0 -\cf3  \cf0 index_orient)\cf3  \cf0 /\cf3  \cf0 num_x\cf3  \cf0 /\cf3  \cf0 num_orient)\
+\cf3 		\cf0 index_x\cf3  \cf0 =\cf3  \cf8 trunc\cf0 ((index_stimulus\cf3  \cf0 -\cf3  \cf0 index_orient\cf3  \cf0 -\cf3  \cf0 index_y\cf3  \cf0 *\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 num_orient)\cf3  \cf0 /\cf3  \cf0 num_orient)\
+\cf3 		\cf0 \
+\cf3 		\cf0 temp_branch_resp[][index_x][index_y][index_orient]\cf3  \cf0 =\cf3  \cf0 temp_branch_activity[p]\
+\cf3 	\cf6 endfor\cf0 \
+\cf3 	\cf0 \
+\cf5 //\cf3 	\cf5 restore\cf3  \cf5 the\cf3  \cf5 previous\cf3  \cf5 noise\cf3  \cf5 parameters\cf3 	\cf0 \
+\cf3 	\cf0 params_dend_wv[9]\cf3  \cf0 =\cf3  \cf0 noise_synapse\
+\cf3 	\cf0 params_dend_wv[10]\cf3  \cf0 =\cf3  \cf0 noise_dend\
+\cf3 	\cf0 \
+\cf3 	\cf6 return\cf3  \cf0 (1)\
+\cf3 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 End\cf0 \
+\
+\
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 orphan\cf3  \cf5 code:\cf3  \cf5 makes\cf3  \cf5 bars\cf3  \cf5 that\cf3  \cf5 don't\cf3  \cf5 wrap-around\cf0 \
+\cf5 //\cf0 \
+\
+\cf3 		\cf6 if\cf3  \cf0 (orientation\cf3  \cf0 ==\cf3  \cf0 0)\cf3 					\cf5 //\cf3 	\cf5 horizontal,\cf3  \cf5 or\cf3  \cf5 0\'b0\cf0 \
+\cf3 			\cf0 x_max\cf3  \cf0 =\cf3  \cf0 num_x\cf3  \cf0 -\cf3  \cf0 bar_length\
+\cf3 			\cf0 y_max\cf3  \cf0 =\cf3  \cf0 num_y\
+\cf3 			\cf0 del_x\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 			\cf0 del_y\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 			\cf0 scan_x\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 			\cf0 scan_y\cf3  \cf0 =\cf3  \cf0 direction\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (orientation\cf3  \cf0 ==\cf3  \cf0 1)\cf3 					\cf5 //\cf3 	\cf5 45\'b0\cf0 \
+\cf3 			\cf0 x_max\cf3  \cf0 =\cf3  \cf0 num_x\cf3  \cf0 -\cf3  \cf0 bar_length\
+\cf3 			\cf0 y_max\cf3  \cf0 =\cf3  \cf0 num_y\cf3  \cf0 -\cf3  \cf0 bar_length\
+\cf3 			\cf0 del_x\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 			\cf0 del_y\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 			\cf0 scan_x\cf3  \cf0 =\cf3  \cf0 direction\
+\cf3 			\cf0 scan_y\cf3  \cf0 =\cf3  \cf0 -direction\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (orientation\cf3  \cf0 ==\cf3  \cf0 2)\cf3 					\cf5 //\cf3 	\cf5 vertical,\cf3  \cf5 or\cf3  \cf5 90\'b0\cf0 \
+\cf3 			\cf0 x_max\cf3  \cf0 =\cf3  \cf0 num_x\
+\cf3 			\cf0 y_max\cf3  \cf0 =\cf3  \cf0 num_y\cf3  \cf0 -\cf3  \cf0 bar_length\
+\cf3 			\cf0 del_x\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 			\cf0 del_y\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 			\cf0 scan_x\cf3  \cf0 =\cf3  \cf0 direction\
+\cf3 			\cf0 scan_y\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf6 if\cf3  \cf0 (orientation\cf3  \cf0 ==\cf3  \cf0 3)\cf3 					\cf5 //\cf3 	\cf5 135\'b0\cf0 \
+\cf3 			\cf0 x_max\cf3  \cf0 =\cf3  \cf0 num_x\cf3  \cf0 -\cf3  \cf0 bar_length\
+\cf3 			\cf0 y_max\cf3  \cf0 =\cf3  \cf0 num_y\cf3  \cf0 -\cf3  \cf0 bar_length\
+\cf3 			\cf0 del_x\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 			\cf0 del_y\cf3  \cf0 =\cf3  \cf0 -1\
+\cf3 			\cf0 scan_x\cf3  \cf0 =\cf3  \cf0 direction\
+\cf3 			\cf0 scan_y\cf3  \cf0 =\cf3  \cf0 direction\
+\cf3 		\cf6 endif\cf0 \
+\cf3 		\cf0 \
+\cf3 		\cf0 x_loc_0\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (0.5\cf3  \cf0 *\cf3  \cf0 x_max\cf3  \cf0 *\cf3  \cf0 (\cf8 enoise\cf0 (1)\cf3  \cf0 +\cf3  \cf0 1))\
+\cf3 		\cf0 y_loc_0\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (0.5\cf3  \cf0 *\cf3  \cf0 y_max\cf3  \cf0 *\cf3  \cf0 (\cf8 enoise\cf0 (1)\cf3  \cf0 +\cf3  \cf0 1))\
+\cf3 		\cf0 y_loc_0\cf3  \cf0 +=\cf3  \cf0 (orientation\cf3  \cf0 ==\cf3  \cf0 3)\cf3  \cf0 *\cf3  \cf0 bar_length\
+\cf3 	\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf0 \
+\
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 Macro\cf3  \cf5 displays\cf3  \cf5 receptive\cf3  \cf5 field\cf3  \cf5 information\cf0 \
+\cf5 //\cf3 		\cf5 Note:\cf3  \cf5 One\cf3  \cf5 must\cf3  \cf5 run\cf3  \cf5 "Dendrite_RF"\cf3  \cf5 beforehand!!!\cf0 \
+\cf5 //\cf3 		\cf5 if\cf3  \cf5 'extra_str'\cf3  \cf5 !=\cf3  \cf5 "",\cf3  \cf5 then\cf3  \cf5 it\cf3  \cf5 creates\cf3  \cf5 a\cf3  \cf5 new\cf3  \cf5 window\cf3  \cf5 and\cf3  \cf5 new\cf3  \cf5 display\cf3  \cf5 waves\cf3  \cf5 with\cf3  \cf5 unique\cf3  \cf5 names\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Window\cf3  \cf0 Jens3_Display_RF\cf3  \cf0 (branch\cf3  \cf0 ,\cf3  \cf0 soma_flag\cf3  \cf0 ,\cf3  \cf0 condition_str\cf3  \cf0 ,\cf3  \cf0 extra_str\cf3  \cf0 ,\cf3  \cf0 params_dendrite_wv\cf3  \cf0 ,\cf3  \cf0 params_stimulus_wv)\cf3  \cf0 :\cf3  \cf0 Graph\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 Variable\cf3  \cf0 branch\cf3  \cf0 =\cf3  \cf0 g_branch\cf3  \cf0 ,\cf3  \cf0 soma_flag\cf3  \cf0 =\cf3  \cf0 g_soma_flag\
+\cf3 	\cf6 String\cf3  \cf0 condition_str\cf3  \cf0 =\cf3  \cf0 g_condition_str\cf3  \cf0 ,\cf3  \cf0 extra_str\cf3  \cf0 =\cf3  \cf0 g_extra_str\
+\cf3 	\cf6 String\cf3  \cf0 params_dendrite_wv\cf3  \cf0 =\cf3  \cf0 g_params_dendrite_wv\cf3  \cf0 ,\cf3  \cf0 params_stimulus_wv\cf3  \cf0 =\cf3  \cf0 g_params_stimulus_wv\
+\cf3 	\cf6 Prompt\cf3  \cf0 branch\cf3  \cf0 ,\cf3  \cf4 "Choose\cf3  \cf4 the\cf3  \cf4 dendritic\cf3  \cf4 branch:"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 soma_flag\cf3  \cf0 ,\cf3  \cf4 "Which\cf3  \cf4 receptive\cf3  \cf4 field?"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf4 "Dendritic\cf3  \cf4 Branch;Soma;Composite"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 condition_str\cf3  \cf0 ,\cf3  \cf4 "Choose\cf3  \cf4 the\cf3  \cf4 condition\cf3  \cf4 string\cf3  \cf4 for\cf3  \cf4 wave\cf3  \cf4 names:"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf4 "_before;_after"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 extra_str\cf3  \cf0 ,\cf3  \cf4 "Extra\cf3  \cf4 ending\cf3  \cf4 for\cf3  \cf4 naming\cf3  \cf4 waves\cf3  \cf4 and\cf3  \cf4 window:"\cf3  \cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 params_dendrite_wv\cf3  \cf0 ,\cf3  \cf4 "Wave\cf3  \cf4 for\cf3  \cf4 dendrite\cf3  \cf4 parameters:"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf8 WaveList\cf0 (\cf4 "*param*dend*"\cf3  \cf0 ,\cf3  \cf4 ";"\cf3  \cf0 ,\cf3  \cf4 ""\cf0 )\cf3 	\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 params_stimulus_wv\cf3  \cf0 ,\cf3  \cf4 "Wave\cf3  \cf4 for\cf3  \cf4 stimulus\cf3  \cf4 parameters:"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf8 WaveList\cf0 (\cf4 "*param*stim*"\cf3  \cf0 ,\cf3  \cf4 ";"\cf3  \cf0 ,\cf3  \cf4 ""\cf0 )\
+\cf3 	\cf7 PauseUpdate\cf0 ;\cf3  \cf7 Silent\cf3  \cf0 1\cf3 		\cf5 //\cf3  \cf5 building\cf3  \cf5 window...\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf0 g_branch\cf3  \cf0 =\cf3  \cf0 branch\cf3  \cf0 ;\cf3  \cf0 g_soma_flag\cf3  \cf0 =\cf3  \cf0 soma_flag\
+\cf3 	\cf0 g_condition_str\cf3  \cf0 =\cf3  \cf0 condition_str\cf3  \cf0 ;\cf3  \cf0 g_extra_str\cf3  \cf0 =\cf3  \cf0 extra_str\
+\cf3 	\cf0 g_params_dendrite_wv\cf3  \cf0 =\cf3  \cf0 params_dendrite_wv\
+\cf3 	\cf0 g_params_stimulus_wv\cf3  \cf0 =\cf3  \cf0 params_stimulus_wv\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_x\cf3  \cf0 ,\cf3  \cf0 num_y\cf3  \cf0 ,\cf3  \cf0 num_orient\
+\cf3 	\cf0 num_x\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[0]\
+\cf3 	\cf0 num_y\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[1]\
+\cf3 	\cf0 num_orient\cf3  \cf0 =\cf3  \cf0 $params_stimulus_wv[2]\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 branch_g_leak\cf3  \cf0 ,\cf3  \cf0 branch_g_inhib\cf3  \cf0 ,\cf3  \cf0 V_exc\
+\cf3 	\cf0 branch_g_leak\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[23]\
+\cf3 	\cf0 V_exc\cf3  \cf0 =\cf3  \cf0 60\
+\
+\cf5 //\cf3 	\cf5 wave\cf3  \cf5 names\cf3  \cf5 to\cf3  \cf5 find\cf3  \cf5 RF\cf3  \cf5 data\cf0 \
+\cf3 	\cf6 String\cf3  \cf0 spatial_RF_wv\cf3  \cf0 ,\cf3  \cf0 orient_tuning_wv\cf3  \cf0 ,\cf3  \cf0 index_wv\cf3  \cf0 ,\cf3  \cf0 input_wv\cf3  \cf0 ,\cf3  \cf0 syn_u_wv\cf3  \cf0 ,\cf3  \cf0 syn_wmax_wv\cf3  \cf0 ,\cf3  \cf0 total_RF_wv\cf3  \cf0 ,\cf3  \cf0 stim_hist_wv\
+\cf3 	\cf0 spatial_RF_wv\cf3  \cf0 =\cf3  \cf4 "Jens_spatial"\cf3  \cf0 +\cf3  \cf0 condition_str\cf3 								\cf5 //\cf3 	\cf5 [0\cf3  \cf5 ,\cf3  \cf5 branch_num\cf3  \cf5 +\cf3  \cf5 2]\cf0 \
+\cf3 	\cf0 orient_tuning_wv\cf3  \cf0 =\cf3  \cf4 "Jens_orient_tune"\cf3  \cf0 +\cf3  \cf0 condition_str\cf3 						\cf5 //\cf3 	\cf5 [0\cf3  \cf5 ,\cf3  \cf5 branch_num\cf3  \cf5 +\cf3  \cf5 2]\cf0 \
+\cf3 	\cf0 index_wv\cf3  \cf0 =\cf3  \cf4 "Jens_orient_index"\cf3  \cf0 +\cf3  \cf0 condition_str\cf3 								\cf5 //\cf3 	\cf5 [0\cf3  \cf5 ,\cf3  \cf5 branch_num\cf3  \cf5 +\cf3  \cf5 2]\cf0 \
+\cf3 	\cf0 input_wv\cf3  \cf0 =\cf3  \cf4 "Jens_L4_input"\cf3  \cf0 +\cf3  \cf0 condition_str\cf3 										\cf5 //\cf3 	\cf5 [0\cf3  \cf5 ,\cf3  \cf5 branch_num]\cf0 \
+\cf3 	\cf0 syn_u_wv\cf3  \cf0 =\cf3  \cf4 "Jens_syn_u"\cf3  \cf0 +\cf3  \cf0 condition_str\cf3 											\cf5 //\cf3 	\cf5 [0\cf3  \cf5 ,\cf3  \cf5 branch_num]\cf0 \
+\cf3 	\cf0 syn_wmax_wv\cf3  \cf0 =\cf3  \cf4 "Jens_syn_wmax"\cf3  \cf0 +\cf3  \cf0 condition_str\cf3 									\cf5 //\cf3 	\cf5 [0\cf3  \cf5 ,\cf3  \cf5 branch_num]\cf0 \
+\cf3 	\cf0 total_RF_wv\cf3  \cf0 =\cf3  \cf4 "Jens_RF"\cf3  \cf0 +\cf3  \cf0 condition_str\cf3 											\cf5 //\cf3 	\cf5 [0\cf3  \cf5 ,\cf3  \cf5 branch_num\cf3  \cf5 +\cf3  \cf5 1]\cf0 \
+\cf3 	\cf0 stim_hist_wv\cf3  \cf0 =\cf3  \cf4 "Jens_stim_test"\cf0 \
+\cf3 	\cf0 \
+\cf5 //\cf3 	\cf5 Print\cf3  \cf5 "input_wv\cf3  \cf5 ="\cf3  \cf5 ,\cf3  \cf5 input_wv\cf3  \cf5 ,\cf3  \cf5 "syn_u_wv\cf3  \cf5 "\cf3  \cf5 ,\cf3  \cf5 syn_u_wv\cf3  \cf5 ,\cf3  \cf5 "syn_wmax_wv\cf3  \cf5 ="\cf3  \cf5 ,\cf3  \cf5 syn_wmax_wv\cf0 \
+\cf3 	\cf0 \
+\cf5 //\cf3 	\cf5 wave\cf3  \cf5 names\cf3  \cf5 for\cf3  \cf5 the\cf3  \cf5 graph\cf3 	\cf0 \
+\cf3 	\cf6 String\cf3  \cf0 display_spatial_wv\cf3  \cf0 ,\cf3  \cf0 display_orient_wv\cf3  \cf0 ,\cf3  \cf0 display_syn_xloc_wv\cf3  \cf0 ,\cf3  \cf0 display_syn_yloc_wv\cf3  \cf0 ,\cf3  \cf0 display_syn_orient_wv\cf3  \cf0 ,\cf3  \cf0 display_syn_wsize_wv\cf3  \cf0 ,\cf3  \cf0 display_syn_input_wv\
+\cf3 	\cf0 display_spatial_wv\cf3  \cf0 =\cf3  \cf4 "display_spatial"\cf3  \cf0 +\cf3  \cf0 extra_str\
+\cf3 	\cf0 display_orient_wv\cf3  \cf0 =\cf3  \cf4 "display_orientation"\cf3  \cf0 +\cf3  \cf0 extra_str\cf3 	\cf0 \
+\cf3 	\cf0 display_syn_xloc_wv\cf3  \cf0 =\cf3  \cf4 "display_syn_xloc"\cf3  \cf0 +\cf3  \cf0 extra_str\
+\cf3 	\cf0 display_syn_yloc_wv\cf3  \cf0 =\cf3  \cf4 "display_syn_yloc"\cf3  \cf0 +\cf3  \cf0 extra_str\
+\cf3 	\cf0 display_syn_orient_wv\cf3  \cf0 =\cf3  \cf4 "display_syn_orient"\cf3  \cf0 +\cf3  \cf0 extra_str\
+\cf3 	\cf0 display_syn_wsize_wv\cf3  \cf0 =\cf3  \cf4 "display_syn_wsize"\cf3  \cf0 +\cf3  \cf0 extra_str\
+\cf3 	\cf0 display_syn_input_wv\cf3  \cf0 =\cf3  \cf4 "display_syn_input"\cf3  \cf0 +\cf3  \cf0 extra_str\
+\cf3 	\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_branches\
+\cf3 	\cf0 num_branches\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 ($spatial_RF_wv\cf3  \cf0 ,\cf3  \cf0 0)\cf3  \cf0 -\cf3  \cf0 2\
+\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (soma_flag\cf3  \cf0 ==\cf3  \cf0 2)\
+\cf3 		\cf0 branch\cf3  \cf0 =\cf3  \cf0 num_branches\
+\cf3 	\cf6 endif\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (soma_flag\cf3  \cf0 ==\cf3  \cf0 3)\
+\cf3 		\cf0 branch\cf3  \cf0 =\cf3  \cf0 num_branches\cf3  \cf0 +\cf3  \cf0 1\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_x\cf3  \cf0 ,\cf3  \cf0 num_y)\cf3  \cf0 $display_spatial_wv\
+\cf3 	\cf7 Make\cf0 /O/N=(num_orient)\cf3  \cf0 $display_orient_wv\
+\cf3 	\cf7 SetScale\cf0 /P\cf3  \cf0 x\cf3  \cf0 ,\cf3  \cf0 0\cf3  \cf0 ,\cf3  \cf0 45\cf3  \cf0 ,\cf3  \cf4 "\'b0"\cf3  \cf0 ,\cf3  \cf0 $display_orient_wv\
+\cf3 	\cf0 \
+\cf3 	\cf0 $display_spatial_wv\cf3  \cf0 =\cf3  \cf0 $spatial_RF_wv[branch][p][q]\
+\cf3 	\cf0 $display_orient_wv\cf3  \cf0 =\cf3  \cf0 $orient_tuning_wv[branch][p]\cf3  \cf0 *\cf3  \cf0 100\
+\cf3 	\cf0 \
+\cf5 //\cf3 	\cf5 create\cf3  \cf5 waves\cf3  \cf5 to\cf3  \cf5 represent\cf3  \cf5 synaptic\cf3  \cf5 inputs\cf3  \cf5 to\cf3  \cf5 the\cf3  \cf5 dendritic\cf3  \cf5 branch\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_syn_per_branch\cf3  \cf0 ,\cf3  \cf0 index_synapse\cf3  \cf0 ,\cf3  \cf0 current_input\cf3  \cf0 ,\cf3  \cf0 current_synapse\cf3  \cf0 ,\cf3  \cf0 wmax\
+\cf3 	\cf0 num_syn_per_branch\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 ($syn_u_wv\cf3  \cf0 ,\cf3  \cf0 1)\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_syn_per_branch)\cf3  \cf0 $display_syn_xloc_wv\cf3  \cf0 ,\cf3  \cf0 $display_syn_yloc_wv\cf3  \cf0 ,\cf3  \cf0 $display_syn_orient_wv\cf3  \cf0 ,\cf3  \cf0 $display_syn_wsize_wv\cf3  \cf0 ,\cf3  \cf0 $display_syn_input_wv\cf3 												\cf0 \
+\
+\cf3 	\cf6 if\cf3  \cf0 (branch\cf3  \cf0 <\cf3  \cf0 num_branches)\cf3 														\cf5 //\cf3 	\cf5 this\cf3  \cf5 is\cf3  \cf5 a\cf3  \cf5 dendritic\cf3  \cf5 RF\cf3 		\cf0 \
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 $syn_u_wv\cf3  \cf0 ,\cf3  \cf0 temp_syn_g_exc\
+\cf3 		\cf0 temp_syn_g_exc\cf3  \cf0 =\cf3  \cf0 1\cf3  \cf0 /\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 exp\cf0 (-$syn_u_wv))\
+\cf3 	\cf0 \
+\cf3 		\cf0 $display_syn_input_wv\cf3  \cf0 =\cf3  \cf0 $input_wv[branch][p]\
+\cf3 		\cf0 $display_syn_orient_wv\cf3  \cf0 =\cf3  \cf8 mod\cf0 ($display_syn_input_wv\cf3  \cf0 ,\cf3  \cf0 4)\cf3 	\cf0 \
+\cf3 		\cf0 $display_syn_yloc_wv\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (($display_syn_input_wv\cf3  \cf0 -\cf3  \cf0 $display_syn_orient_wv)\cf3  \cf0 /\cf3  \cf0 num_x\cf3  \cf0 /\cf3  \cf0 num_orient)\cf3 	\cf0 \
+\cf3 		\cf0 $display_syn_xloc_wv\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (($display_syn_input_wv\cf3  \cf0 -\cf3  \cf0 $display_syn_orient_wv\cf3  \cf0 -\cf3  \cf0 $display_syn_yloc_wv\cf3  \cf0 *\cf3  \cf0 num_x\cf3  \cf0 *\cf3  \cf0 num_orient)\cf3  \cf0 /\cf3  \cf0 num_orient)\
+\cf3 		\cf0 \
+\cf5 //\cf3 		\cf5 combine\cf3  \cf5 synapses\cf3  \cf5 at\cf3  \cf5 the\cf3  \cf5 same\cf3  \cf5 location\cf0 \
+\cf3 		\cf0 $display_syn_wsize_wv\cf3  \cf0 =\cf3  \cf0 temp_syn_g_exc[branch][p]\
+\cf3 		\cf0 \
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 $display_syn_input_wv\cf3  \cf0 ,\cf3  \cf0 temp_input\cf3  \cf0 ,\cf3  \cf0 temp_input_p\
+\cf3 		\cf7 Duplicate\cf0 /O\cf3  \cf0 $display_syn_wsize_wv\cf3  \cf0 ,\cf3  \cf0 temp_input_wsize\
+\cf3 		\cf0 temp_input_p\cf3  \cf0 =\cf3  \cf0 p\cf3 		\cf0 \
+\cf3 		\cf7 Sort\cf3  \cf0 temp_input\cf3  \cf0 ,\cf3  \cf0 temp_input\cf3  \cf0 ,\cf3  \cf0 temp_input_p\cf3  \cf0 ,\cf3  \cf0 temp_input_wsize\
+\cf3 		\cf0 \
+\cf3 		\cf0 current_input\cf3  \cf0 =\cf3  \cf0 temp_input[0]\
+\cf3 		\cf0 current_synapse\cf3  \cf0 =\cf3  \cf0 0\
+\cf3 		\cf0 index_synapse\cf3  \cf0 =\cf3  \cf0 1\
+\cf3 		\cf6 do\cf0 \
+\cf3 			\cf6 if\cf3  \cf0 (temp_input[index_synapse]\cf3  \cf0 ==\cf3  \cf0 current_input)\
+\cf3 				\cf0 temp_input_wsize[current_synapse]\cf3  \cf0 +=\cf3  \cf0 temp_input_wsize[index_synapse]\
+\cf3 				\cf0 temp_input_wsize[index_synapse]\cf3  \cf0 =\cf3  \cf8 NaN\cf0 \
+\cf3 			\cf6 else\cf3 		\cf0 \
+\cf3 				\cf0 current_input\cf3  \cf0 =\cf3  \cf0 temp_input[index_synapse]\
+\cf3 				\cf0 current_synapse\cf3  \cf0 =\cf3  \cf0 index_synapse\
+\cf3 			\cf6 endif\cf0 \
+\cf3 			\cf0 \
+\cf3 			\cf0 index_synapse\cf3  \cf0 +=\cf3  \cf0 1\
+\cf3 		\cf6 while\cf3  \cf0 (index_synapse\cf3  \cf0 <\cf3  \cf0 num_syn_per_branch)\
+\cf3 		\cf0 \
+\cf3 		\cf7 Sort\cf3  \cf0 temp_input_p\cf3  \cf0 ,\cf3  \cf0 temp_input_p\cf3  \cf0 ,\cf3  \cf0 temp_input\cf3  \cf0 ,\cf3  \cf0 temp_input_wsize\
+\cf3 		\cf0 \
+\cf5 //\cf3 		\cf5 convert\cf3  \cf5 these\cf3  \cf5 conductances\cf3  \cf5 into\cf3  \cf5 EPSP\cf3  \cf5 values\cf0 \
+\cf3 		\cf0 branch_g_inhib\cf3  \cf0 =\cf3  \cf0 V_exc\cf3  \cf0 /\cf3  \cf0 $syn_wmax_wv[branch][0]\cf3  \cf0 -\cf3  \cf0 1\cf3  \cf0 -\cf3  \cf0 branch_g_leak\
+\cf3 		\cf0 $display_syn_wsize_wv\cf3  \cf0 =\cf3  \cf0 temp_input_wsize\cf3  \cf0 *\cf3  \cf0 V_exc\cf3  \cf0 /\cf3  \cf0 (temp_input_wsize\cf3  \cf0 +\cf3  \cf0 branch_g_leak\cf3  \cf0 +\cf3  \cf0 branch_g_inhib)\
+\cf3 		\cf0 \
+\cf3 		\cf7 Wavestats\cf0 /Q\cf3  \cf0 $display_syn_wsize_wv\
+\cf3 		\cf0 $display_syn_wsize_wv\cf3  \cf0 /=\cf3  \cf0 V_max\
+\cf3 		\cf0 wmax\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (10\cf3  \cf0 *\cf3  \cf0 V_max\cf3  \cf0 +\cf3  \cf0 0.5)\cf3  \cf0 /\cf3  \cf0 10\
+\cf3 		\cf0 \
+\cf3 		\cf7 Sort\cf3  \cf0 temp_input_wsize\cf3  \cf0 ,\cf3  \cf0 temp_input\cf3  \cf0 ,\cf3  \cf0 temp_input_p\cf3  \cf0 ,\cf3  \cf0 temp_input_wsize\cf3 			\cf5 //\cf3 	\cf5 re-sort\cf3  \cf5 these\cf3  \cf5 waves\cf3  \cf5 for\cf3  \cf5 later\cf3  \cf5 inspection\cf0 \
+\cf3 		\cf0 \
+\cf3 		\cf7 Make\cf0 /O/N=4\cf3  \cf0 temp_orient_markers\
+\cf3 		\cf0 temp_orient_markers\cf3  \cf0 =\cf3  \cf0 \{9\cf3  \cf0 ,\cf3  \cf0 20\cf3  \cf0 ,\cf3  \cf0 10\cf3  \cf0 ,\cf3  \cf0 21\}\
+\cf3 		\cf0 $display_syn_orient_wv\cf3  \cf0 =\cf3  \cf0 temp_orient_markers[$display_syn_orient_wv]\
+\cf3 	\cf6 else\cf3 																									\cf5 //\cf3 	\cf5 this\cf3  \cf5 is\cf3  \cf5 the\cf3  \cf5 soma\cf3  \cf5 or\cf3  \cf5 the\cf3  \cf5 composite\cf3  \cf5 RF,\cf3  \cf5 so\cf3  \cf5 there\cf3  \cf5 are\cf3  \cf5 no\cf3  \cf5 synapses\cf3  \cf5 to\cf3  \cf5 display\cf0 \
+\cf3 		\cf0 $display_syn_yloc_wv\cf3  \cf0 =\cf3  \cf8 NaN\cf0 \
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \
+\cf3 		\cf0 \
+\cf3 	\cf6 String\cf3  \cf0 window_str\cf3  \cf0 ,\cf3  \cf0 title_str\cf3  \cf0 ,\cf3  \cf0 text_str\
+\cf3 	\cf0 window_str\cf3  \cf0 =\cf3  \cf4 "Display_Receptive_Field"\cf3  \cf0 +\cf3  \cf0 extra_str\
+\cf3 	\cf6 if\cf3  \cf0 (\cf8 cmpstr\cf0 (extra_str\cf3  \cf0 ,\cf3  \cf4 ""\cf0 )\cf3  \cf0 ==\cf3  \cf0 0)\
+\cf3 		\cf0 title_str\cf3  \cf0 =\cf3  \cf4 "Branch\cf3  \cf4 Receptive\cf3  \cf4 Field"\cf0 \
+\cf3 	\cf6 else\cf0 \
+\cf3 		\cf0 title_str\cf3  \cf0 =\cf3  \cf4 "Branch\cf3  \cf4 Receptive\cf3  \cf4 Field:\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf0 extra_str\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf7 DoWindow\cf0 /F\cf3  \cf0 $window_str\cf3 															\cf5 //\cf3 	\cf5 bring\cf3  \cf5 this\cf3  \cf5 window\cf3  \cf5 to\cf3  \cf5 the\cf3  \cf5 front\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (V_flag\cf3  \cf0 ==\cf3  \cf0 0)\cf3 																	\cf5 //\cf3 	\cf5 if\cf3  \cf5 window\cf3  \cf5 does\cf3  \cf5 not\cf3  \cf5 exist,\cf3  \cf5 then\cf3  \cf5 create\cf3  \cf5 it\cf0 \
+\cf3 		\cf7 Display\cf3  \cf0 /W=(280,64,796,335)/L=left2/B=bottom2\cf3  \cf0 $display_orient_wv\cf3  \cf0 as\cf3  \cf0 title_str\
+\cf3 		\cf7 DoWindow\cf0 /C\cf3  \cf0 $window_str\
+\cf3 		\cf7 AppendToGraph\cf3  \cf0 $display_syn_yloc_wv\cf3  \cf0 vs\cf3  \cf0 $display_syn_xloc_wv\
+\cf3 		\cf7 AppendImage\cf3  \cf0 $display_spatial_wv\
+\cf3 		\cf7 ModifyImage\cf3  \cf0 $display_spatial_wv\cf3  \cf0 ctab=\cf3  \cf0 \{*,*,YellowHot,0\}\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 mode($display_orient_wv)=5\cf3  \cf0 ,\cf3  \cf0 mode($display_syn_yloc_wv)=3\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 rgb($display_orient_wv)=(39321,13101,1)\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 msize($display_syn_yloc_wv)=8\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 mrkThick($display_syn_yloc_wv)=3\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 hbFill($display_orient_wv)=3\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 manTick(bottom2)=\{0,45,0,0\},manMinor(bottom2)=\{0,0\}\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 offset($display_orient_wv)=\{-22.5,0\}\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 zmrkNum($display_syn_yloc_wv)=\{$display_syn_orient_wv\}\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 zColor($display_syn_yloc_wv)=\{$display_syn_wsize_wv,1,0,Bathymetry9\}\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 zmrkSize($display_syn_yloc_wv)=\{$display_syn_wsize_wv,0,1,3,10\}\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 mirror(left)=0,mirror(bottom)=2\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 fSize=12\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 standoff(left)=0,standoff(bottom)=0\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 lblPos(left2)=50,lblPos(bottom2)=33,lblPos(left)=40,lblPos(bottom)=33\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 btLen=5\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 freePos(left2)=\{-25,bottom2\}\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 freePos(bottom2)=0\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 axisEnab(left2)=\{0,0.6\}\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 axisEnab(bottom2)=\{0.65,1\}\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 axisEnab(bottom)=\{0,0.5\}\
+\cf3 		\cf7 Label\cf3  \cf0 left2\cf3  \cf4 "Prob.\cf3  \cf4 of\cf3  \cf4 Spike\cf3  \cf4 (%)"\cf0 \
+\cf3 		\cf7 Label\cf3  \cf0 bottom2\cf3  \cf4 "Bar\cf3  \cf4 Orientation\cf3  \cf4 (\\\\U)"\cf0 \
+\cf3 		\cf7 Label\cf3  \cf0 left\cf3  \cf4 "Y\cf3  \cf4 location"\cf0 \
+\cf3 		\cf7 Label\cf3  \cf0 bottom\cf3  \cf4 "X\cf3  \cf4 location"\cf0 \
+\cf3 		\cf7 SetAxis\cf0 /A/E=1\cf3  \cf0 left2\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 orient_index\cf3  \cf0 ,\cf3  \cf0 RF_size\
+\cf3 	\cf0 orient_index\cf3  \cf0 =\cf3  \cf0 $index_wv[branch]\
+\cf3 	\cf0 orient_index\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (orient_index\cf3  \cf0 *\cf3  \cf0 1000\cf3  \cf0 +\cf3  \cf0 0.5)\cf3  \cf0 /\cf3  \cf0 1000\cf3 	\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf7 Wavestats\cf0 /Q\cf3  \cf0 $display_spatial_wv\
+\cf3 	\cf0 RF_size\cf3  \cf0 =\cf3  \cf0 V_sum\cf3  \cf0 /\cf3  \cf0 V_max\
+\cf3 	\cf0 RF_size\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (RF_size\cf3  \cf0 *\cf3  \cf0 10\cf3  \cf0 +\cf3  \cf0 0.5)\cf3  \cf0 /\cf3  \cf0 10\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 response_max\
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  	\cf0 $total_RF_wv\cf3  \cf0 ,\cf3  \cf0 temp_RF_frac\
+\cf3 	\cf0 temp_RF_frac\cf3  \cf0 /=\cf3  \cf0 $stim_hist_wv[q][r][s]\
+\cf3 	\cf7 Wavestats\cf0 /Q\cf3  \cf0 temp_RF_frac\
+\cf3 	\cf0 response_max\cf3  \cf0 =\cf3  \cf8 trunc\cf0 (100\cf3  \cf0 *\cf3  \cf0 V_max\cf3  \cf0 +\cf3  \cf0 0.5)\cf3  \cf0 /\cf3  \cf0 100\
+\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (branch\cf3  \cf0 <\cf3  \cf0 num_branches)\
+\cf3 		\cf0 text_str\cf3  \cf0 =\cf3  \cf4 "\\\\Z14\\\\f01\\rDendritic\cf3  \cf4 Branch\cf3  \cf4 #"\cf3  \cf0 +\cf3  \cf8 num2str\cf0 (branch)\cf3  \cf0 +\cf3  \cf4 "\\f00\\rOrientation\cf3  \cf4 Index\cf3  \cf4 =\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf8 num2str\cf0 (orient_index)\
+\cf3 		\cf0 text_str\cf3  \cf0 +=\cf3  \cf4 "\\rReceptive\cf3  \cf4 Field\cf3  \cf4 Size\cf3  \cf4 =\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf8 num2str\cf0 (RF_size)\
+\cf5 //\cf3 		\cf5 wmax\cf3  \cf5 =\cf3  \cf5 $syn_wmax_wv[branch][0]\cf0 \
+\cf5 //\cf3 		\cf5 wmax\cf3  \cf5 =\cf3  \cf5 trunc(wmax\cf3  \cf5 *\cf3  \cf5 10\cf3  \cf5 +\cf3  \cf5 0.5)\cf3  \cf5 /\cf3  \cf5 10\cf0 \
+\cf3 		\cf0 text_str\cf3  \cf0 +=\cf3  \cf4 "\\rMax\cf3  \cf4 EPSP\cf3  \cf4 =\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf8 num2str\cf0 (wmax)\cf3  \cf0 +\cf3  \cf4 "\cf3  \cf4 mV"\cf0 \
+\cf3 		\cf0 text_str\cf3  \cf0 +=\cf3  \cf4 "\\rMax\cf3  \cf4 Response\cf3  \cf4 =\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf8 num2str\cf0 (V_max)\
+\cf3 	\cf6 endif\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (branch\cf3  \cf0 ==\cf3  \cf0 num_branches)\
+\cf3 		\cf0 text_str\cf3  \cf0 =\cf3  \cf4 "\\\\Z14\\\\f01\\rSomatic\cf3  \cf4 Receptive\cf3  \cf4 Field\\f00"\cf3  \cf0 +\cf3  \cf4 "\\rOrientation\cf3  \cf4 Index\cf3  \cf4 =\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf8 num2str\cf0 (orient_index)\
+\cf3 		\cf0 text_str\cf3  \cf0 +=\cf3  \cf4 "\\rReceptive\cf3  \cf4 Field\cf3  \cf4 Size\cf3  \cf4 =\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf8 num2str\cf0 (RF_size)\
+\cf3 		\cf0 text_str\cf3  \cf0 +=\cf3  \cf4 "\\rMax\cf3  \cf4 Response\cf3  \cf4 =\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf8 num2str\cf0 (V_max)\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (branch\cf3  \cf0 ==\cf3  \cf0 (num_branches\cf3  \cf0 +\cf3  \cf0 1))\
+\cf3 		\cf0 text_str\cf3  \cf0 =\cf3  \cf4 "\\\\Z14\\\\f01\\rComposite\cf3  \cf4 Receptive\cf3  \cf4 Field\\f00"\cf3  \cf0 +\cf3  \cf4 "\\rOrientation\cf3  \cf4 Index\cf3  \cf4 =\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf8 num2str\cf0 (orient_index)\
+\cf3 		\cf0 text_str\cf3  \cf0 +=\cf3  \cf4 "\\rReceptive\cf3  \cf4 Field\cf3  \cf4 Size\cf3  \cf4 =\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf8 num2str\cf0 (RF_size)\
+\cf3 		\cf0 text_str\cf3  \cf0 +=\cf3  \cf4 "\\rMax\cf3  \cf4 Response\cf3  \cf4 =\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf8 num2str\cf0 (V_max)\
+\cf3 	\cf6 endif\cf0 \
+\
+\cf3 	\cf7 TextBox\cf0 /C/N=text0/F=0/H=16/A=MT/X=28.83/Y=0.00\cf3  \cf0 text_str\
+\cf3 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 EndMacro\cf0 \
+\
+\
+\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 This\cf3  \cf5 Window\cf3  \cf5 Macro\cf3  \cf5 takes\cf3  \cf5 a\cf3  \cf5 choice\cf3  \cf5 of\cf3  \cf5 synapse\cf3  \cf5 on\cf3  \cf5 a\cf3  \cf5 given\cf3  \cf5 branch,\cf3  \cf5 and\cf3  \cf5 displays\cf3  \cf5 timeseries\cf3  \cf5 of\cf3  \cf5 its\cf3  \cf5 plasticity\cf3  \cf5 events\cf0 \
+\cf5 //\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 Window\cf3  \cf0 Jens4_Display_Plasticity(synapse\cf3  \cf0 ,\cf3  \cf0 branch0\cf3  \cf0 ,\cf3  \cf0 tau\cf3  \cf0 ,\cf3  \cf0 rate_target\cf3  \cf0 ,\cf3  \cf0 extra2_str\cf3  \cf0 ,\cf3  \cf0 params_dendrite_wv\cf3  \cf0 ,\cf3  \cf0 params_stimulus_wv)\cf3  \cf0 :\cf3  \cf0 Graph\
+\pard\pardeftab720\partightenfactor0
+\cf3 	\cf6 Variable\cf3  \cf0 synapse\cf3  \cf0 =\cf3  \cf0 g_synapse\cf3  \cf0 ,\cf3  \cf0 branch0\cf3  \cf0 =\cf3  \cf0 g_branch0\
+\cf3 	\cf6 Variable\cf3  \cf0 tau\cf3  \cf0 =\cf3  \cf0 g_tau\cf3  \cf0 ,\cf3  \cf0 rate_target\cf3  \cf0 =\cf3  \cf0 g_rate_target\
+\cf3 	\cf6 String\cf3  \cf0 extra2_str\cf3  \cf0 =\cf3  \cf0 g_extra2_str\
+\cf3 	\cf6 String\cf3  \cf0 params_dendrite_wv\cf3  \cf0 =\cf3  \cf0 g_params_dendrite_wv\
+\cf3 	\cf6 String\cf3  \cf0 params_stimulus_wv\cf3  \cf0 =\cf3  \cf0 g_params_stimulus_wv\
+\cf3 	\cf6 Prompt\cf3  \cf0 synapse\cf3  \cf0 ,\cf3  \cf4 "Which\cf3  \cf4 synapse?"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 branch0\cf3  \cf0 ,\cf3  \cf4 "Which\cf3  \cf4 dendritic\cf3  \cf4 branch?"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 tau\cf3  \cf0 ,\cf3  \cf4 "Smoothing\cf3  \cf4 window:"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 rate_target\cf3  \cf0 ,\cf3  \cf4 "NMDA\cf3  \cf4 firing\cf3  \cf4 rate\cf3  \cf4 target:"\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 extra2_str\cf3  \cf0 ,\cf3  \cf4 "Extra\cf3  \cf4 ending\cf3  \cf4 for\cf3  \cf4 naming\cf3  \cf4 waves\cf3  \cf4 and\cf3  \cf4 window:"\cf3  \cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 params_dendrite_wv\cf3  \cf0 ,\cf3  \cf4 "Wave\cf3  \cf4 for\cf3  \cf4 dendrite\cf3  \cf4 parameters:"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf8 WaveList\cf0 (\cf4 "*param*dend*"\cf3  \cf0 ,\cf3  \cf4 ";"\cf3  \cf0 ,\cf3  \cf4 ""\cf0 )\cf3 	\cf0 \
+\cf3 	\cf6 Prompt\cf3  \cf0 params_stimulus_wv\cf3  \cf0 ,\cf3  \cf4 "Wave\cf3  \cf4 for\cf3  \cf4 stimulus\cf3  \cf4 parameters:"\cf3  \cf0 ,\cf3  \cf0 popup\cf3  \cf0 ,\cf3  \cf8 WaveList\cf0 (\cf4 "*params*stim*"\cf3  \cf0 ,\cf3  \cf4 ";"\cf3  \cf0 ,\cf3  \cf4 ""\cf0 )\
+\cf3 	\cf7 PauseUpdate\cf0 ;\cf3  \cf7 Silent\cf3  \cf0 1\cf3 		\cf5 //\cf3  \cf5 building\cf3  \cf5 window...\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf0 g_branch0\cf3  \cf0 =\cf3  \cf0 branch0\cf3  \cf0 ;\cf3  \cf0 g_synapse\cf3  \cf0 =\cf3  \cf0 synapse\
+\cf3 	\cf0 g_tau\cf3  \cf0 =\cf3  \cf0 tau\cf3  \cf0 ;\cf3  \cf0 g_rate_target\cf3  \cf0 =\cf3  \cf0 rate_target\
+\cf3 	\cf0 g_extra2_str\cf3  \cf0 =\cf3  \cf0 extra2_str\
+\cf3 	\cf0 g_params_dendrite_wv\cf3  \cf0 =\cf3  \cf0 params_dendrite_wv\
+\cf3 	\cf0 g_params_stimulus_wv\cf3  \cf0 =\cf3  \cf0 params_stimulus_wv\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 branch_g_leak\
+\cf3 	\cf0 branch_g_leak\cf3  \cf0 =\cf3  \cf0 $params_dendrite_wv[22]\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_branch_record\
+\cf3 	\cf0 num_branch_record\cf3  \cf0 =\cf3  \cf0 $g_params_stimulus_wv[11]\
+\
+\cf5 //\cf3 	\cf5 wave\cf3  \cf5 names\cf3  \cf5 to\cf3  \cf5 find\cf3  \cf5 the\cf3  \cf5 synapse\cf3  \cf5 data\cf3 	\cf0 \
+\cf3 	\cf6 String\cf3  \cf0 Jens_syn_u_wv\cf3  \cf0 ,\cf3  \cf0 Jens_syn_ID_wv\cf3  \cf0 ,\cf3  \cf0 Jens_syn_wmax_wv\
+\cf3 	\cf0 Jens_syn_u_wv\cf3  \cf0 =\cf3  \cf4 "Jens_syn_u_rec"\cf0 \
+\cf3 	\cf0 Jens_syn_ID_wv\cf3  \cf0 =\cf3  \cf4 "Jens_syn_ID_rec"\cf0 \
+\cf3 	\cf0 Jens_syn_wmax_wv\cf3  \cf0 =\cf3  \cf4 "Jens_wmax_rec"\cf0 \
+\
+\cf5 //\cf3 	\cf5 wave\cf3  \cf5 names\cf3  \cf5 for\cf3  \cf5 the\cf3  \cf5 graph\cf3 	\cf0 \
+\cf3 	\cf6 String\cf3  \cf0 display_syn_u_wv\cf3  \cf0 ,\cf3  \cf0 display_syn_ID_wv\cf3  \cf0 ,\cf3  \cf0 display_syn_w_wv\
+\cf3 	\cf0 display_syn_u_wv\cf3  \cf0 =\cf3  \cf4 "d_syn_u"\cf3  \cf0 +\cf3  \cf0 extra2_str\
+\cf3 	\cf0 display_syn_ID_wv\cf3  \cf0 =\cf3  \cf4 "d_syn_ID"\cf3  \cf0 +\cf3  \cf0 extra2_str\
+\cf3 	\cf0 display_syn_w_wv\cf3  \cf0 =\cf3  \cf4 "d_syn_w"\cf3  \cf0 +\cf3  \cf0 extra2_str\
+\cf3 	\cf0 \
+\cf3 	\cf6 Variable\cf3  \cf0 num_timesteps\cf3  \cf0 ,\cf3  \cf0 num_synapses\
+\cf3 	\cf0 num_timesteps\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 ($Jens_syn_u_wv\cf3  \cf0 ,\cf3  \cf0 0)\
+\cf3 	\cf0 num_synapses\cf3  \cf0 =\cf3  \cf8 dimsize\cf0 ($Jens_syn_u_wv\cf3  \cf0 ,\cf3  \cf0 1)\
+\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_timesteps)\cf3  \cf0 $display_syn_u_wv\cf3  \cf0 ,\cf3  \cf0 $display_syn_ID_wv\cf3  \cf0 ,\cf3  \cf0 $display_syn_w_wv\
+\cf3 	\cf6 if\cf3  \cf0 (num_branch_record\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 		\cf0 $display_syn_u_wv\cf3  \cf0 =\cf3  \cf0 $Jens_syn_u_wv[p][synapse]\
+\cf3 		\cf0 $display_syn_ID_wv\cf3  \cf0 =\cf3  \cf0 $Jens_syn_ID_wv[p][synapse]\
+\cf3 	\cf6 else\cf3 		\cf0 \
+\cf3 		\cf0 $display_syn_u_wv\cf3  \cf0 =\cf3  \cf0 $Jens_syn_u_wv[p][synapse][branch0]\
+\cf3 		\cf0 $display_syn_ID_wv\cf3  \cf0 =\cf3  \cf0 $Jens_syn_ID_wv[p][synapse][branch0]\
+\cf3 	\cf6 endif\cf0 \
+\
+\cf5 //\cf3 	\cf5 calculate\cf3  \cf5 the\cf3  \cf5 actual\cf3  \cf5 synaptic\cf3  \cf5 weight,\cf3  \cf5 givens\cf3  \cf5 its\cf3  \cf5 internal\cf3  \cf5 potential,\cf3  \cf5 u,\cf3  \cf5 and\cf3  \cf5 the\cf3  \cf5 inhibitory\cf3  \cf5 conductance\cf3  \cf5 for\cf3  \cf5 the\cf3  \cf5 branch\cf3 	\cf0 \
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 $display_syn_u_wv\cf3  \cf0 ,\cf3  \cf0 temp_branch_inhib\cf3  \cf0 ,\cf3  \cf0 temp_branch_exc\
+\cf3 	\cf6 if\cf3  \cf0 (num_branch_record\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 		\cf0 temp_branch_inhib\cf3  \cf0 =\cf3  \cf0 60\cf3  \cf0 /\cf3  \cf0 $Jens_syn_wmax_wv[p][synapse]\cf3  \cf0 -\cf3  \cf0 1\cf3  \cf0 -\cf3  \cf0 branch_g_leak\
+\cf3 		\cf0 temp_branch_exc\cf3  \cf0 =\cf3  \cf0 1\cf3  \cf0 /\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 exp\cf0 (-$Jens_syn_u_wv[p][synapse]))\
+\cf3 	\cf6 else\cf0 \
+\cf3 		\cf0 temp_branch_inhib\cf3  \cf0 =\cf3  \cf0 60\cf3  \cf0 /\cf3  \cf0 $Jens_syn_wmax_wv[p][synapse][branch0]\cf3  \cf0 -\cf3  \cf0 1\cf3  \cf0 -\cf3  \cf0 branch_g_leak\
+\cf3 		\cf0 temp_branch_exc\cf3  \cf0 =\cf3  \cf0 1\cf3  \cf0 /\cf3  \cf0 (1\cf3  \cf0 +\cf3  \cf8 exp\cf0 (-$Jens_syn_u_wv[p][synapse][branch0]))\
+\cf3 	\cf6 endif\cf3 	\cf0 \
+\cf3 	\cf0 $display_syn_w_wv\cf3  \cf0 =\cf3  \cf0 60\cf3  \cf0 *\cf3  \cf0 temp_branch_exc\cf3  \cf0 /\cf3  \cf0 (temp_branch_exc\cf3  \cf0 +\cf3  \cf0 temp_branch_inhib\cf3  \cf0 +\cf3  \cf0 branch_g_leak)\
+\
+\cf3 	\cf0 \
+\cf3 	\cf6 String\cf3  \cf0 window_name_str\cf3  \cf0 ,\cf3  \cf0 window_title_str\
+\cf3 	\cf6 if\cf3  \cf0 (\cf8 cmpstr\cf0 (extra2_str\cf3  \cf0 ,\cf3  \cf4 ""\cf0 )\cf3  \cf0 ==\cf3  \cf0 0)\
+\cf3 		\cf0 window_title_str\cf3  \cf0 =\cf3  \cf4 "Display:\cf3  \cf4 Synaptic\cf3  \cf4 Plasticity"\cf0 \
+\cf3 		\cf0 window_name_str\cf3  \cf0 =\cf3  \cf4 "G_Syn_Plasticity"\cf0 \
+\cf3 	\cf6 else\cf0 \
+\cf3 		\cf0 window_title_str\cf3  \cf0 =\cf3  \cf4 "Display:\cf3  \cf4 Synaptic\cf3  \cf4 Plasticity\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf0 extra2_str\
+\cf3 		\cf0 window_name_str\cf3  \cf0 =\cf3  \cf4 "G_Syn_Plasticity"\cf3  \cf0 +\cf3  \cf0 extra2_str\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf7 DoWindow\cf0 /F\cf3  \cf0 $window_name_str\cf3 														\cf5 //\cf3 	\cf5 bring\cf3  \cf5 this\cf3  \cf5 window\cf3  \cf5 to\cf3  \cf5 the\cf3  \cf5 front\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (V_flag\cf3  \cf0 ==\cf3  \cf0 0)\cf3 																	\cf5 //\cf3 	\cf5 if\cf3  \cf5 window\cf3  \cf5 does\cf3  \cf5 not\cf3  \cf5 exist,\cf3  \cf5 then\cf3  \cf5 create\cf3  \cf5 it\cf3 	\cf0 \
+\cf3 		\cf7 Display\cf3  \cf0 /W=(828,93,1219,491)\cf3  \cf0 $display_syn_u_wv\cf3  \cf0 as\cf3  \cf0 window_title_str\
+\cf3 		\cf7 DoWindow\cf0 /C\cf3  \cf0 $window_name_str\
+\cf3 		\cf7 AppendToGraph\cf0 /L=left2\cf3  \cf0 $display_syn_ID_wv\
+\cf3 		\cf7 AppendToGraph\cf0 /L=left3\cf3  \cf0 $display_syn_w_wv\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 mode($display_syn_u_wv)=6\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 rgb($display_syn_ID_wv)=(16385,28398,65535),rgb($display_syn_w_wv)=(1,52428,26586)\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 zero(left)=2\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 fSize=12\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 lblPos(left)=45,lblPos(left2)=45,lblPos(left3)=45\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 btLen=5\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 freePos(left2)=0\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 freePos(left3)=0\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 axisEnab(left)=\{0,0.4\}\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 axisEnab(left2)=\{0.5,0.7\}\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 axisEnab(left3)=\{0.75,1\}\
+\cf3 		\cf7 Label\cf3  \cf0 left\cf3  \cf4 "Internal\cf3  \cf4 Potential,\cf3  \cf4 \\\\f02u"\cf0 \
+\cf3 		\cf7 Label\cf3  \cf0 bottom\cf3  \cf4 "Time\cf3  \cf4 Steps"\cf0 \
+\cf3 		\cf7 Label\cf3  \cf0 left2\cf3  \cf4 "Input\cf3  \cf4 Identity"\cf0 \
+\cf3 		\cf7 Label\cf3  \cf0 left3\cf3  \cf4 "Weight,\cf3  \cf4 \\\\f02w\cf3  \cf4 \\\\f00(mV)"\cf0 \
+\cf3 		\cf7 SetAxis\cf0 /A/E=1\cf3  \cf0 left3\
+\cf3 		\cf7 ShowInfo\cf0 \
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf7 SetAxis\cf3  \cf0 bottom\cf3  \cf0 *,num_timesteps\
+\
+\cf5 //\cf0 \
+\cf5 //\cf3 	\cf5 Now,\cf3  \cf5 make\cf3  \cf5 the\cf3  \cf5 other\cf3  \cf5 graph\cf3  \cf5 window...\cf3 	\cf0 \
+\cf5 //\cf0 \
+\cf3 		\cf0 \
+\cf5 //\cf3 	\cf5 wave\cf3  \cf5 names\cf3  \cf5 to\cf3  \cf5 find\cf3  \cf5 the\cf3  \cf5 branch\cf3  \cf5 adaptation\cf3  \cf5 data\cf3 	\cf0 \
+\cf3 	\cf6 String\cf3  \cf0 Jens_branch_spk_wv\cf3  \cf0 ,\cf3  \cf0 Jens_branch_wmax_wv\
+\cf3 	\cf0 Jens_branch_spk_wv\cf3  \cf0 =\cf3  \cf4 "Jens_branch_spk_rec"\cf0 \
+\cf3 	\cf0 Jens_branch_wmax_wv\cf3  \cf0 =\cf3  \cf4 "Jens_wmax_rec"\cf0 \
+\
+\cf5 //\cf3 	\cf5 wave\cf3  \cf5 names\cf3  \cf5 for\cf3  \cf5 the\cf3  \cf5 graph\cf3 	\cf0 \
+\cf3 	\cf6 String\cf3  \cf0 display_NMDA_wv\cf3  \cf0 ,\cf3  \cf0 display_wmax_wv\cf3  \cf0 ,\cf3  \cf0 display_inhib_wv\cf3  \cf0 ,\cf3  \cf0 display_target_wv\
+\cf3 	\cf0 display_NMDA_wv\cf3  \cf0 =\cf3  \cf4 "d_NMDA"\cf3  \cf0 +\cf3  \cf0 extra2_str\
+\cf3 	\cf0 display_wmax_wv\cf3  \cf0 =\cf3  \cf4 "d_wmax"\cf3  \cf0 +\cf3  \cf0 extra2_str\
+\cf3 	\cf0 display_inhib_wv\cf3  \cf0 =\cf3  \cf4 "d_inhib"\cf3  \cf0 +\cf3  \cf0 extra2_str\
+\cf3 	\cf0 display_target_wv\cf3  \cf0 =\cf3  \cf4 "d_target"\cf3  \cf0 +\cf3  \cf0 extra2_str\
+\
+\cf5 //\cf3 	\cf5 calculate\cf3  \cf5 the\cf3  \cf5 branch\cf3  \cf5 inhibition\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_timesteps)\cf3  \cf0 $display_wmax_wv\cf3  \cf0 ,\cf3  \cf0 $display_inhib_wv\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (num_branch_record\cf3  \cf0 ==\cf3  \cf0 1)\
+\cf3 		\cf0 $display_wmax_wv\cf3  \cf0 =\cf3  \cf0 $Jens_branch_wmax_wv\
+\cf3 	\cf6 else\cf3 		\cf0 \
+\cf3 		\cf0 $display_wmax_wv\cf3  \cf0 =\cf3  \cf0 $Jens_branch_wmax_wv[p][branch0]\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 $display_inhib_wv\cf3  \cf0 =\cf3  \cf0 60\cf3  \cf0 /\cf3  \cf0 $display_wmax_wv\cf3  \cf0 -\cf3  \cf0 1\cf3  \cf0 -\cf3  \cf0 branch_g_leak\
+\cf3 		\cf0 \
+\cf3 		\cf0 \
+\cf5 //\cf3 	\cf5 smooth\cf3  \cf5 the\cf3  \cf5 spike\cf3  \cf5 train\cf3  \cf5 into\cf3  \cf5 a\cf3  \cf5 firing\cf3  \cf5 rate\cf3 	\cf0 \
+\cf3 	\cf7 Make\cf0 /O/N=(num_timesteps)\cf3  \cf0 $display_NMDA_wv\
+\cf3 	\cf0 $display_NMDA_wv\cf3  \cf0 =\cf3  \cf0 $Jens_branch_spk_wv[p][branch0]\
+\cf3 	\cf0 Do_Kernel\cf3  \cf0 (tau)\cf3 	\cf0 \
+\cf3 	\cf7 Convolve\cf3  \cf0 temp_kernel\cf3  \cf0 ,\cf3  \cf0 $display_NMDA_wv\
+\cf3 	\cf0 \
+\cf3 	\cf7 Duplicate\cf0 /O\cf3  \cf0 $display_NMDA_wv\cf3  \cf0 ,\cf3  \cf0 $display_target_wv\
+\cf3 	\cf0 $display_target_wv\cf3  \cf0 =\cf3  \cf0 rate_target\
+\cf3 	\cf0 \
+\cf3 	\cf6 String\cf3  \cf0 window2_name_str\cf3  \cf0 ,\cf3  \cf0 window2_title_str\
+\cf3 	\cf6 if\cf3  \cf0 (\cf8 cmpstr\cf0 (extra2_str\cf3  \cf0 ,\cf3  \cf4 ""\cf0 )\cf3  \cf0 ==\cf3  \cf0 0)\
+\cf3 		\cf0 window2_title_str\cf3  \cf0 =\cf3  \cf4 "Display:\cf3  \cf4 Branch\cf3  \cf4 Adaptation"\cf0 \
+\cf3 		\cf0 window2_name_str\cf3  \cf0 =\cf3  \cf4 "G_Branch_Adapt"\cf0 \
+\cf3 	\cf6 else\cf0 \
+\cf3 		\cf0 window2_title_str\cf3  \cf0 =\cf3  \cf4 "Display:\cf3  \cf4 Branch\cf3  \cf4 Adaptation\cf3  \cf4 "\cf3  \cf0 +\cf3  \cf0 extra2_str\
+\cf3 		\cf0 window2_name_str\cf3  \cf0 =\cf3  \cf4 "G_Branch_Adapt"\cf3  \cf0 +\cf3  \cf0 extra2_str\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf7 DoWindow\cf0 /F\cf3  \cf0 $window2_name_str\cf3 													\cf5 //\cf3 	\cf5 bring\cf3  \cf5 this\cf3  \cf5 window\cf3  \cf5 to\cf3  \cf5 the\cf3  \cf5 front\cf0 \
+\cf3 	\cf0 \
+\cf3 	\cf6 if\cf3  \cf0 (V_flag\cf3  \cf0 ==\cf3  \cf0 0)\cf3 																	\cf5 //\cf3 	\cf5 if\cf3  \cf5 window\cf3  \cf5 does\cf3  \cf5 not\cf3  \cf5 exist,\cf3  \cf5 then\cf3  \cf5 create\cf3  \cf5 it\cf0 \
+\cf3 		\cf7 Display\cf3  \cf0 /W=(355,107,750,504)/L=left3\cf3  \cf0 $display_NMDA_wv\cf3  \cf0 as\cf3  \cf0 window2_title_str\
+\cf3 		\cf7 DoWindow\cf0 /C\cf3  \cf0 $window2_name_str\
+\cf3 		\cf7 AppendToGraph\cf0 /L=left2\cf3  \cf0 $display_wmax_wv\
+\cf3 		\cf7 AppendToGraph\cf3  \cf0 $display_inhib_wv\
+\cf3 		\cf7 AppendToGraph\cf0 /L=left3\cf3  \cf0 $display_target_wv\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 lstyle($display_target_wv)=2,rgb($display_target_wv)=(0,0,0)\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 lSize($display_NMDA_wv)=3\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 rgb($display_NMDA_wv)=(2,39321,1),rgb($display_wmax_wv)=(0,0,65535)\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 rgb($display_inhib_wv)=(65535,0,52428)\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 lblPos(left)=50,lblPos(left2)=50,lblPos(left3)=50\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 btLen=5\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 freePos(left2)=0\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 freePos(left3)=0\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 axisEnab(left)=\{0,0.3\}\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 axisEnab(left2)=\{0.35,0.65\}\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 axisEnab(left3)=\{0.7,1\}\
+\cf3 		\cf7 ModifyGraph\cf3  \cf0 manTick(left3)=\{0,0.01,0,2\},manMinor(left3)=\{0,0\}\
+\cf3 		\cf7 Label\cf3  \cf0 left\cf3  \cf4 "Branch\cf3  \cf4 Inhibition"\cf0 \
+\cf3 		\cf7 Label\cf3  \cf0 bottom\cf3  \cf4 "Time\cf3  \cf4 Steps"\cf0 \
+\cf3 		\cf7 Label\cf3  \cf0 left2\cf3  \cf4 "Max\cf3  \cf4 Weight\cf3  \cf4 (mV)"\cf0 \
+\cf3 		\cf7 Label\cf3  \cf0 left3\cf3  \cf4 "NMDA\cf3  \cf4 Rate\cf3  \cf4 (Hz)"\cf0 \
+\cf3 		\cf7 SetAxis\cf0 /A/E=1\cf3  \cf0 left3\
+\cf3 	\cf6 endif\cf0 \
+\cf3 	\cf7 SetAxis\cf3  \cf0 bottom\cf3  \cf0 *,num_timesteps\
+\cf3 	\cf0 \
+\cf3 	\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf6 EndMacro\cf0 \
+\
+\
+\
+\
+}

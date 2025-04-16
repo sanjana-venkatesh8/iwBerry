@@ -350,8 +350,8 @@ classdef NeuronGraphics
                     set(h1,'YDir','reverse')
                     xlim([1 8])
                     ylim([1 8])
-                    pause(0.5)
                 end
+                pause(0.5)
             end
         end
         

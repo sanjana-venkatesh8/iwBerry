@@ -1,0 +1,6 @@
+duPotent: 	NaN
+duDepress: 	-26.882300
+duDecay: 	-33.258048
+duBaseline: 	43.785370
+scaleNMDA: 	26.510863
+scaleNoNMDA: 	10.623928

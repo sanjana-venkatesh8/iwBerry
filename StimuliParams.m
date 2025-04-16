@@ -24,8 +24,8 @@ classdef StimuliParams
         nOrient {mustBeMember(nOrient, [1 2 3 4])} %int32 % model only supports 0˚, 45˚, 90˚, 135˚
         barLength %int32
         scanLength %int32;
-        nL4ExactNoise;
-        nL4PoissNoise;
+        noiseType;
+        noiseAmt;
         propNoiseScan %double {mustBeInRange(propNoiseScan, 0, 1)}
         nTestRepeats %int32
         nTestInst %int32
@@ -51,7 +51,7 @@ classdef StimuliParams
 
             arguments
                 args.nX; args.nY; args.nOrient; args.barLength; args.scanLength;
-                args.nL4ExactNoise; args.nL4PoissNoise; args.propNoiseScan;
+                args.noiseType; args.noiseAmt; args.propNoiseScan;
                 args.nTestRepeats; args.nTestInst; args.nTrainInst;
                 args.nDendRecord; args.recordingTimeInterval;
                 args.isFoldiak = false; args.isWraparound = false;
@@ -64,8 +64,8 @@ classdef StimuliParams
                 stimParams.barLength = args.barLength;
                 stimParams.scanLength = args.scanLength;
     
-                stimParams.nL4ExactNoise = args.nL4ExactNoise;
-                stimParams.nL4PoissNoise = args.nL4PoissNoise;
+                stimParams.noiseType = validatestring(args.noiseType, {'exact', 'poisson'});
+                stimParams.noiseAmt = args.noiseAmt;
                 stimParams.propNoiseScan = args.propNoiseScan;
 
                 stimParams.nTestRepeats = args.nTestRepeats; % variable not used for anything
@@ -84,6 +84,7 @@ classdef StimuliParams
                 % else
                 %    stimParams.isFoldiak = args.isFoldiak;
                 % end
+
             catch
                 throw(MException('StimuliParams:VarNotFound', ...
                     'One or more variables not found'))
@@ -270,6 +271,22 @@ classdef StimuliParams
                     %
                     L4Activity(iL4, iScan) = 1;
                 end
+            end
+
+            for iScan = 1:stimParams.scanLength
+                if strcmp(stimParams.noiseType, 'exact')
+                    numNoisyL4 = stimParams.noiseAmt;
+                elseif strcmp(stimParams.noiseType, 'poisson')
+                    numNoisyL4 = poissrng(stimParams.noiseAmt);
+                end
+
+                addedActiveL4 = randi(256, numNoisyL4, 1);
+                while sum(L4Activity(addedActiveL4), 'all') > 0
+                    addedActiveL4(L4Activity(addedActiveL4) == 1) = ...
+                        randi(256, sum(L4Activity(addedActiveL4) == 1), 1);
+                end          
+
+                L4Activity(addedActiveL4, iScan) = 1;
             end
 
             % TODO: ADD THIS BACK IN

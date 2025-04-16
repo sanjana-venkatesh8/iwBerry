@@ -27,7 +27,7 @@ function modelNeuronObj = modelInit(seed, hps, hpPrev)
     % CHANGED number of test/train instances - increase test size to 5k so loss is
     % smoother, decrease train size to 2.5k for time efficiency
     stimuliParamsObj = StimuliParams(nX=8, nY=8, nOrient=4, barLength=4, scanLength=4, ...
-        nL4ExactNoise=0, nL4PoissNoise=0, propNoiseScan=0, ...
+        noiseType='exact', noiseAmt=0, propNoiseScan=0, ...
         nTestRepeats=0, nTestInst=5000, nTrainInst=2500, ...
         nDendRecord=dendParamsDefault.nBranches, recordingTimeInterval=1, isFoldiak=false, isWraparound=0);
     
@@ -42,7 +42,7 @@ end
 %%
 seed = 0;
 stepSize = 0.01; % fractional jump
-gridSize = 500;
+gridSize = 200;
 hps = {'scaleNMDA'};
 hpInitVals = -0.1;
 % hps = {'duPotent'; 'duDepress'; 'duDecay'; 'duBaseline'; 'scaleNMDA'; 'scaleNoNMDA'}; % hyperparameters to tune
@@ -56,15 +56,15 @@ for iHP = 1:nHPs
     tic
     fprintf("Grid search on %s (%d/%d)... \t", hps{iHP}, iHP, nHPs)
     parfor iGrid = 1:gridSize
-        try
+        % try
             hpPrev = hpInitVals;
             hpPrev(iHP) = hpVals(iHP, iGrid);
             modelNeuronObj = modelInit(seed, hps, hpPrev);
             [~, ~, ~, ~, resultsRFAfter, modelNeuronObj] = modelNeuronObj.jens2Plasticity(showOutput=false);
             lossVals(iHP, iGrid) = calcLoss(modelNeuronObj, resultsRFAfter);
-        catch
-            warning("Attempted to use hp %s = %1.3f", hps{iHP}, hpVals(iHP, iGrid))
-        end
+        % catch
+        %     warning("Attempted to use hp %s = %1.3f", hps{iHP}, hpVals(iHP, iGrid))
+        % end
     end
     toc
 end

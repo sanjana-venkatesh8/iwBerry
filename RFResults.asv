@@ -1,0 +1,35 @@
+classdef RFResults
+    %RFResults Stores results after running dendriticRFAnalyze
+    
+    properties
+        allBranchSpatial
+        allBranchOrient
+        branchIOrient
+        branchPref
+        branchVector
+        branchSize1
+        branchSize2
+    end
+    
+    methods
+        function RFResultsObj = RFResults(allBranchSpatial, ...
+                allBranchOrient, branchIOrient, branchPref, ...
+                branchVector, branchSize1, branchSize2)
+            %RFResults Construct an instance of this class
+            RFResultsObj.allBranchSpatial = allBranchSpatial;
+            RFResultsObj.allBranchOrient = allBranchOrient;
+            RFResultsObj.branchIOrient = branchIOrient;
+            RFResultsObj.branchPref = branchPref;
+            RFResultsObj.branchVector = branchVector;
+            RFResultsObj.branchSize1 = branchSize1;
+            RFResultsObj.branchSize2 = branchSize2;
+        end
+        
+        function outputArg = method1(obj,inputArg)
+            %METHOD1 Summary of this method goes here
+            %   Detailed explanation goes here
+            outputArg = obj.Property1 + inputArg;
+        end
+    end
+end
+
