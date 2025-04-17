@@ -4,9 +4,13 @@ tic % start stopwatch to time model execution
 
 dendParams = dendParamConfig.dendParamsBerry;
 
+dendParams.scaleNMDA = NMDAhps(27);
+
+% CHANGED number of test/train instances - increase test size to 5k so loss is
+% smoother, decrease train size to 2.5k for time efficiency
 stimuliParamsObj = StimuliParams(nX=8, nY=8, nOrient=4, barLength=4, scanLength=4, ...
     noiseType='exact', noiseAmt=0, propNoiseScan=0, ...
-    nTestRepeats=0, nTestInst=1000, nTrainInst=10000, ...
+    nTestRepeats=0, nTestInst=5000, nTrainInst=2500, ...
     nDendRecord=dendParams.nBranches, recordingTimeInterval=1, isFoldiak=false, isWraparound=0);
 
 modelNeuronObj = ModelNeuron(dendParams=dendParams, stimParams=stimuliParamsObj, plasticityFlag=4);
