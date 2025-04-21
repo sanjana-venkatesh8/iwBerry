@@ -4,7 +4,8 @@ tic % start stopwatch to time model execution
 
 dendParams = dendParamConfig.dendParamsBerry;
 
-dendParams.scaleNMDA = NMDAhps(27);
+dendParams.scaleNMDA = NMDAhps(75);
+dendParams.backpropAP = 0;
 
 % CHANGED number of test/train instances - increase test size to 5k so loss is
 % smoother, decrease train size to 2.5k for time efficiency
@@ -49,26 +50,3 @@ modelNeuronObj = ModelNeuron(dendParams=dendParams, stimParams=stimuliParamsObj,
 nG = NeuronGraphics(modelNeuronObj, resultsBefore, resultsPlast, resultsAfter, resultsRFBefore, resultsRFAfter);
 
 nG.plotStimulus("iStim",1, "isTrain",true, "isPlotWithOrientation",true)
-%% calcLoss()
-% fieldSize = stimuliParamsObj.nX * stimuliParamsObj.nY;
-% loss = 2 * sum(1 - resultsRFAfter.branchIOrient, 'all');% + ...
-%     % 1/(fieldSize) * sum(fieldSize - resultsRFAfter.branchSize1(1:dendParams4Obj.nBranches), 'all');
-% loss = loss / dendParams.nBranches;
-% fprintf("Loss = %f\n", loss);
-
-%% LOSS FUNCTION (2.17.2025)
-% bad performance (8/64 squares covered) - J = 
-% --> ~0.1 (orientationTuning)
-% --> ~ 0.875 (RFSize2)
-% good performance (24/64 squares covered) - J = 
-% --> 0 (orientationTuning)
-% --> ~ 0.6 (RFSize2)
-
-% Loss (J) = c * 2(?) * (1 - orientationTuning) + (1 - c) * 1/64 * (64 - RFSize2)
-% c = [0, 1] - weighting factor
-% function loss = calcLoss()
-%     c = 0.5;
-%     fieldSize = stimuliParamsObj.nX * stimuliParamsObj.nY;
-%     loss = sum(1 - resultsRFAfter.branchIOrient, 'all') + ...
-%         1/(fieldSize) * sum(fieldSize - resultsRFAfter.branchSize1(1:dendParams4Obj.nBranches), 'all');
-% end

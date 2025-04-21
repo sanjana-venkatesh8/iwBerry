@@ -88,14 +88,6 @@ classdef ModelNeuron
             % CALCULATE STATISTICS BEFORE PLASTICITY, USING TEST SET
             % STIMULI
             [resultsBefore, modelNeuron] = stimulusUpdate(modelNeuron, plasticityFlag=1, isTrain=false);
-            
-            % TODO: where do 51 and 21 come from?
-            UHistogram_Before = histcounts(modelNeuron.synUInput, NumBins=51);
-            WMaxHistogram_Before = histcounts(modelNeuron.synInputWMax, NumBins=21);
-            % figure("U Before")
-            % histogram(modelNeuron.synUInput, NumBins=51);
-            % figure("W_{max} Before")
-            % histogram(modelNeuron.synInputWMax, NumBins=21);
 
             % analyze receptive fields
             resultsRFBefore = dendriticRFAnalyze(modelNeuron=modelNeuron, branchSpikeHist=resultsBefore.branchRF, ...
@@ -112,43 +104,15 @@ classdef ModelNeuron
             % IMPLEMENT SYNAPTIC PLASTICITY
             [resultsPlast, modelNeuron] = stimulusUpdate(modelNeuron, plasticityFlag=modelNeuron.plasticityFlag, isTrain=true);
 
-            % SOMETHING WRONG HERE
-            synRecycleHistogram = histcounts(modelNeuron.nSynRecycles, NumBins=floor(max(modelNeuron.nSynRecycles, [], 'all') + 1));
-            % figure(Name="Number of Recycled Synapses")
-            % histogram(modelNeuron.nSynRecycles, NumBins=floor(max(modelNeuron.nSynRecycles, [], 'all') + 1));
-
-            tau = 30;
-            x = 1:(10*tau) - 1;
-            kernel = x .* exp(-x ./ tau);
-            kernel = kernel / sum(kernel);
-
-            % TODO: what do we use this for?
-            convolvedDidSomaSpikePerTimestep = conv(kernel, resultsPlast.didSomaSpikePerTimestep);
-            
             % CALCULATE STATISTICS AFTER PLASTICITY, ON TEST SET
             [resultsAfter, modelNeuron] = stimulusUpdate(modelNeuron, plasticityFlag=1, isTrain=false);
             
             nTimesteps = size(modelNeuron.stimParams.testSet.L4Activity, 3) * ...
-                        size(modelNeuron.stimParams.testSet.L4Activity, 2);
-            % TODO: FIX THE WAY THIS IS PRINTING
-            NMDA_SpikesPerTimestep_Rate = resultsAfter.NMDASpikesPerTimestep ./ nTimesteps;
-            % fprintf("NMDA Spikes per timestep = %d\r\nNMDA spikes per branch = %d\r\n\n", ...
-            %      NMDA_SpikesPerTimestep_Rate, NMDA_SpikesPerTimestep_Rate ./ modelNeuron.dendParams.nBranches);
-
-            W_After = modelNeuron.synInputWMax ./ (1 + exp(-1 * modelNeuron.synUInput));
-
-            % TODO: where do 51 and 21 come from?
-            UHistogram_After = histcounts(modelNeuron.synUInput, NumBins=51);
-            WMaxHistogram_After = histcounts(modelNeuron.synInputWMax, NumBins=21);
-            % figure(Name="U After")
-            % histogram(modelNeuron.synUInput, NumBins=51);
-            % figure(Name="W_{max} after")
-            % histogram(modelNeuron.synInputWMax, NumBins=21);
+                        size(modelNeuron.stimParams.testSet.L4Activity, 2);            
 
             % analyze receptive fields
             resultsRFAfter = dendriticRFAnalyze(modelNeuron=modelNeuron, branchSpikeHist=resultsAfter.branchRF, ...
                 cumulStimHist=resultsAfter.cumulStimRF, showOutput=args.showOutput);
-            % TODO: ISSUE WITH CUMULSTIMRF_BEFORE
 
             % TODO: Do we use these?
             totalIndex_After = resultsRFAfter.branchIOrient(1:nBranches) .* resultsAfter.branchNMDASpikeRate ...
@@ -224,7 +188,7 @@ classdef ModelNeuron
                 branchVRecord = zeros(nRecordPoints, ...
                     modelNeuron.stimParams.nDendRecord);
                 branchSpikeRecord = zeros(nRecordPoints, ...
-                    modelNeuron.stimParams.nDendRecord); % TODO: idk what this does
+                    modelNeuron.stimParams.nDendRecord);
             end
 
             % TODO: how were these constants chosen? - need to assign
@@ -412,10 +376,8 @@ classdef ModelNeuron
                          end
                      end
 
-                     % TODO: FIX. If at a recording point, record synapse info
                      if mod(iTime, modelNeuron.stimParams.recordingTimeInterval) == 0
                          if modelNeuron.stimParams.nDendRecord > 0
-                             % TODO: what does branchWMaxRecord mean??
                              iRecordPoint = iTime / modelNeuron.stimParams.recordingTimeInterval;
                              synURecord(iRecordPoint, :, :) = modelNeuron.synUInput(1:modelNeuron.stimParams.nDendRecord, :)';
                              synL4Record(iRecordPoint, :, :) = modelNeuron.synL4Inputs(1:modelNeuron.stimParams.nDendRecord, :)';
@@ -447,7 +409,6 @@ classdef ModelNeuron
                 modelNeuron.dendParams.initSomaGInhib = somaGInhib;
             end
                      
-            % TODO: FIX THIS
             branchNMDASpikeRate = branchDidNMDASpike / nTimesteps; % firing probability per time bin
             avgVoltageRespPerBranch = branchActivity / nTimesteps; % avg voltage response per branch
 
@@ -491,16 +452,13 @@ classdef ModelNeuron
 
             % Set synaptic weights based on whether branch is leaky.
             if ~modelNeuron.areBranchesLeaky
-                % TODO: make local wmax var
                 synWeight = modelNeuron.synInputWMax ./ ...
                     (1 + exp (-1 * modelNeuron.synUInput));
             else
                 % Use inhibitory shunting-based gain control
-                % TODO: find out what this means ^
 
                 % decode the synaptic inhibitory conductance (was encoded in
                 % synInputWMax)
-                % TODO: make local wmax var?
                 modelNeuron.synGInhib = ...
                     Constants.vExc ./ modelNeuron.synInputWMax ...
                     - 1 - modelNeuron.dendParams.branchGLeak;
@@ -657,7 +615,6 @@ classdef ModelNeuron
 
             % Re-encode inhibitory conductance into synInputWMax
             if modelNeuron.areBranchesLeaky
-                % TODO: make local wmax var?
                 modelNeuron.synInputWMax = Constants.vExc ./ ...
                     (1 + modelNeuron.dendParams.branchGLeak + modelNeuron.synGInhib);
             end
@@ -773,21 +730,15 @@ classdef ModelNeuron
                 compositeSpatial ./ cumulSpatial;
             % also need to do BranchRMax??
 
-            % % DEBUG/CHECK - remove nan values
-            % allBranchOrient(isnan(allBranchOrient)) = 0;
-            % allBranchSpatial(isnan(allBranchSpatial)) = 0;
-
             for iBranch = 1:(nBranches + 2)
                 spatialRF = allBranchSpatial(iBranch, :, :);
                 
                 RFSize1 = sum(spatialRF, 'all') / max(spatialRF, [], 'all');
-                % if isnan(RFSize1) RFSize1 = 0; end % TODO: should this ever be NaN
                 branchSize1(iBranch) = RFSize1;
 
                 spatialRF = spatialRF ./ max(spatialRF, [], 'all');
                 spatialRF = (spatialRF > 0.2);
                 RFSize2 = sum(spatialRF, 'all');
-                % if isnan(RFSize2) RFSize2 = 0; end % TODO: should this ever be NaN
                 branchSize2(iBranch) = RFSize2;
 
                 orientTuning = allBranchOrient(iBranch, :);
@@ -796,15 +747,12 @@ classdef ModelNeuron
 
                 orientIndex = (orientTuning(pref) - orientTuning(null)) / ...
                     sum(orientTuning);
-                % if isnan(orientIndex) orientIndex = 0; end % TODO: should this ever be NaN
                 branchIOrient(iBranch) = orientIndex;
                 branchPref(iBranch) = pref;
                 
                 orientNorm = rms(orientTuning);
                 orientVecX = (orientTuning(2) - orientTuning(4)) / orientNorm;
                 orientVecY = (orientTuning(1) - orientTuning(3)) / orientNorm;
-                % if isnan(orientVecX) orientVecX = 0; end % TODO: should this ever be NaN
-                % if isnan(orientVecY) orientVecY = 0; end % TODO: should this ever be NaN
                 branchVector(iBranch, 1) = orientVecX;
                 branchVector(iBranch, 2) = orientVecY;
             end
