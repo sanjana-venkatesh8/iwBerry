@@ -3,13 +3,13 @@ time = char(datetime('now', 'Format', "MM-dd-yyyy-HHmm"));
 isNoiseFrozen = false;
 seed = 0;
 stepSize = 0.01; % fractional jump
-gridSize = 10;
+gridSize = 200;
 hps = {'scaleNMDA'};
 hpInitVals = -0.1;
     % hps = {'duPotent'; 'duDepress'; 'duDecay'; 'duBaseline'; 'scaleNMDA'; 'scaleNoNMDA'}; % hyperparameters to tune
     % hpInitVals = [3 -0.3 -0.3 0 -0.1 0.003].';
 nHPs = numel(hps);
-nTrialReps = 5;
+nTrialReps = 1;
 %% INITIALIZE DEFAULT DENDRITE MODEL
 function modelNeuronObj = modelInit(isNoiseFrozen, seed, hps, hpPrev)
     if isNoiseFrozen
@@ -66,7 +66,7 @@ for iHP = 1:nHPs
 end
 %%
 figure(Name="Grid search")
-tl = tiledlayout(ceil(nHPs/2), 2);
+% tl = tiledlayout(ceil(nHPs/2), 2);
 for iHP = 1:nHPs
     nexttile
     % figure(Name=sprintf("%s", hps{iHP}));

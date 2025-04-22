@@ -578,24 +578,24 @@ classdef ModelNeuron
                                 ~isSynActive * modelNeuron.dendParams.duBaseline;
                         end
    
-                        % % Recycle spine (retract it and grow a new one)
-                        % % if synaptic potential is too low
-                        % if (modelNeuron.synUInput(iBranch, iSyn) < ...
-                        %         modelNeuron.dendParams.uRecycle)
-                        % 
-                        %     % Randomly assign a new input L4 neuron
-                        %     modelNeuron.synL4Inputs(iBranch, iSyn) = ...
-                        %         randi(modelNeuron.rngRecycle, 256);
-                        %          % randi(256);
-                        %     % Randomly set a new input potential
-                        %     modelNeuron.synUInput(iBranch, iSyn) = ...
-                        %         modelNeuron.dendParams.weightsRange * ...
-                        %         (2 * rand(modelNeuron.rngRecycle) - 1); 
-                        %         % (2 * rand() - 1); 
-                        %     % Update the count of recycled synapses
-                        %     modelNeuron.nSynRecycles(iBranch, iSyn) = ...
-                        %         modelNeuron.nSynRecycles(iBranch, iSyn) + 1;
-                        % end
+                        % Recycle spine (retract it and grow a new one)
+                        % if synaptic potential is too low
+                        if (modelNeuron.synUInput(iBranch, iSyn) < ...
+                                modelNeuron.dendParams.uRecycle)
+
+                            % Randomly assign a new input L4 neuron
+                            modelNeuron.synL4Inputs(iBranch, iSyn) = ...
+                                randi(modelNeuron.rngRecycle, 256);
+                                 % randi(256);
+                            % Randomly set a new input potential
+                            modelNeuron.synUInput(iBranch, iSyn) = ...
+                                modelNeuron.dendParams.weightsRange * ...
+                                (2 * rand(modelNeuron.rngRecycle) - 1); 
+                                % (2 * rand() - 1); 
+                            % Update the count of recycled synapses
+                            modelNeuron.nSynRecycles(iBranch, iSyn) = ...
+                                modelNeuron.nSynRecycles(iBranch, iSyn) + 1;
+                        end
                     end
                 end
 
