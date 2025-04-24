@@ -5,7 +5,7 @@ seed = 0;
 stepSize = 0.01; % fractional jump
 gridSize = 200;
 hps = {'scaleNMDA'};
-hpInitVals = -0.1;
+hpInitVals = NMDAstart;
     % hps = {'duPotent'; 'duDepress'; 'duDecay'; 'duBaseline'; 'scaleNMDA'; 'scaleNoNMDA'}; % hyperparameters to tune
     % hpInitVals = [3 -0.3 -0.3 0 -0.1 0.003].';
 nHPs = numel(hps);
@@ -64,12 +64,26 @@ for iHP = 1:nHPs
     end
     toc
 end
-%%
-figure(Name="Grid search")
-% tl = tiledlayout(ceil(nHPs/2), 2);
+%% PLOT GRID SEARCH RESULTS
+% isNoiseFrozen = false;
+% seed = 0;
+% stepSize = 0.01; % fractional jump
+% gridSize = 200;
+% hps = {'duPotent'; 'duDepress'; 'duDecay'; 'duBaseline'; 'scaleNMDA'; 'scaleNoNMDA'; 'backpropAP'};% hyperparameters to tune
+% % hpInitVals = [3 -0.3 -0.3 0 -0.1 0.003].';
+% nHPs = numel(hps);
+% nTrialReps = 1;
+% hpVals = hp2224;
+% lossVals = loss2224;
+% lossStdDevVals = lossStdev1426;
+
+tl = figure(Name="Grid search");
+if nHPs > 1
+    tl = tiledlayout(ceil(nHPs/2), 2);
+end
+
 for iHP = 1:nHPs
-    nexttile
-    % figure(Name=sprintf("%s", hps{iHP}));
+    nexttile(iHP)
     hold on
     plot(hpVals(iHP, :), lossVals(iHP, :))
     scatter(hpVals(iHP, :), lossVals(iHP, :), "filled", Color='red');
@@ -81,7 +95,27 @@ for iHP = 1:nHPs
     ylabel("Loss")
     hold off
 end
+
+%% overlay points to be fitted + smooth curve fits
+% hpFitBounds = [2, 4; -0.45, -0.1; NaN, NaN; NaN, NaN; -0.2, -0.05; 1e-3, 4e-3];
+% fitDeg = 
+% 
+% for iHP = [1 2 5 6]
+%     iHPsToFit = find(hpVals(iHP, :) > hpFitBounds(iHP, 1) & hpVals(iHP, :) < hpFitBounds(iHP, 2));
+%     beg = iHPsToFit(1); ending = iHPsToFit(end);
+% 
+%     hpsToFit = hpVals(iHP, beg: ending);
+%     lossToFit = lossVals(iHP, beg:ending);
+% 
+%     [hpFit, gof] = fit(hpsToFit, lossToFit, ['poly', fitDeg(iHP)]); % fit a smooth curve
+% 
+%     nexttile(iHP)
+%     hold on
+%     scatter(hpsToFit, lossToFit, "filled");
+%     hold off
+% end
 %% record values of hps and their loss
+writecell(hps, [time, '_hpNames','.txt'])
 writematrix(hpVals, [time, '_hpVals','.txt'])
 writematrix(lossVals, [time, '_lossVals','.txt'])
 if nTrialReps > 1

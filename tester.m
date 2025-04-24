@@ -1,10 +1,10 @@
 % INITIALIZATION
-rng(0, "twister");
+% rng(0, "twister");
 tic % start stopwatch to time model execution
 
 dendParams = dendParamConfig.dendParamsBerry;
 
-dendParams.scaleNMDA = NMDAhps(75);
+dendParams.scaleNMDA = hpVals(end-1);
 dendParams.backpropAP = 0;
 
 % CHANGED number of test/train instances - increase test size to 5k so loss is
