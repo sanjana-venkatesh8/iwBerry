@@ -564,7 +564,6 @@ classdef ModelNeuron
 
                     for iSyn = 1:modelNeuron.dendParams.branchSize
                         isSynActive = (synActivity(iBranch, iSyn) ~= 0);
-                        % isSynActive = (synActivity(iBranch, iSyn) == 1);
                         
                         if modelNeuron.synPlastWindow(iBranch, iSyn) > 0
                             modelNeuron.synUInput(iBranch, iSyn) = ...

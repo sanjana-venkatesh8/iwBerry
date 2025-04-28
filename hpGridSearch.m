@@ -1,11 +1,12 @@
 time = char(datetime('now', 'Format', "MM-dd-yyyy-HHmm"));
 %%
+rng(0, "twister");
 isNoiseFrozen = false;
 seed = 0;
 stepSize = 0.01; % fractional jump
-gridSize = 200;
+gridSize = 1;
 hps = {'scaleNMDA'};
-hpInitVals = NMDAstart;
+hpInitVals = -0.1;
     % hps = {'duPotent'; 'duDepress'; 'duDecay'; 'duBaseline'; 'scaleNMDA'; 'scaleNoNMDA'}; % hyperparameters to tune
     % hpInitVals = [3 -0.3 -0.3 0 -0.1 0.003].';
 nHPs = numel(hps);
@@ -21,8 +22,8 @@ function modelNeuronObj = modelInit(isNoiseFrozen, seed, hps, hpPrev)
     % CHANGED number of test/train instances - increase test size to 5k so loss is
     % smoother, decrease train size to 2.5k for time efficiency
     stimuliParamsObj = StimuliParams(nX=8, nY=8, nOrient=4, barLength=4, scanLength=4, ...
-        noiseType='exact', noiseAmt=0, propNoiseScan=0, ...
-        nTestRepeats=0, nTestInst=5000, nTrainInst=2500, ...
+        noiseType='exact', noiseAmt=1, propNoiseScan=0, ...
+        nTestRepeats=0, nTestInst=2500, nTrainInst=5000, ...
         nDendRecord=dendParams.nBranches, recordingTimeInterval=1, isFoldiak=false, isWraparound=0);
     
     modelNeuronObj = ModelNeuron(dendParams=dendParams, stimParams=stimuliParamsObj, plasticityFlag=4);
@@ -34,15 +35,19 @@ function modelNeuronObj = modelInit(isNoiseFrozen, seed, hps, hpPrev)
     end
 end
 %%
-function [lossAvg, lossStdDev] = calcLossStats(nTrialReps, isNoiseFrozen, seed, hps, hpPrev)
-    repLoss = nan(nTrialReps, 1);
+function [totalLossAvg, branchLossAvg, somaLossAvg, lossStdDev] = calcLossStats(nTrialReps, isNoiseFrozen, seed, hps, hpPrev)
+    repTotalLoss = nan(nTrialReps, 1);
+    repBranchLoss = nan(nTrialReps, 1);
+    repSomaLoss = nan(nTrialReps, 1);
     parfor iRep = 1:nTrialReps % run each trial several times and average the loss
         modelNeuronObj = modelInit(isNoiseFrozen, seed, hps, hpPrev);
         [~, ~, ~, ~, resultsRFAfter, modelNeuronObj] = modelNeuronObj.jens2Plasticity(showOutput=false);
-        repLoss(iRep) = calcLoss(modelNeuronObj, resultsRFAfter);
+        [repTotalLoss(iRep), repBranchLoss(iRep), repSomaLoss(iRep)] = calcLoss(modelNeuronObj, resultsRFAfter);
     end
-
-    lossAvg = mean(repLoss);
+    
+    totalLossAvg = mean(repTotalLoss);
+    branchLossAvg = mean(repBranchLoss);
+    somaLossAvg = mean(repSomaLoss);
     lossStdDev = std(repLoss);
 end
 %%
@@ -57,7 +62,7 @@ for iHP = 1:nHPs
         try
             hpPrev = hpInitVals;
             hpPrev(iHP) = hpVals(iHP, iGrid);
-            [lossVals(iHP, iGrid), lossStdDevVals(iHP, iGrid)] = calcLossStats(nTrialReps, isNoiseFrozen, seed, hps, hpPrev);
+            [lossVals(iHP, iGrid), ~, ~, lossStdDevVals(iHP, iGrid)] = calcLossStats(nTrialReps, isNoiseFrozen, seed, hps, hpPrev);
         catch
             warning("Attempted to use hp %s = %1.3f", hps{iHP}, hpVals(iHP, iGrid))
         end
@@ -65,17 +70,12 @@ for iHP = 1:nHPs
     toc
 end
 %% PLOT GRID SEARCH RESULTS
-% isNoiseFrozen = false;
-% seed = 0;
-% stepSize = 0.01; % fractional jump
-% gridSize = 200;
-% hps = {'duPotent'; 'duDepress'; 'duDecay'; 'duBaseline'; 'scaleNMDA'; 'scaleNoNMDA'; 'backpropAP'};% hyperparameters to tune
-% % hpInitVals = [3 -0.3 -0.3 0 -0.1 0.003].';
+% hps = hpNames0827;
 % nHPs = numel(hps);
 % nTrialReps = 1;
-% hpVals = hp2224;
-% lossVals = loss2224;
-% lossStdDevVals = lossStdev1426;
+% hpVals = hp0827;
+% lossVals = loss0827;
+% lossStdDevVals = lossStdev1137;
 
 tl = figure(Name="Grid search");
 if nHPs > 1
@@ -97,23 +97,27 @@ for iHP = 1:nHPs
 end
 
 %% overlay points to be fitted + smooth curve fits
-% hpFitBounds = [2, 4; -0.45, -0.1; NaN, NaN; NaN, NaN; -0.2, -0.05; 1e-3, 4e-3];
-% fitDeg = 
-% 
-% for iHP = [1 2 5 6]
-%     iHPsToFit = find(hpVals(iHP, :) > hpFitBounds(iHP, 1) & hpVals(iHP, :) < hpFitBounds(iHP, 2));
-%     beg = iHPsToFit(1); ending = iHPsToFit(end);
-% 
-%     hpsToFit = hpVals(iHP, beg: ending);
-%     lossToFit = lossVals(iHP, beg:ending);
-% 
-%     [hpFit, gof] = fit(hpsToFit, lossToFit, ['poly', fitDeg(iHP)]); % fit a smooth curve
-% 
-%     nexttile(iHP)
-%     hold on
-%     scatter(hpsToFit, lossToFit, "filled");
-%     hold off
-% end
+hpFitBounds = [2, 4; -0.45, -0.1; NaN, NaN; NaN, NaN; -0.2, -0.05; 1e-3, 4e-3; NaN, NaN];
+fitType = ["poly2"'; "poly2"; ""; ""; "exp2"; "poly2"; ""];
+
+for iHP = [1 2 5 6]
+    iHPsToFit = find(hpVals(iHP, :) > hpFitBounds(iHP, 1) & hpVals(iHP, :) < hpFitBounds(iHP, 2));
+    beg = iHPsToFit(1); ending = iHPsToFit(end);
+
+    hpsToFit = hpVals(iHP, beg:ending);
+    lossToFit = lossVals(iHP, beg:ending);
+
+    [lossCurveFit, gof] = fit(hpsToFit.', lossToFit.', fitType(iHP)); % fit a smooth curve
+    [hpMin, lossMin] = fminbnd(lossCurveFit,min(hpsToFit),max(hpsToFit));
+    fprintf("%s:\t(%f, %f)\n", hps{iHP}, hpMin, lossMin)
+
+    nexttile(iHP)
+    hold on
+    scatter(hpsToFit, lossToFit, "filled");
+    plot(lossCurveFit, hpsToFit, lossToFit)
+    scatter(hpMin, lossMin, 'filled')
+    hold off
+end
 %% record values of hps and their loss
 writecell(hps, [time, '_hpNames','.txt'])
 writematrix(hpVals, [time, '_hpVals','.txt'])

@@ -46,6 +46,7 @@ classdef NeuronGraphics
             scatter(nG.resultsBefore.branchNMDASpikeRate, ...
                 nG.resultsRFBefore.branchIOrient(1:(end-2)), 50, nG.resultsRFBefore.branchSize1(1:(end-2)), 'filled');
             c = colorbar;
+            clim([0 15])
             c.Label.String = "RF Size (pixels)";
             title("Before plasticity")
             ylabel("Orientation Tuning Index")
@@ -55,6 +56,7 @@ classdef NeuronGraphics
             scatter(nG.resultsAfter.branchNMDASpikeRate, ...
                 nG.resultsRFAfter.branchIOrient(1:(end-2)), 50, nG.resultsRFAfter.branchSize1(1:(end-2)), 'filled');
             c = colorbar;
+            clim([0 15])
             c.Label.String = "RF Size (pixels)";
             title("After plasticity")
             ylabel("Orientation Tuning Index")
@@ -299,8 +301,6 @@ classdef NeuronGraphics
             title("Histogram over number of recycles per synapse")
             xlabel("Number of synaptic recycles")
             ylabel("Counts")
-            % UHistogram_Before = histcounts(modelNeuron.synUInput, NumBins=51);
-            % WMaxHistogram_Before = histcounts(modelNeuron.synInputWMax, NumBins=21);
         end
 
         function plotStimulus(nG, args)
