@@ -35,9 +35,11 @@ classdef StimuliParams
         nL4Inputs;
         isFoldiak;
         isWraparound;
+        orientPmf;
         % non-input properties
         trainSet;
         testSet;
+        stimNoise;
     end
     
     methods (Access = public)
@@ -55,6 +57,7 @@ classdef StimuliParams
                 args.nTestRepeats; args.nTestInst; args.nTrainInst;
                 args.nDendRecord; args.recordingTimeInterval;
                 args.isFoldiak = false; args.isWraparound = false;
+                args.orientPmf = [0.25, 0.25, 0.25, 0.25];
             end
 
             try
@@ -77,6 +80,13 @@ classdef StimuliParams
 
                 stimParams.isFoldiak = args.isFoldiak;
                 stimParams.isWraparound = args.isWraparound;
+                if strcmp(args.orientPmf, 'rand')
+                    orientPmf = rand(4,1);
+                    stimParams.orientPmf = orientPmf ./ sum(orientPmf);
+                else
+                    stimParams.orientPmf = args.orientPmf;
+                end
+
                 % % check if Foldiak model is creating this object. Foldiak
                 % % model follows different indexing for L4/simple cells.
                 % if ~exist(,'var')
@@ -84,6 +94,8 @@ classdef StimuliParams
                 % else
                 %    stimParams.isFoldiak = args.isFoldiak;
                 % end
+                stimParams.stimNoise = RandStream.create("twister", seed=randi(10000)); % decouple stimulus noise from other randomness (useful when noise is frozen)
+
 
             catch
                 throw(MException('StimuliParams:VarNotFound', ...
@@ -172,7 +184,9 @@ classdef StimuliParams
             isNoiseImage = (rand() < stimParams.propNoiseScan); % DEBUG 3/31: add this in
             if not(isNoiseImage)
                 direction = 2 * randi(2) - 3; % set random scan direction (-1 or 1)
-                orientation = randi(stimParams.nOrient); % set random orientation of bar ([1, nOrient])
+                
+                % orientation = randi(stimParams.nOrient); % set random orientation of bar ([1, nOrient])
+                orientation = randsample(1:stimParams.nOrient, 1, true, stimParams.orientPmf);
 
                 if showOutput
                     fprintf("Orientation = %d, direction = %d\n", orientation, direction)
@@ -277,13 +291,13 @@ classdef StimuliParams
                 if strcmp(stimParams.noiseType, 'exact')
                     numNoisyL4 = stimParams.noiseAmt;
                 elseif strcmp(stimParams.noiseType, 'poisson')
-                    numNoisyL4 = poissrng(stimParams.noiseAmt);
+                    numNoisyL4 = stimParams.stimNoise.poissrng(stimParams.noiseAmt);
                 end
 
-                addedActiveL4 = randi(256, numNoisyL4, 1);
+                addedActiveL4 = stimParams.stimNoise.randi(256, numNoisyL4, 1);
                 while sum(L4Activity(addedActiveL4), 'all') > 0
                     addedActiveL4(L4Activity(addedActiveL4) == 1) = ...
-                        randi(256, sum(L4Activity(addedActiveL4) == 1), 1);
+                        stimParams.stimNoise.randi(256, sum(L4Activity(addedActiveL4) == 1), 1);
                 end          
 
                 L4Activity(addedActiveL4, iScan) = 1;

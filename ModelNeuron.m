@@ -183,6 +183,11 @@ classdef ModelNeuron
                     modelNeuron.dendParams.branchSize, ...
                     modelNeuron.stimParams.nDendRecord);
                 
+                branchGExcRecord = zeros(nRecordPoints, ...
+                    modelNeuron.stimParams.nDendRecord);
+                branchSynCondRecord = zeros(nRecordPoints, ...
+                    modelNeuron.dendParams.branchSize, ...
+                    modelNeuron.stimParams.nDendRecord);
                 branchWMaxRecord = zeros(nRecordPoints, ...
                     modelNeuron.stimParams.nDendRecord);
                 branchVRecord = zeros(nRecordPoints, ...
@@ -237,7 +242,7 @@ classdef ModelNeuron
                     stimBarL4Activity = barSetL4Activity(:, iStep, iScan);
                     
                     % Calculate dendritic activity at this timestep.
-                    [stepBranchActivity, stepBranchGExc, stepBranchGain, ...
+                    [stepBranchActivity, stepBranchGExc, stepSynConductances, stepBranchGain, ...
                         stepBranchDidNMDASpike, stepTotalNMDASpikes, synActivity, modelNeuron] = ...
                         modelNeuron.calcDendActivity(...
                             doBackprop=didSomaSpike, ...
@@ -280,6 +285,7 @@ classdef ModelNeuron
                      didSomaSpikePerTimestep(iTime) = didSomaSpike;
                      nTotalSpikes = nTotalSpikes + didSomaSpike; 
 
+                     % TODO: NEED TO FIX THIS?
                      if args.plasticityFlag ~= 1
                          if ~modelNeuron.areBranchesLeaky
                              if didSomaSpike
@@ -382,6 +388,8 @@ classdef ModelNeuron
                              synURecord(iRecordPoint, :, :) = modelNeuron.synUInput(1:modelNeuron.stimParams.nDendRecord, :)';
                              synL4Record(iRecordPoint, :, :) = modelNeuron.synL4Inputs(1:modelNeuron.stimParams.nDendRecord, :)';
 
+                             branchGExcRecord(iRecordPoint, :) = stepBranchGExc(1:modelNeuron.stimParams.nDendRecord)';
+                             branchSynCondRecord(iRecordPoint, :, :) = stepSynConductances(1:modelNeuron.stimParams.nDendRecord, :)';
                              branchWMaxRecord(iRecordPoint, :) = modelNeuron.synInputWMax(1:modelNeuron.stimParams.nDendRecord, 1)';
                              branchVRecord(iRecordPoint, :) = stepBranchActivity(1:modelNeuron.stimParams.nDendRecord)';
                              branchSpikeRecord(iRecordPoint, :) = stepBranchDidNMDASpike(1:modelNeuron.stimParams.nDendRecord)';
@@ -418,23 +426,24 @@ classdef ModelNeuron
                 branchNMDASpikeRate, avgVoltageRespPerBranch, ...
                 branchHistogram, somaHistogram, branchRF, cumulStimRF, ...
                 somaThreshPerTimestep, somaGainPerTimestep, somaInhibPerTimestep, ...
-                synURecord, synL4Record, branchWMaxRecord, branchVRecord, branchSpikeRecord);                                
+                synURecord, synL4Record, branchGExcRecord, branchSynCondRecord, branchWMaxRecord, branchVRecord, branchSpikeRecord);                                
         end
 
         % TODO: figure out where to insert this statement. If neuron is not leaky, use direct changes on wMax for gain
         % control. Else, use inhibitory shunting-based gain control.
-        function [allBranchActivity, allBranchGExc, allBranchGain, ...
+        function [allBranchActivity, allBranchGExc, allSynConductances, allBranchGain, ...
                 allBranchDidNMDASpike, nTotalNMDASpikes, synActivity, modelNeuron] = ...
                 calcDendActivity(modelNeuron, args)
         %calcDendActivity Takes input from one bar stimulus and calculates the corresponding dendritic activity.   
         %   Equivalent to Dendritic_Clusters
         %   calcDendActivity returns:
         %       1. allBranchActivity: sum of synaptic potentials on each branch
-        %       2. allBranchGExc: excitatory conductance of each branch
-        %       3. allBranchGain: gain on each branch
-        %       4. allBranchDidNMDASpike: tracks if a spike occurred on each branch
-        %       5. nTotalNMDASpikes: overall total number of NMDA spikes
-        %       6. synActivity: weighted L4 input at each synapse
+        %       2. allBranchGExc: (sum of) excitatory conductance of each branch
+        %       3. allSynConductances: value of the conductance of each synapse 
+        %       4. allBranchGain: gain on each branch
+        %       5. allBranchDidNMDASpike: tracks if a spike occurred on each branch
+        %       6. nTotalNMDASpikes: overall total number of NMDA spikes
+        %       7. synActivity: weighted L4 input at each synapse
 
             arguments
                 modelNeuron ModelNeuron
@@ -469,7 +478,7 @@ classdef ModelNeuron
             % Set synapse activity based on which L4 neurons are turned ON
             % by the input.
             synActivity = args.stimBarL4Activity(modelNeuron.synL4Inputs);
-            % Multiply ON/OFF input by synaptic weight.
+            % Multiply ON/OFF input by synaptic weight (conductance).
             synActivity = synActivity .* synWeight;
             % Add multiplicative white Gaussian noise to each synapse
             synActivity = synActivity .* ...
@@ -479,6 +488,7 @@ classdef ModelNeuron
             % Create output variables
             allBranchActivity = zeros(modelNeuron.dendParams.nBranches, 1);
             allBranchGExc = zeros(modelNeuron.dendParams.nBranches, 1);
+            allSynConductances = zeros(modelNeuron.dendParams.nBranches, modelNeuron.dendParams.branchSize);
             allBranchGain = zeros(modelNeuron.dendParams.nBranches, 1);
             allBranchDidNMDASpike = zeros(modelNeuron.dendParams.nBranches, 1);
             nTotalNMDASpikes = 0;
@@ -518,7 +528,8 @@ classdef ModelNeuron
 
                 % Update storage variables
                 allBranchActivity(iBranch)        = branchActivity;
-                allBranchGExc(iBranch)            = branchGExc;
+                allBranchGExc(iBranch)            = sum(synWeight(iBranch, :));
+                allSynConductances(iBranch, :)       = synWeight(iBranch, :);
                 allBranchGain(iBranch)            = branchGain;
                 allBranchDidNMDASpike(iBranch)    = didBranchSpike;
 
@@ -679,7 +690,7 @@ classdef ModelNeuron
             compositeSpatial = zeros(nX, nY);
             allBranchOrient = zeros(nBranches + 2, nOrient);
             allBranchSpatial = zeros(nBranches + 2, nX, nY);
-            branchRMax = zeros(nBranches + 2, 1);
+            branchMaxResp = zeros(nBranches + 2, 1);
             branchSize1 = zeros(nBranches + 1, 1);
             branchSize2 = zeros(nBranches + 1, 1);
             branchIOrient = zeros(nBranches + 1, 1);
@@ -713,10 +724,10 @@ classdef ModelNeuron
                 %     compositeSpatial = compositeSpatial + spatialRF;
                 % end
 
-                branchRFFrac = args.branchSpikeHist(iBranch, :, :, :) ./ ...
+                branchResp = args.branchSpikeHist(iBranch, :, :, :) ./ ...
                     reshape(args.cumulStimHist, size(args.branchSpikeHist(iBranch, :, :, :)));
 
-                branchRMax(iBranch) = max(branchRFFrac,[],"all");
+                branchMaxResp(iBranch) = max(branchResp,[],"all");
             end
 
             compositeOrient = compositeOrient ./ args.modelNeuron.dendParams.nBranches;
@@ -727,12 +738,15 @@ classdef ModelNeuron
                 compositeOrient ./ cumulOrient;
             allBranchSpatial(nBranches + 2, :, :) = ...
                 compositeSpatial ./ cumulSpatial;
-            % also need to do BranchRMax??
+            branchMaxResp(nBranches + 2) = max(branchMaxResp(1:end-2), [], 'all'); % max response across all branches
 
             for iBranch = 1:(nBranches + 2)
                 spatialRF = allBranchSpatial(iBranch, :, :);
                 
                 RFSize1 = sum(spatialRF, 'all') / max(spatialRF, [], 'all');
+                if isnan(RFSize1) % if there were no spikes on this branch
+                    RFSize1 = 0;
+                end
                 branchSize1(iBranch) = RFSize1;
 
                 spatialRF = spatialRF ./ max(spatialRF, [], 'all');
@@ -759,7 +773,7 @@ classdef ModelNeuron
             % create an object to store results
             resultsRF = RFResults(allBranchSpatial, ...
                 allBranchOrient, branchIOrient, branchPref, ...
-                branchVector, branchSize1, branchSize2);
+                branchMaxResp, branchVector, branchSize1, branchSize2);
         end
     end
 end

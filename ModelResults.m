@@ -18,6 +18,8 @@ classdef ModelResults
         somaInhibPerTimestep
         synURecord
         synL4Record
+        branchGExcRecord
+        branchSynCondRecord
         branchWMaxRecord
         branchVRecord
         branchSpikeRecord
@@ -29,7 +31,7 @@ classdef ModelResults
                 branchNMDASpikeRate, avgVoltageRespPerBranch, ...
                 branchHistogram, somaHistogram, branchRF, cumulStimRF, ...
                 somaThreshPerTimestep, somaGainPerTimestep, somaInhibPerTimestep, ...
-                synURecord, synL4Record, branchWMaxRecord, branchVRecord, branchSpikeRecord)
+                synURecord, synL4Record, branchGExcRecord, branchSynCondRecord, branchWMaxRecord, branchVRecord, branchSpikeRecord)
             %ModelNeuron Construct an instance of this class
             resultsObj.nTotalSpikes = nTotalSpikes;
             resultsObj.NMDASpikesPerTimestep = NMDASpikesPerTimestep;
@@ -47,6 +49,8 @@ classdef ModelResults
             resultsObj.somaInhibPerTimestep = somaInhibPerTimestep;
             resultsObj.synURecord = synURecord;
             resultsObj.synL4Record = synL4Record;
+            resultsObj.branchGExcRecord = branchGExcRecord;
+            resultsObj.branchSynCondRecord = branchSynCondRecord;
             resultsObj.branchWMaxRecord = branchWMaxRecord;
             resultsObj.branchVRecord = branchVRecord;
             resultsObj.branchSpikeRecord = branchSpikeRecord;

@@ -75,9 +75,11 @@ classdef NeuronGraphics
                                 "Receptive field size = %1.2f\n" + ...
                                 "Max EPSP = %1.2f mV\n" + ...
                                 "Max response = %d", ...
-                                iBranch, nG.resultsRFAfter.branchIOrient(iBranch), ...
+                                iBranch, ...
+                                nG.resultsRFAfter.branchIOrient(iBranch), ...
                                 nG.resultsRFAfter.branchSize1(iBranch), ...
-                                nG.modelNeuronObj.synInputWMax(iBranch, 1), NaN);
+                                nG.modelNeuronObj.synInputWMax(iBranch, 1), ...
+                                nG.resultsRFAfter.branchMaxResp(iBranch));
             text(0,0.7, infoText, FontSize=14)
             Ax = gca;
             Ax.Visible = 0;
@@ -105,9 +107,15 @@ classdef NeuronGraphics
             ylabel("Count")
         end
 
-        function layout3(nG)
+        function layout3(nG, args)
         %LAYOUT3 Plots the soma receptive field vs. composite receptive
         %field
+
+        arguments
+            nG NeuronGraphics
+            args.normalize logical = false;
+        end
+
             % NEED TO FIX
             figure(Name="Layout 3: Soma Receptive Field vs. Composite Receptive Field")
             set(gcf, 'Position', [0 0 450 900])
@@ -122,12 +130,13 @@ classdef NeuronGraphics
                                 "Receptive field size = %1.2f\n" + ...
                                 "Max response = %d", ...
                                 nG.resultsRFAfter.branchIOrient(iSoma), ...
-                                nG.resultsRFAfter.branchSize1(iSoma), NaN);
+                                nG.resultsRFAfter.branchSize1(iSoma), ...
+                                nG.resultsRFAfter.branchMaxResp(end-1));
             text(0,0.7, infoText, FontSize=14)
             Ax = gca;
             Ax.Visible = 0;
 
-            % plot branch receptive field
+            % plot somatic receptive field
             spatialRF = squeeze(nG.resultsRFAfter.allBranchSpatial(iSoma, :, :)).';
             nexttile
             h = heatmap(spatialRF, 'CellLabelColor','none');
@@ -135,6 +144,9 @@ classdef NeuronGraphics
             h.XLabel = "X location";
             h.YLabel = "Y location";
             colormap('hot')
+            if args.normalize 
+                clim([0 1]) 
+            end
 
             nexttile([1 2])
             nOrient = size(nG.resultsRFBefore.allBranchOrient, 2);
@@ -157,7 +169,8 @@ classdef NeuronGraphics
                                 "Receptive field size = %1.2f\n" + ...
                                 "Max response = %d", ...
                                 nG.resultsRFAfter.branchIOrient(iComp), ...
-                                nG.resultsRFAfter.branchSize1(iComp), NaN);
+                                nG.resultsRFAfter.branchSize1(iComp), ...
+                                nG.resultsRFAfter.branchMaxResp(end));
             text(0,0.7, infoText, FontSize=14)
             Ax = gca;
             Ax.Visible = 0;
@@ -170,11 +183,14 @@ classdef NeuronGraphics
             h.XLabel = "X location";
             h.YLabel = "Y location";
             colormap('hot')
+            if args.normalize 
+                clim([0 1]) 
+            end
 
             % TODO: make this step (and all histograms above) part of
             % DendriticRFAnalyze()
             nexttile([1 2])
-            nOrient = size(nG.resultsRFBefore.allBranchOrient, 2);
+            nOrient = nG.modelNeuronObj.stimParams.nOrient;
             nBranchSpikePerOrient = zeros(nOrient, 1);
             for i = 1:nOrient
                 nBranchSpikePerOrient(i) = sum(nG.resultsAfter.branchRF(1:(iSoma - 1), :, :, i), 'all');
@@ -184,24 +200,39 @@ classdef NeuronGraphics
             title("Composite histogram of orientation of stimuli that caused a spike")
             xlabel("Bar orientation")
             ylabel("Count")
+
+            figure(Name="Layout 3a: Composite RFs by Branch Orientation")
+            for i = 1:nG.modelNeuronObj.stimParams.nOrient
+                subplot(2,2,i);
+                title(sprintf("Orientation = %d", i));
+
+                % compositeBranchSpatial = sum(nG.resultsRFBefore.allBranchSpatial(nG.resultsRFBefore.branchPref == i, :, :), 1) ./ sum(nG.resultsRFBefore.branchPref == i);
+                compositeBranchSpatial = sum(nG.resultsRFAfter.allBranchSpatial(nG.resultsRFAfter.branchPref(1:end-2) == i, :, :), 1) ./ sum(nG.resultsRFAfter.branchPref(1:end-2) == i);
+                spatialRF = squeeze(compositeBranchSpatial).';
+
+                h = heatmap(spatialRF, 'CellLabelColor','none');
+                % h.Title = sprintf("Composite RF for branchPref = %d (n = %d)", i, sum(nG.resultsRFBefore.branchPref == i));
+                h.Title = sprintf("Composite RF for branchPref = %d (n = %d)", i, sum(nG.resultsRFAfter.branchPref(1:end-2) == i));
+                h.XLabel = "X location";
+                h.YLabel = "Y location";
+                colormap('hot')
+                if args.normalize
+                    clim([0 1])
+                end
+            end
         end
         
-        function layout4(nG, iBranch, branchGLeak, tau)
+        function layout4(nG, iBranch, branchGLeak)
         %LAYOUT4 Plots neuron adaptation: NMDA rate, synaptic max weight, and branch
         %inhibition over time
 
-        % tau = smoothing window
         % TODO: rateTarget = NMDA firing rate target
         % TODO: fix x-lim of top graph
 
         % Calculate NMDA spike rate
         % Smooth spike train into a firing rate
         NMDASpikeRate = nG.resultsPlast.branchSpikeRecord(:, iBranch);
-        % make a convolutional kernel with width tau
-        x = 1:(10*tau) - 1;
-        kernel = x .* exp(-x ./ tau);
-        kernel = kernel / sum(kernel);
-        NMDASpikeRate = conv(kernel, NMDASpikeRate);
+        NMDASpikeRate = nG.data_smooth(NMDASpikeRate, 150);
 
         % Calculate branch inhibition
         % TODO: where does 60 come from?
@@ -361,7 +392,7 @@ classdef NeuronGraphics
             %(https://www.youtube.com/watch?v=27Y2c596-U0)
             figure(Units='normalized', Position=[0 0 0.3 1]); hold on
             subplot(2,1,1); hold on
-            title("Spike firing for each branch")
+            title("Spike firing for each branch, color-coded by orientation")
             ylabel("Branch number")
             xlabel("Timestep")
 
@@ -374,8 +405,10 @@ classdef NeuronGraphics
                     yspikes(1, :) = iBranch - 1;
                     yspikes(2, :) = iBranch;
                 end
-             
-                plot(xspikes, yspikes, 'Color', 'K');
+         
+                colors = ['r','g','b','k'];
+                branchPref = nG.resultsRFAfter.branchPref(iBranch);
+                plot(xspikes, yspikes, 'Color', colors(branchPref))
             end 
 
             subplot(2,1,2); hold on
@@ -393,5 +426,139 @@ classdef NeuronGraphics
 
             plot(xspikes, yspikes, 'Color', 'K');
         end
+
+        function branchLockIn(nG, args)
+            arguments
+                nG NeuronGraphics
+                args.iBranch
+            end
+
+            iBranch = args.iBranch;
+
+            % Now using the weighted proportion, not unweighted. This
+            % figure is unnecessary.
+            % figName = sprintf("Proportion of synapses with each orientation on branch %d", iBranch);
+            % figure(Name=figName); hold on; legend()
+            % title(figName)
+            % ylabel("Proportion of synapses with orientation i")
+            % xlabel("Number of timesteps")
+
+            orientation = mod(nG.resultsPlast.synL4Record, nG.modelNeuronObj.stimParams.nOrient);
+            orientation(orientation == 0) = nG.modelNeuronObj.stimParams.nOrient;  % account for wraparound due to modulus
+            for i = 1:nG.modelNeuronObj.stimParams.nOrient
+                synOfOrientation = (orientation==i);
+                displayName = sprintf("Orientation = %d", i);
+                % plot(nG.data_smooth(sum(synOfOrientation(:, :, iBranch), 2) ./ nG.modelNeuronObj.dendParams.branchSize, 150), DisplayName=displayName);
+            end
+
+            nTimesteps = (nG.modelNeuronObj.stimParams.nTrainInst*nG.modelNeuronObj.stimParams.scanLength);
+            % xlim([0 nTimesteps])
+
+            fig2Name = sprintf("*Weighted* proportion of synapses with each orientation on branch %d", iBranch);
+            figure(Name=fig2Name); hold on; legend()
+            title(fig2Name)
+            ylabel("Proportion of synapses with orientation i")
+            xlabel("Number of timesteps")
+
+            for i = 1:nG.modelNeuronObj.stimParams.nOrient
+                synOfOrientation = (orientation==i);
+                weightedSyn = synOfOrientation .* nG.resultsPlast.branchSynCondRecord;
+                displayName = sprintf("Orientation = %d", i);
+                plot(nG.data_smooth(sum(weightedSyn(:, :, iBranch), 2) ./ nG.modelNeuronObj.dendParams.branchSize, 150), DisplayName=displayName);
+            end
+            xlim([0 nTimesteps])
+
+
+            fig4Name = sprintf("Weighted vs unweighted proportion of synapses with each orientation on branch %d", iBranch);
+            figure(Name=fig4Name); hold on; legend()
+            title(fig4Name)
+            ylabel("Proportion of synapses with orientation i")
+            xlabel("Number of timesteps")
+
+            for i = 1:nG.modelNeuronObj.stimParams.nOrient
+                subplot(nG.modelNeuronObj.stimParams.nOrient, 1, i); hold on; legend; xlim([0 nTimesteps])
+                synOfOrientation = (orientation==i);
+                displayName = sprintf("Orientation = %d", i);
+                plot(nG.data_smooth(sum(synOfOrientation(:, :, iBranch), 2) ./ nG.modelNeuronObj.dendParams.branchSize, 150), DisplayName=displayName);
+
+                weightedSyn = synOfOrientation .* nG.resultsPlast.branchSynCondRecord;
+                numSynOfOrient = sum(synOfOrientation(:, :, iBranch), 2);
+                displayName = sprintf("Orientation = %d (weighted by conductance)", i);
+                plot(nG.data_smooth(sum(weightedSyn(:, :, iBranch), 2) ./ nG.modelNeuronObj.dendParams.branchSize, 150), '--', DisplayName=displayName);
+                displayName = sprintf("Orientation = %d (average conductance)", i);
+                avgWeight = sum(weightedSyn(:, :, iBranch), 2) ./ numSynOfOrient;
+                avgWeight(isnan(avgWeight)) = 0;
+                avgWeight = nG.data_smooth(avgWeight, 150);
+                plot(avgWeight, '-.', LineWidth=1, DisplayName=displayName);
+            end
+
+
+            fig3Name = sprintf("Sum of excitatory conductances on branch %d", iBranch);
+            figure(Name=fig3Name); hold on;
+            ylabel("Sum of excitatory conductances")
+            xlabel("Number of timesteps")
+
+            plot(nG.resultsPlast.branchGExcRecord(:, iBranch));
+            hold on; plot(nG.data_smooth(nG.resultsPlast.branchGExcRecord(:, iBranch), 150));
+            xlim([0 nTimesteps])
+        end
+
+        function branchPrefHist(nG)
+            figName = "Histogram of branch preferred orientations before and after plasticity";
+            figure(Name=figName); hold on;
+            subplot(2,1,1)
+            histogram(nG.resultsRFBefore.branchPref(1:end-2))
+            ylabel("Count")
+            xlabel("Orientation"); xlim([0.5 4.5])
+            title("Before plasticity")
+            subplot(2,1,2); hold on
+            histogram(nG.resultsRFAfter.branchPref(1:end-2))
+            b = bar([1 2 3 4], nG.modelNeuronObj.stimParams.orientPmf .* 100, 0.9, 'r');
+            b.FaceAlpha = 0.3;
+            legend("Branches per orientation",sprintf("Stimulus probabilities = (%1.2f, %1.2f, %1.2f, %1.2f)", nG.modelNeuronObj.stimParams.orientPmf))
+            ylabel("Count")
+            xlabel("Orientation"); xlim([0.5 4.5])
+            title("After plasticity")
+        end
+ 
+        function smoothed = data_smooth(nG, data, tau)
+            % make a convolutional kernel with width tau (tau = smoothing
+            % window)
+            % tau = 150;
+            x = 1:(10*tau) - 1;
+            kernel = x .* exp(-x ./ tau);
+            kernel = kernel / sum(kernel);
+            smoothed = conv(kernel, data);
+        end
     end
+
+    % methods (Access=protected)
+    %     function calc_epsp_response(nG, args)
+    %         % L4 RESPONSES: ratio of 
+    %         % --> NUM: coincident L4 inputs and NMDA spikes
+    %         % --> DEN: total L4 activations by stimuli
+    %         % (ModelResults.cumulStimRF)
+    % 
+    %         arguments
+    %             nG NeuronGraphics
+    %             args.plastPhase plasticityFlag {mustBeMember(args.plastPhase, ['before', 'plast', 'after'])}
+    %         end
+    % 
+    %         % switch args.plastPhase
+    %         %     case 'before'
+    %         % 
+    %         %         den = nG.resultsBefore.cumulStimRF;
+    %         %     case 'plast'
+    %         %         den = nG.resultsPlast.cumulStimRF;
+    %         %     case 'after'
+    %         %         den = nG.resultsAfter.cumulStimRF;
+    %         % end
+    % 
+    % 
+    %         % nL4NMDACoincide - 8 x 8 x 4
+    %         % nL4InputActivations - 8 x 8 x 4
+    %         % L4Responses = nL4NMDACoincide ./ nL4InputActivations;
+    %         % maxResponse = max(L4Responses, [], 'all');
+    %     end
+    % end
 end
